@@ -48,4 +48,13 @@ public class Evento {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+	public void agregarJuez(Persona juez) {
+		misJueces.add(juez);
+	}
+	public void agregarParticipante(Persona participante) {
+		misParticipantes.add(participante);
+	}
+	public void agregarRecurso(Recurso recurso) {
+		misRecursos.add(recurso);
+	}
 }
