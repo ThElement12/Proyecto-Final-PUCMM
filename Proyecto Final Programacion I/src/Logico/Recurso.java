@@ -3,12 +3,16 @@ package Logico;
 public class Recurso {
 	private String id;
 	private String tipo;
+	private boolean disponible;
+	
+	
 	private Evento miEvento;
 	public Recurso(String id, String tipo, Evento miEvento) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
 		this.miEvento = miEvento;
+		disponible = true;
 	}
 	public String getId() {
 		return id;
@@ -29,5 +33,12 @@ public class Recurso {
 	public void setMiEvento(Evento miEvento) {
 		this.miEvento = miEvento;
 	}
+	public boolean isDisponible() {
+		return disponible;
+	}
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+	
 
 }

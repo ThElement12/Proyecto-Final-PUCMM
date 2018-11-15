@@ -19,5 +19,11 @@ public class PUCMM {
 		
 		return pucmm;
 	}
+	public void crearEvento(Evento evento) {
+		misEventos.add(evento);
+	}
+	public void registrarRecurso(Recurso recurso) {
+		misRecursos.add(recurso);
+	}
 
 }

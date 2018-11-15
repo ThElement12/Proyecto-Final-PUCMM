@@ -1,19 +1,21 @@
 package Logico;
 
-import java.util.ArrayList;
+
 
 public abstract class Persona {
-	private String cedula;
-	private String nombre;
-	private String numero;
-	private Evento evento;
-	private ArrayList<Trabajo> misTrabajos;
-	public Persona(String cedula, String nombre, String numero, Evento evento) {
+	protected String cedula;
+	protected String nombre;
+	protected String numero;
+	protected Evento evento;
+	protected Comision comision;
+
+	public Persona(String cedula, String nombre, String numero, Evento evento, Comision comision) {
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
 		this.evento = evento;
-		misTrabajos = new ArrayList<>();
+		this.comision = comision;
+
 	}
 	
 	public String getCedula() {
@@ -39,6 +41,9 @@ public abstract class Persona {
 	}
 	public void setEvento(Evento evento) {
 		this.evento = evento;
+	}
+	public Comision getComision() {
+		return comision;
 	}
 	
 
