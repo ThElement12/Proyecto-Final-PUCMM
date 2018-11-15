@@ -10,8 +10,6 @@ public class PUCMM {
 	private PUCMM() {
 		misRecursos = new ArrayList<>();
 		misEventos = new ArrayList<>();
-	
-		
 		
 	}
 	public static PUCMM getInstance() {
