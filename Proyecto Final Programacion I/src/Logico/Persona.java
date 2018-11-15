@@ -1,15 +1,19 @@
 package Logico;
 
+import java.util.ArrayList;
+
 public abstract class Persona {
 	private String cedula;
 	private String nombre;
 	private String numero;
 	private Evento evento;
+	private ArrayList<Trabajo> misTrabajos;
 	public Persona(String cedula, String nombre, String numero, Evento evento) {
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
 		this.evento = evento;
+		misTrabajos = new ArrayList<>();
 	}
 	
 	public String getCedula() {
