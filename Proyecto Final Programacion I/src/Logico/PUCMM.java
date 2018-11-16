@@ -18,7 +18,7 @@ public class PUCMM {
 		}
 		
 		return pucmm;
-	}
+	} 
 	public void crearEvento(Evento evento) {
 		misEventos.add(evento);
 	}
