@@ -57,4 +57,48 @@ public class Evento {
 		misRecursos.add(recurso);
 	}
 	
+	
+	public ArrayList<Persona> getMisMiembros() {
+		return misMiembros;
+	}
+
+	public ArrayList<Recurso> getMisRecursos() {
+		return misRecursos;
+	}
+
+	public Persona buscarParticipantePorCedula(String cedula) {
+		Persona aux = null;
+		int i = 0;
+		boolean encontrado = false;
+		
+		while(encontrado != true && i < misMiembros.size()) {
+			
+			if(misMiembros.get(i) instanceof Participante) {
+				if(misMiembros.get(i).getCedula().equalsIgnoreCase(cedula)) {
+					aux = misMiembros.get(i);
+					encontrado = true;
+				}
+			}
+			
+		}	
+		return aux;
+	}
+	public Persona buscarParticipantePorCe(String cedula) {
+		Persona aux = null;
+		int i = 0;
+		boolean encontrado = false;
+		
+		while(encontrado != true && i < misMiembros.size()) {
+			
+			if(misMiembros.get(i) instanceof Participante) {
+				if(misMiembros.get(i).getCedula().equalsIgnoreCase(cedula)) {
+					aux = misMiembros.get(i);
+					encontrado = true;
+				}
+			}
+			
+		}	
+		return aux;
+	}
+	
 }
