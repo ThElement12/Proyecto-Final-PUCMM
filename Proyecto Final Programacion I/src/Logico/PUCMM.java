@@ -27,10 +27,24 @@ public class PUCMM {
 	}
 
 	public ArrayList<Persona> listTrabajadores(Trabajo trabajo, Evento evento){
-		ArrayList<Persona> misTrabajadores = null;
+		ArrayList<Persona> misTrabajadores = new ArrayList<>();
+		int i = 0;
+		while(i < misEventos.size()) {
+			if(misEventos.get(i).getId().equalsIgnoreCase(evento.getId())) {
+				break;
+			}
+			
+			else {
+				i ++;
+			}
+		}
 		
+		for(int j = 0;j < misEventos.get(i).getMisTrabajos().size(); j ++) {
+			if(misEventos.get(i).getMisTrabajos().get(j).getNombre().equalsIgnoreCase(trabajo.getNombre())) {
+				misTrabajadores.add(misEventos.get(i).getMisTrabajos().get(j).getParticipante());
+			}
+		}
 		
 		return misTrabajadores;
-		
 	}
 }
