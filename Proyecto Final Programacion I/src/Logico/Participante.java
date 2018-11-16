@@ -40,6 +40,10 @@ public class Participante extends Persona {
 	public void agregarTrabajo(Trabajo trabajo) {
 		misTrabajos.add(trabajo);
 	}
-	
 
+	public ArrayList<Trabajo> getMisTrabajos() {
+		return misTrabajos;
+	}
+
+	
 }

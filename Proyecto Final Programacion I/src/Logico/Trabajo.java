@@ -1,17 +1,28 @@
 package Logico;
 
 public class Trabajo {
+	private Evento evento;
 	private String nombre;
 	private Participante participante;
 	private String area;
 	private boolean disponible;
 	
-	public Trabajo(String nombre, Participante participante, String area) {
+	public Trabajo(String nombre, Participante participante, String area, Evento evento) {
 		super();
+		this.evento = evento;
 		this.nombre = nombre;
 		this.participante = participante;
 		this.area = area;
 		disponible = true;
+	}
+
+	
+	public Evento getEvento() {
+		return evento;
+	}
+	
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
 
 	public String getNombre() {

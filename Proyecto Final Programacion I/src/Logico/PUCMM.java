@@ -26,4 +26,11 @@ public class PUCMM {
 		misRecursos.add(recurso);
 	}
 
+	public ArrayList<Persona> listTrabajadores(Trabajo trabajo, Evento evento){
+		ArrayList<Persona> misTrabajadores = null;
+		
+		
+		return misTrabajadores;
+		
+	}
 }
