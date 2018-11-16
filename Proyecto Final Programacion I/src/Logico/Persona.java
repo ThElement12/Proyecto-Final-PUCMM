@@ -24,6 +24,7 @@ public abstract class Persona {
 	public boolean isSelecte() {
 		return selecte;
 	}
+
 	public void setSelecte(boolean selecte) {
 		this.selecte = selecte;
 	}
