@@ -11,6 +11,7 @@ public abstract class Persona {
 	protected Comision comision;
 
 	public Persona(String cedula, String nombre, String numero, Evento evento, Comision comision) {
+		selecte = false;
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
