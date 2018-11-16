@@ -4,12 +4,14 @@ public class Trabajo {
 	private String nombre;
 	private Participante participante;
 	private String area;
+	private boolean disponible;
 	
 	public Trabajo(String nombre, Participante participante, String area) {
 		super();
 		this.nombre = nombre;
 		this.participante = participante;
 		this.area = area;
+		disponible = true;
 	}
 
 	public String getNombre() {
@@ -34,6 +36,14 @@ public class Trabajo {
 
 	public void setArea(String area) {
 		this.area = area;
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 	
 	

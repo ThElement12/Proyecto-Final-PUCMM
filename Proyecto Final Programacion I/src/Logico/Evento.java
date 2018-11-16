@@ -10,6 +10,7 @@ public class Evento {
 	private Date fechaFin;
 	private ArrayList<Persona> misMiembros;
 	private ArrayList<Recurso> misRecursos;
+	private ArrayList <Trabajo> misTrabajos;
 	
 	public Evento(String id, String area, Date fechaIni, Date fechaFin) {
 		this.id = id;
@@ -18,6 +19,7 @@ public class Evento {
 		this.fechaFin = fechaFin;
 		misMiembros = new ArrayList<>();
 		misRecursos = new ArrayList<>();
+		misTrabajos = new ArrayList<>();
 	}
 
 	public String getId() {
@@ -56,10 +58,16 @@ public class Evento {
 	public void agregarRecurso(Recurso recurso) {
 		misRecursos.add(recurso);
 	}
-	
+	public void agregarTrabajoEvento(Trabajo trabajo) {
+		misTrabajos.add(trabajo);
+	}
 	
 	public ArrayList<Persona> getMisMiembros() {
 		return misMiembros;
+	}
+
+	public ArrayList<Trabajo> getMisTrabajos() {
+		return misTrabajos;
 	}
 
 	public ArrayList<Recurso> getMisRecursos() {
@@ -83,22 +91,32 @@ public class Evento {
 		}	
 		return aux;
 	}
-	public Persona buscarParticipantePorCe(String cedula) {
+	public Persona buscarJuezporCedula(String cedula) {
 		Persona aux = null;
 		int i = 0;
 		boolean encontrado = false;
 		
 		while(encontrado != true && i < misMiembros.size()) {
 			
-			if(misMiembros.get(i) instanceof Participante) {
+			if(misMiembros.get(i) instanceof Juez) {
 				if(misMiembros.get(i).getCedula().equalsIgnoreCase(cedula)) {
 					aux = misMiembros.get(i);
 					encontrado = true;
 				}
 			}
-			
 		}	
 		return aux;
 	}
-	
+	public Recurso buscarRecursosPorId(String id) {
+		Recurso aux = null;
+		int i = 0;
+		boolean encontrado = false;
+		while(encontrado != true && i < misRecursos.size()) {
+			if(misRecursos.get(i).getId().equalsIgnoreCase(id)) {
+				aux = misRecursos.get(i);
+				encontrado = true;
+			}		
+		}
+		return aux;
+	}
 }
