@@ -119,4 +119,17 @@ public class Evento {
 		}
 		return aux;
 	}
+	public int cantTrabajoDispPorArea(String area) {
+		int aux = 0;
+		
+		for(int i = 0; i < misTrabajos.size(); i++) {
+			if(misTrabajos.get(i).getArea().equalsIgnoreCase(area)) {
+				if(misTrabajos.get(i).isDisponible()) {
+					aux++;
+				}
+			}
+		}
+		return aux;
+	}
+	
 }
