@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Evento {
 	private String id;
+	private String nombre;
 	private String area;
 	private Date fechaIni;
 	private Date fechaFin;
@@ -12,14 +13,23 @@ public class Evento {
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList <Trabajo> misTrabajos;
 	
-	public Evento(String id, String area, Date fechaIni, Date fechaFin) {
+	public Evento(String id,String nombre, String area, Date fechaIni, Date fechaFin) {
 		this.id = id;
+		this.nombre = nombre;
 		this.area = area;
 		this.fechaIni = fechaIni;
 		this.fechaFin = fechaFin;
 		misMiembros = new ArrayList<>();
 		misRecursos = new ArrayList<>();
 		misTrabajos = new ArrayList<>();
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getId() {
