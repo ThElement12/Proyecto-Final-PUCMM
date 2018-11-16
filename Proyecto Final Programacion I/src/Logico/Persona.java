@@ -3,6 +3,7 @@ package Logico;
 
 
 public abstract class Persona {
+	protected boolean selecte;
 	protected String cedula;
 	protected String nombre;
 	protected String numero;
@@ -18,6 +19,13 @@ public abstract class Persona {
 
 	}
 	
+	
+	public boolean isSelecte() {
+		return selecte;
+	}
+	public void setSelecte(boolean selecte) {
+		this.selecte = selecte;
+	}
 	public String getCedula() {
 		return cedula;
 	}
