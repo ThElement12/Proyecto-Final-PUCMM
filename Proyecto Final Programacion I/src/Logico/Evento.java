@@ -7,16 +7,19 @@ public class Evento {
 	private String id;
 	private String nombre;
 	private String area;
+	private String lugar;
+	
 	private Date fechaIni;
 	private Date fechaFin;
 	private ArrayList<Persona> misMiembros;
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList <Trabajo> misTrabajos;
 	
-	public Evento(String id,String nombre, String area, Date fechaIni, Date fechaFin) {
+	public Evento(String id,String nombre, String area,String lugar, Date fechaIni, Date fechaFin) {
 		this.id = id;
 		this.nombre = nombre;
 		this.area = area;
+		this.lugar = lugar;
 		this.fechaIni = fechaIni;
 		this.fechaFin = fechaFin;
 		misMiembros = new ArrayList<>();
@@ -43,7 +46,12 @@ public class Evento {
 	public void setArea(String area) {
 		this.area = area;
 	}
-
+	public String getLugar() {
+		return lugar;
+	}
+	public void setLugar(String lugar) {
+		this.lugar = lugar;
+	}
 	public Date getFechaIni() {
 		return fechaIni;
 	}
