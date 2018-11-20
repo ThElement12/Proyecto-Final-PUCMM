@@ -8,7 +8,6 @@ public class Evento {
 	private String nombre;
 	private String area;
 	private String lugar;
-	
 	private Date fechaIni;
 	private Date fechaFin;
 	private ArrayList<Persona> misMiembros;
