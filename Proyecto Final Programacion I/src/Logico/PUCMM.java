@@ -12,7 +12,7 @@ public class PUCMM {
 		misEventos = new ArrayList<>();
 		
 	}
-	public static PUCMM getInstance() {
+	public static PUCMM pucmm() {
 		if(pucmm == null) {
 			pucmm = new PUCMM();
 		}
