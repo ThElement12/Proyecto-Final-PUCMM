@@ -90,7 +90,6 @@ public class RegEvent extends JDialog {
 			panelReg.add(rdbtnEventoDeUn);
 		}
 		
-		
 		panelVariosDias.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panelVariosDias.setBounds(109, 211, 543, 130);
 		contentPanel.add(panelVariosDias);
