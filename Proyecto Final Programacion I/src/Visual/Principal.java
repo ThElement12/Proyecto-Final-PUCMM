@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 
 public class Principal extends JFrame {
 	private Dimension dim;
@@ -34,11 +36,13 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setResizable(false);
+		
 		setTitle("Manejador de Eventos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width, dim.height - 50);
+		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -55,11 +59,11 @@ public class Principal extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(0, 0));
+		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/img/wallhaven-709814.png")));
-		panel.add(lblNewLabel, BorderLayout.CENTER);
+		JLabel lblFondoPrincipal = new JLabel("");
+		lblFondoPrincipal.setBounds(0, 0, 1584, 790);
+		lblFondoPrincipal.setIcon(new ImageIcon(Principal.class.getResource("/img/fondo Principal.jpg")));
+		panel.add(lblFondoPrincipal);
 	}
-
 }
