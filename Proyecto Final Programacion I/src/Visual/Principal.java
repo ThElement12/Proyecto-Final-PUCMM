@@ -61,19 +61,19 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.BLACK));
-		panel.setBounds(6, 6, 759, 418);
-		contentPane.add(panel);
+		JPanel pnl_Eventos = new JPanel();
+		pnl_Eventos.setBorder(new LineBorder(Color.BLACK));
+		pnl_Eventos.setBounds(6, 6, 759, 418);
+		contentPane.add(pnl_Eventos);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(764, 6, 824, 418);
-		contentPane.add(panel_1);
+		JPanel pnl_AFavorit = new JPanel();
+		pnl_AFavorit.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnl_AFavorit.setBounds(764, 6, 824, 418);
+		contentPane.add(pnl_AFavorit);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(6, 422, 1582, 370);
-		contentPane.add(panel_2);
+		JPanel pnl_EventosPorMes = new JPanel();
+		pnl_EventosPorMes.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnl_EventosPorMes.setBounds(6, 422, 1582, 370);
+		contentPane.add(pnl_EventosPorMes);
 	}
 }
