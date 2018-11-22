@@ -50,8 +50,8 @@ public class Principal extends JFrame {
 		JMenu mnEvento = new JMenu("Evento");
 		menuBar.add(mnEvento);
 		
-		JMenu mnNewMenu = new JMenu("New menu");
-		menuBar.add(mnNewMenu);
+		JMenu mnPersonas = new JMenu("Personas");
+		menuBar.add(mnPersonas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,7 +62,7 @@ public class Principal extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblFondoPrincipal = new JLabel("");
-		lblFondoPrincipal.setBounds(0, 0, 1584, 790);
+		lblFondoPrincipal.setBounds(0, 0, 1594, 801);
 		lblFondoPrincipal.setIcon(new ImageIcon(Principal.class.getResource("/img/fondo Principal.jpg")));
 		panel.add(lblFondoPrincipal);
 	}
