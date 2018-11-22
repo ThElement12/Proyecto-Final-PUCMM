@@ -13,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class Principal extends JFrame {
 	private Dimension dim;
@@ -55,15 +59,21 @@ public class Principal extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+		panel.setBorder(new LineBorder(Color.BLACK));
+		panel.setBounds(6, 6, 759, 418);
+		contentPane.add(panel);
 		
-		JLabel lblFondoPrincipal = new JLabel("");
-		lblFondoPrincipal.setBounds(0, 0, 1594, 801);
-		lblFondoPrincipal.setIcon(new ImageIcon(Principal.class.getResource("/img/fondo Principal.jpg")));
-		panel.add(lblFondoPrincipal);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1.setBounds(764, 6, 824, 418);
+		contentPane.add(panel_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_2.setBounds(6, 422, 1582, 370);
+		contentPane.add(panel_2);
 	}
 }
