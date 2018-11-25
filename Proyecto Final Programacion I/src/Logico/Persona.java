@@ -4,6 +4,7 @@ package Logico;
 
 public abstract class Persona {
 	protected boolean selecte;
+	private static int cant = 0;
 	protected String cedula;
 	protected String nombre;
 	protected String numero;
@@ -21,6 +22,19 @@ public abstract class Persona {
 	}
 	
 	
+	
+	public static int getCant() {
+		return cant;
+	}
+
+
+
+	public static void setCant(int cant) {
+		Persona.cant = cant;
+	}
+
+
+
 	public boolean isSelecte() {
 		return selecte;
 	}

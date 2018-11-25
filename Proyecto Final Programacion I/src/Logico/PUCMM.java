@@ -47,4 +47,33 @@ public class PUCMM {
 		
 		return misTrabajadores;
 	}
+	
+	public void insertarPartJu(Persona miPersona, String eventId) {
+		Evento miEvento = searchEventoById(eventId);
+		if(miPersona instanceof Juez) {
+			miEvento.agregarJuez(miPersona);
+		}
+		
+		if(miPersona instanceof Participante) {
+			miEvento.agregarParticipante(miPersona);
+		}
+	}
+	
+	private Evento searchEventoById(String Id) {
+		Evento miEvento = null;
+		boolean finded = false;
+		int i = 0;
+		while (!finded && i < misEventos.size()) {
+			if(misEventos.get(i).getId().equalsIgnoreCase(Id)) {
+				miEvento = misEventos.get(i);
+				finded = true;
+			}
+			
+			else {
+				i ++;
+			}
+		}
+		return miEvento;
+	}
+	
 }

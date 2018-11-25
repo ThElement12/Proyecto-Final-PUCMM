@@ -38,6 +38,7 @@ public class Participante extends Persona {
 		this.area = area;
 	}
 	public void agregarTrabajo(Trabajo trabajo) {
+		setCant(getCant() + 1);
 		misTrabajos.add(trabajo);
 	}
 
