@@ -48,7 +48,7 @@ public class PUCMM {
 		return misTrabajadores;
 	}
 	
-	public void insertarPartJu(Persona miPersona, String eventId) {
+	public void insertarPersona(Persona miPersona, String eventId) {
 		Evento miEvento = searchEventoById(eventId);
 		if(miPersona instanceof Juez) {
 			miEvento.agregarJuez(miPersona);
@@ -75,5 +75,4 @@ public class PUCMM {
 		}
 		return miEvento;
 	}
-	
 }
