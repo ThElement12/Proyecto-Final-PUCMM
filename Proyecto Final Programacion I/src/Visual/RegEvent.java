@@ -17,25 +17,27 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
+import javax.swing.ImageIcon;
+import javax.swing.border.BevelBorder;
+import java.awt.Toolkit;
 
 public class RegEvent extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtId;
 	private JTextField txtNombre;
-	private JSpinner spnFechaFin = new JSpinner();
+	
 	private JComboBox<String> cbxArea = new JComboBox<>();
-	private JRadioButton rdbtnEventoDeVarios = new JRadioButton("Evento de Varios D\u00EDas");
-	private JRadioButton rdbtnEventoDeUn = new JRadioButton("Evento de Un Solo D\u00EDa");
+	private JRadioButton rdbtnEventoDeVarios = new JRadioButton();
+	private JRadioButton rdbtnEventoDeUn = new JRadioButton();
 	private JPanel panelVariosDias = new JPanel();
 	private JPanel panelUnDia = new JPanel();
-	private JSpinner spnHoraInicio1 = new JSpinner();
+	private JSpinner spnFechaFin = new JSpinner();
 	private JSpinner spnFechaInicio = new JSpinner();
+	private JSpinner spnHoraIni1 = new JSpinner();
 	private JSpinner spnHoraIni = new JSpinner();
 	private JSpinner spnHoraFin = new JSpinner();
 	private JSpinner spnHoraFin1 = new JSpinner();
@@ -44,14 +46,18 @@ public class RegEvent extends JDialog {
 
 	
 	public RegEvent() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
+		setTitle("Registrar Nuevo Evento");
 		setBounds(100, 100, 674, 426);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		contentPanel.setBackground(new Color(190,209,201));
 		{
 			panelReg.setBounds(109, 5, 543, 194);
-			panelReg.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+			panelReg.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			panelReg.setBackground(new Color(190,209,201));
 			contentPanel.add(panelReg);
 			panelReg.setLayout(null);
 			
@@ -97,6 +103,8 @@ public class RegEvent extends JDialog {
 			
 			
 			rdbtnEventoDeVarios.setSelected(true);
+			rdbtnEventoDeVarios.setText("Evento de Varios D\u00EDas");
+			rdbtnEventoDeVarios.setBackground(new Color(190,209,201));
 			rdbtnEventoDeVarios.setBounds(45, 158, 168, 18);
 			panelReg.add(rdbtnEventoDeVarios);
 			rdbtnEventoDeUn.addActionListener(new ActionListener() {
@@ -116,10 +124,13 @@ public class RegEvent extends JDialog {
 			
 			
 			rdbtnEventoDeUn.setBounds(225, 158, 156, 18);
+			rdbtnEventoDeUn.setText("Evento de Un Solo D\u00EDa");
+			rdbtnEventoDeUn.setBackground(new Color(190,209,201));
 			panelReg.add(rdbtnEventoDeUn);
 		}
 		
-		panelVariosDias.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panelVariosDias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelVariosDias.setBackground(new Color(190,209,201));
 		panelVariosDias.setBounds(109, 211, 543, 130);
 		contentPanel.add(panelVariosDias);
 		panelVariosDias.setLayout(null);
@@ -142,7 +153,9 @@ public class RegEvent extends JDialog {
 		
 		
 		
-		spnFechaFin.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnFechaFin.setModel(new SpinnerDateModel());
+		JSpinner.DateEditor te = new JSpinner.DateEditor(spnFechaFin, "dd/MM/yyy");
+		spnFechaFin.setEditor(te);
 		spnFechaFin.setBounds(379, 15, 148, 28);
 		panelVariosDias.add(spnFechaFin);
 		
@@ -172,13 +185,14 @@ public class RegEvent extends JDialog {
 		panelUnDia.setVisible(false);
 		panelUnDia.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panelUnDia.setBounds(109, 211, 543, 130);
+		panelUnDia.setBackground(new Color(190,209,201));
 		contentPanel.add(panelUnDia);
 		panelUnDia.setLayout(null);
 		
 		
-		spnHoraInicio1.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
-		spnHoraInicio1.setBounds(92, 39, 148, 28);
-		panelUnDia.add(spnHoraInicio1);
+		spnHoraIni1.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnHoraIni1.setBounds(92, 39, 148, 28);
+		panelUnDia.add(spnHoraIni1);
 		
 		JLabel lblHoraInicio = new JLabel("Hora De Inicio:");
 		lblHoraInicio.setBounds(6, 46, 84, 16);
@@ -196,9 +210,15 @@ public class RegEvent extends JDialog {
 		
 		panelImagen.setBounds(6, 6, 104, 335);
 		contentPanel.add(panelImagen);
+		panelImagen.setLayout(new BorderLayout(0, 0));
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(RegEvent.class.getResource("/img/RegEVento.jpg")));
+		panelImagen.add(label, BorderLayout.CENTER);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			buttonPane.setBackground(new Color(190,209,201));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
