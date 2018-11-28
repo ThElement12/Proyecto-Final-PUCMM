@@ -17,6 +17,8 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
@@ -36,9 +38,10 @@ public class RegEvent extends JDialog {
 	private JSpinner spnFechaInicio = new JSpinner();
 	private JSpinner spnHoraIni = new JSpinner();
 	private JSpinner spnHoraFin = new JSpinner();
+	private JSpinner spnHoraFin1 = new JSpinner();
 	private JPanel panelImagen = new JPanel();
 	private JPanel panelReg = new JPanel();
-	private JSpinner spnHoraFinalizacion1 = new JSpinner();
+
 	
 	public RegEvent() {
 		setBounds(100, 100, 674, 426);
@@ -79,11 +82,37 @@ public class RegEvent extends JDialog {
 			cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Ciencias/Tecnolog\u00EDa", "Medicina", "Mercadeo/Administracion", "Deportivo"}));
 			cbxArea.setBounds(57, 112, 156, 26);
 			panelReg.add(cbxArea);
+			rdbtnEventoDeVarios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(rdbtnEventoDeVarios.isSelected()) {
+						rdbtnEventoDeUn.setSelected(false);
+						panelVariosDias.setVisible(true);
+						panelUnDia.setVisible(false);
+					}
+					else {
+						panelVariosDias.setVisible(false);
+					}
+				}
+			});
 			
 			
 			rdbtnEventoDeVarios.setSelected(true);
 			rdbtnEventoDeVarios.setBounds(45, 158, 168, 18);
 			panelReg.add(rdbtnEventoDeVarios);
+			rdbtnEventoDeUn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(rdbtnEventoDeUn.isSelected()) {
+						rdbtnEventoDeVarios.setSelected(false);
+						panelUnDia.setVisible(true);
+						panelVariosDias.setVisible(false);
+					}
+					else {
+						panelUnDia.setVisible(false);
+					}
+					
+					
+				}
+			});
 			
 			
 			rdbtnEventoDeUn.setBounds(225, 158, 156, 18);
@@ -100,13 +129,17 @@ public class RegEvent extends JDialog {
 		panelVariosDias.add(lblFechaInicio);
 		
 		
-		spnFechaInicio.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnFechaInicio.setModel(new SpinnerDateModel());
+		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spnFechaInicio, "dd/MM/yyy");
+		spnFechaInicio.setEditor(timeEditor);
+		spnFechaInicio.setValue(new Date());
 		spnFechaInicio.setBounds(92, 15, 148, 28);
 		panelVariosDias.add(spnFechaInicio);
 		
 		JLabel lblFechaFinalizacin = new JLabel("Fecha Finalizaci\u00F3n:");
 		lblFechaFinalizacin.setBounds(252, 21, 115, 16);
 		panelVariosDias.add(lblFechaFinalizacin);
+		
 		
 		
 		spnFechaFin.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
@@ -118,7 +151,9 @@ public class RegEvent extends JDialog {
 		panelVariosDias.add(lblHoraDeInicio);
 		
 		
-		spnHoraIni.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnHoraIni.setModel(new SpinnerDateModel());
+		JSpinner.DateEditor horaIni = new JSpinner.DateEditor(spnHoraIni, "HH:mm:ss");
+		spnHoraIni.setEditor(horaIni);
 		spnHoraIni.setBounds(92, 64, 148, 28);
 		panelVariosDias.add(spnHoraIni);
 		
@@ -127,7 +162,9 @@ public class RegEvent extends JDialog {
 		panelVariosDias.add(lblHoraDeFinalizacion);
 		
 		
-		spnHoraFin.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnHoraFin.setModel(new SpinnerDateModel());
+		JSpinner.DateEditor horaFin = new JSpinner.DateEditor(spnHoraFin, "HH:mm:ss");
+		spnHoraFin.setEditor(horaFin);
 		spnHoraFin.setBounds(379, 64, 148, 28);
 		panelVariosDias.add(spnHoraFin);
 		
@@ -152,9 +189,9 @@ public class RegEvent extends JDialog {
 		panelUnDia.add(lblHoraFin);
 		
 		
-		spnHoraFinalizacion1.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
-		spnHoraFinalizacion1.setBounds(379, 39, 148, 28);
-		panelUnDia.add(spnHoraFinalizacion1);
+		spnHoraFin1.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnHoraFin1.setBounds(379, 39, 148, 28);
+		panelUnDia.add(spnHoraFin1);
 		
 		
 		panelImagen.setBounds(6, 6, 104, 335);

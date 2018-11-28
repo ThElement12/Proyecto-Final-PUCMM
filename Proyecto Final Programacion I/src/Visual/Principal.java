@@ -17,6 +17,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 	private Dimension dim;
@@ -53,6 +56,16 @@ public class Principal extends JFrame {
 		
 		JMenu mnEvento = new JMenu("Evento");
 		menuBar.add(mnEvento);
+		
+		JMenuItem mntmRegistrarEvento = new JMenuItem("Registrar Evento");
+		mntmRegistrarEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegEvent registrarEvento = new RegEvent();
+				registrarEvento.setModal(true);
+				registrarEvento.setVisible(true);
+			}
+		});
+		mnEvento.add(mntmRegistrarEvento);
 		
 		JMenu mnPersonas = new JMenu("Personas");
 		menuBar.add(mnPersonas);
