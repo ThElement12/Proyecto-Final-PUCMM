@@ -95,6 +95,7 @@ public class ListEventos extends JDialog {
 						RegEvent registrarEvento = new RegEvent();
 						registrarEvento.setModal(true);
 						registrarEvento.setVisible(true);
+						loadEventos();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -118,6 +119,7 @@ public class ListEventos extends JDialog {
 		DateFormat horaformat = new SimpleDateFormat("HH");
 		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyy");
 		fila = new Object[model.getColumnCount()];
+		
 		for (Evento evento : PUCMM.pucmm().getMisEventos()) {
 			fila[0] = evento.getId();
 			fila[1] = evento.getNombre();
@@ -128,8 +130,9 @@ public class ListEventos extends JDialog {
 			fila[6] = dateformat.format(evento.getFechaFin()).toString();
 			fila[7] = horaformat.format(evento.getHorarioInicio()).toString() + "-" + horaformat.format(evento.getHorarioFin()).toString();
 			
+			model.addRow(fila);
 		}
-		model.addRow(fila);
+		
 	}
 	
 }
