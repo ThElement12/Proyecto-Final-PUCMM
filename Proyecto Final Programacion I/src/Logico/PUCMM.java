@@ -1,8 +1,10 @@
 package Logico;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
@@ -22,9 +24,23 @@ public class PUCMM {
 		}
 		
 		return pucmm;
-	} 
+	}
 	
-	public void guardar() {
+	public void load() {
+		File Fname = new File("Pucmm Eventos.dat");
+		if(Fname.exists()) {
+			try {
+				ObjectInputStream input = new ObjectInputStream(new FileInputStream(Fname));
+				pucmm = (PUCMM) input.readObject();
+				input.close();
+				
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void save() {
 		File Fname = new File("Pucmm Eventos.dat");
 		ObjectOutputStream output = null;
 		try {
