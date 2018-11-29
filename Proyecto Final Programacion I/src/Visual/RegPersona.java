@@ -5,8 +5,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -14,6 +16,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class RegPersona extends JDialog {
 
@@ -76,8 +80,26 @@ public class RegPersona extends JDialog {
 		panel_principal.add(lblAreaEspecializado);
 		
 		JComboBox cbxArea = new JComboBox();
+		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Medicina", "Mercadeo", "Informatica", "Ingenieria General", "Arquitectura"}));
 		cbxArea.setBounds(126, 123, 134, 26);
 		panel_principal.add(cbxArea);
+		
+		JPanel panel_fotoPerfil = new JPanel();
+		panel_fotoPerfil.setBounds(433, 6, 195, 264);
+		contentPanel.add(panel_fotoPerfil);
+		panel_fotoPerfil.setLayout(null);
+		
+		JButton btnSubirFoto = new JButton("Subir Foto...");
+		btnSubirFoto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fotoPerfil = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+				fotoPerfil.setFileFilter(filter);
+				
+			}
+		});
+		btnSubirFoto.setBounds(6, 111, 93, 28);
+		panel_fotoPerfil.add(btnSubirFoto);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
