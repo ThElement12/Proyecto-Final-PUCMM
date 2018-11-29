@@ -19,6 +19,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class ListEventos extends JDialog {
 
@@ -64,6 +66,7 @@ public class ListEventos extends JDialog {
 				model.setColumnIdentifiers(columnNames);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
+				loadEventos();
 			}
 			
 			
@@ -87,6 +90,7 @@ public class ListEventos extends JDialog {
 	}
 	public static void loadEventos() {
 		model.setRowCount(0);
+		DateFormat dateformat = new SimpleDateFormat("HH");
 		fila = new Object[model.getColumnCount()];
 		for (Evento evento : PUCMM.pucmm().getMisEventos()) {
 			fila[0] = evento.getId();
@@ -96,11 +100,10 @@ public class ListEventos extends JDialog {
 			fila[4] = evento.getLugar();
 			fila[5] = evento.getFechaIni().toString();
 			fila[6] = evento.getFechaFin().toString();
-			fila[7] = Integer.toString(evento.getHorarioInicio()) + "-" + Integer.toString(evento.getHorarioFin().getHours());
+			fila[7] = dateformat.format(evento.getHorarioInicio()).toString() + "-" + dateformat.format(evento.getHorarioFin()).toString();
 			
 		}
-		
-		
+		model.addRow(fila);
 	}
 	
 }

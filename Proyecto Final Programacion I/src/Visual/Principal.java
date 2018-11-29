@@ -70,6 +70,16 @@ public class Principal extends JFrame {
 		});
 		mnEvento.add(mntmRegistrarEvento);
 		
+		JMenuItem mntmListarEventos = new JMenuItem("Listar Eventos");
+		mntmListarEventos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListEventos listarEvento = new ListEventos();
+				listarEvento.setModal(true);
+				listarEvento.setVisible(true);
+			}
+		});
+		mnEvento.add(mntmListarEventos);
+		
 		JMenu mnPersonas = new JMenu("Personas");
 		menuBar.add(mnPersonas);
 		contentPane = new JPanel();
