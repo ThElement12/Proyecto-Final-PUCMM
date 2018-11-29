@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
@@ -47,6 +48,7 @@ public class RegEvent extends JDialog {
 	private JSpinner spnHoraIni = new JSpinner();
 	private JSpinner spnHoraFin = new JSpinner();
 	private JSpinner spnHoraFin1 = new JSpinner();
+	private JSpinner spnDiaDelEvento = new JSpinner();
 	private JPanel panelImagen = new JPanel();
 	private JPanel panelReg = new JPanel();
 
@@ -214,23 +216,33 @@ public class RegEvent extends JDialog {
 		spnHoraIni1.setModel(new SpinnerDateModel());
 		JSpinner.DateEditor horaini1 = new JSpinner.DateEditor(spnHoraIni1, "HH:mm:ss");
 		spnHoraIni1.setEditor(horaini1);
-		spnHoraIni1.setBounds(92, 39, 148, 28);
+		spnHoraIni1.setBounds(92, 15, 148, 28);
 		panelUnDia.add(spnHoraIni1);
 		
 		JLabel lblHoraInicio = new JLabel("Hora De Inicio:");
-		lblHoraInicio.setBounds(6, 46, 84, 16);
+		lblHoraInicio.setBounds(6, 21, 84, 16);
 		panelUnDia.add(lblHoraInicio);
 		
 		JLabel lblHoraFin = new JLabel("Hora de Finalizaci\u00F3n:");
-		lblHoraFin.setBounds(252, 45, 115, 16);
+		lblHoraFin.setBounds(252, 21, 115, 16);
 		panelUnDia.add(lblHoraFin);
 		
 		
 		spnHoraFin1.setModel(new SpinnerDateModel());
 		JSpinner.DateEditor horaFin1 = new JSpinner.DateEditor(spnHoraFin1, "HH:mm:ss");
 		spnHoraFin1.setEditor(horaFin1);	
-		spnHoraFin1.setBounds(379, 39, 148, 28);
+		spnHoraFin1.setBounds(379, 15, 148, 28);
 		panelUnDia.add(spnHoraFin1);
+		
+		spnDiaDelEvento.setModel(new SpinnerDateModel());
+		JSpinner.DateEditor diaEvento = new JSpinner.DateEditor(spnDiaDelEvento, "dd/MM/yyy");
+		spnDiaDelEvento.setEditor(diaEvento);
+		spnDiaDelEvento.setBounds(94, 64, 148, 28);
+		panelUnDia.add(spnDiaDelEvento);
+		
+		JLabel lblDiaDelEvento = new JLabel("Dia Del Evento:");
+		lblDiaDelEvento.setBounds(6, 70, 91, 16);
+		panelUnDia.add(lblDiaDelEvento);
 		
 		
 		panelImagen.setBounds(6, 6, 104, 335);
@@ -250,9 +262,25 @@ public class RegEvent extends JDialog {
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-					Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue());
-					PUCMM.pucmm().crearEvento(evento);
-					clean();
+					
+						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
+								"Advertencia",JOptionPane.WARNING_MESSAGE);
+						
+						if(option == JOptionPane.OK_OPTION) {
+							if(rdbtnEventoDeVarios.isSelected()) {
+								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue());
+								PUCMM.pucmm().crearEvento(evento);
+							
+							}
+							else if(rdbtnEventoDeUn.isSelected()) {
+								///Evento evento = new Evento()
+							}
+							
+							clean();
+						}
+							
+					
+					
 						
 					}
 				});
@@ -284,6 +312,7 @@ public class RegEvent extends JDialog {
 		spnHoraFin1.setValue(new Date());
 		spnHoraIni.setValue(new Date());
 		spnHoraIni1.setValue(new Date());
+		spnDiaDelEvento.setValue(new Date());
 		
 		
 		
