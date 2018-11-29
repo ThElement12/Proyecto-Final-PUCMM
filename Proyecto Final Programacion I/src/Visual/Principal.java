@@ -117,26 +117,27 @@ public class Principal extends JFrame {
 		pnl_EventosPorMes.setBounds(6, 422, 1582, 370);
 		contentPane.add(pnl_EventosPorMes);
 		int [] meses = new int[12];
-		
+		setzero(meses);
 		getCantMonth(meses);
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.addValue(meses[0], "Eventos", "Enero");
-		dataset.addValue(meses[1], "Eventos", "Febrero");
-		dataset.addValue(meses[2], "Eventos", "Marzo");
-		dataset.addValue(meses[3], "Eventos", "Abril");
-		dataset.addValue(meses[4], "Eventos", "Mayo");
-		dataset.addValue(meses[5], "Eventos", "Junio");
-		dataset.addValue(meses[6], "Eventos", "Julio");
-		dataset.addValue(meses[7], "Eventos", "Agosto");
-		dataset.addValue(meses[8], "Eventos", "Septiembre");
-		dataset.addValue(meses[9], "Eventos", "Octubre");
-		dataset.addValue(meses[10], "Eventos", "Noviembre");
-		dataset.addValue(meses[11], "Eventos", "Diciembre");
+		dataset.addValue(meses[0], "E", "Ene");
+		dataset.addValue(meses[1], "E", "Feb");
+		dataset.addValue(meses[2], "E", "Mar");
+		dataset.addValue(meses[3], "E", "Abr");
+		dataset.addValue(meses[4], "E", "May");
+		dataset.addValue(meses[5], "E", "Jun");
+		dataset.addValue(meses[6], "E", "Jul");
+		dataset.addValue(meses[7], "E", "Ago");
+		dataset.addValue(meses[8], "E", "Sep");
+		dataset.addValue(meses[9], "E", "Oct");
+		dataset.addValue(meses[10], "E","Nov");
+		dataset.addValue(meses[11], "E","Dic");
 		
 		JFreeChart lineChart = ChartFactory.createLineChart("Eventos por Mes", "Meses",
 				"Cantidad de Eventos",dataset, PlotOrientation.VERTICAL, true, true, false);
+		pnl_EventosPorMes.setLayout(new BorderLayout(0, 0));
+		
 		ChartPanel linePanel = new ChartPanel(lineChart);
-		linePanel.setBounds(5, 420, 1579, 368);
 		pnl_EventosPorMes.add(linePanel);
 	}
 	
@@ -148,6 +149,11 @@ public class Principal extends JFrame {
 					mes[i] += 1;
 				}
 			}
+		}
+	}
+	private void setzero(int []mes) {
+		for(int i = 0; i < 12; i ++) {
+			mes[i] = 0;
 		}
 	}
 }
