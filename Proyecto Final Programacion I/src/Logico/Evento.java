@@ -55,6 +55,7 @@ public class Evento {
 			bw.write("Fecha de finalización: " + String.valueOf(fechaFin));
 			bw.newLine();
 			bw.newLine();
+			
 			bw.write("Miembros");
 			bw.newLine();
 			bw.write("Cédula");
@@ -62,6 +63,7 @@ public class Evento {
 			bw.write("  Comisión");
 			bw.write("  Rol");
 			bw.newLine();
+			
 			for(int i = 0; i < misMiembros.size(); i ++) {
 				bw.write(misMiembros.get(i).getCedula());
 				bw.write("  "+misMiembros.get(i).getNombre());
