@@ -55,7 +55,7 @@ public class PUCMM {
 		}
 	}
 	
-	public void save() {
+	public static void save() {
 		ObjectOutputStream output = null;
 		try {
 			output = new ObjectOutputStream(new FileOutputStream(Fname));
