@@ -9,15 +9,15 @@ public abstract class Persona implements Serializable {
 	protected String nombre;
 	protected String numero;
 	protected Evento evento;
+	protected String tema;
 	protected Comision comision;
+	protected String area;
 
-	public Persona(String cedula, String nombre, String numero, Evento evento, Comision comision) {
+	public Persona(String cedula, String nombre, String numero) {
 		selecte = false;
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
-		this.evento = evento;
-		this.comision = comision;
 		cant++;
 	}
 	public static int getCant() {
@@ -57,6 +57,21 @@ public abstract class Persona implements Serializable {
 	}
 	public Comision getComision() {
 		return comision;
+	}
+	public void setComision(Comision comision) {
+		this.comision = comision;
+	}
+	public String getTema() {
+		return tema;
+	}
+	public void setTema(String tema) {
+		this.tema = tema;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 

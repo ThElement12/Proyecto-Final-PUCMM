@@ -1,16 +1,17 @@
 package Logico;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 public class Juez extends Persona {
 	private boolean representante;
-	private String area;
-	private String tema;
-	public Juez(String cedula, String nombre, String numero, Evento evento, Comision comision, boolean representante, String area, String tema) {
-		super(cedula, nombre, numero, evento,comision);
+	private Image foto;
+	
+	public Juez(String cedula, String nombre, String numero, boolean representante, String area, Image foto) {
+		super(cedula, nombre, numero);
 		this.representante = representante;
-		this.tema = tema;
-		this.setArea(area);
+		this.area = area;	
+		this.foto = foto;
 	}
 	public boolean isRepresentante() {
 		return representante;
@@ -18,18 +19,12 @@ public class Juez extends Persona {
 	public void setRepresentante(boolean representante) {
 		this.representante = representante;
 	}
-	public String getTema() {
-		return tema;
+	public Image getFoto() {
+		return foto;
 	}
-	public void setTema(String tema) {
-		this.tema = tema;
+	public void setFoto(Image foto) {
+		this.foto = foto;
 	}
-	public String getArea() {
-		return area;
-	}
-	public void setArea(String area) {
-		this.area = area;
-	}
-	
+
 
 }
