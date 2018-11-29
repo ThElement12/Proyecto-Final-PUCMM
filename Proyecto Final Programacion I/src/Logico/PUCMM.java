@@ -1,5 +1,9 @@
 package Logico;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class PUCMM {
@@ -19,6 +23,19 @@ public class PUCMM {
 		
 		return pucmm;
 	} 
+	
+	public void guardar() {
+		File Fname = new File("Pucmm Eventos.dat");
+		ObjectOutputStream output = null;
+		try {
+			output = new ObjectOutputStream(new FileOutputStream(Fname));
+			output.writeObject(pucmm);
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void crearEvento(Evento evento) {
 		misEventos.add(evento);
 	}

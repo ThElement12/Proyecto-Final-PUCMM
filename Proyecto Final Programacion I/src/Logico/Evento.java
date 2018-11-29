@@ -1,5 +1,9 @@
 package Logico;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,6 +28,30 @@ public class Evento {
 		misMiembros = new ArrayList<>();
 		misRecursos = new ArrayList<>();
 		misTrabajos = new ArrayList<>();
+	}
+	
+	public void hacerReporte() {
+		File Fname = new File("Reporte-"+id);
+		FileWriter fw;
+		BufferedWriter bw;
+		try {
+			fw = new FileWriter(Fname);
+			bw = new BufferedWriter(fw);
+			
+			bw.write("Nombre de evento: " + nombre);
+			bw.newLine();
+			bw.write("Id: " + id);
+			bw.newLine();
+			bw.write("Area: " + area);
+			bw.newLine();
+			bw.write("Lugar: " + lugar);
+			bw.newLine();
+			bw.write("Fecha de Inicio: " + String.valueOf(fechaIni));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public String getNombre() {
