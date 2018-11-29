@@ -13,11 +13,12 @@ public abstract class Persona implements Serializable {
 	protected Comision comision;
 	protected String area;
 
-	public Persona(String cedula, String nombre, String numero) {
+	public Persona(String cedula, String nombre, String numero, String area) {
 		selecte = false;
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
+		this.area = area;
 		cant++;
 	}
 	public static int getCant() {

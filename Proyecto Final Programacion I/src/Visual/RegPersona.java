@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -95,7 +96,11 @@ public class RegPersona extends JDialog {
 				JFileChooser fotoPerfil = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
 				fotoPerfil.setFileFilter(filter);
-				
+				int returnVal = fotoPerfil.showOpenDialog(btnSubirFoto);
+				if(returnVal ==JFileChooser.APPROVE_OPTION) {
+					
+				}
+			
 			}
 		});
 		btnSubirFoto.setBounds(6, 111, 93, 28);
