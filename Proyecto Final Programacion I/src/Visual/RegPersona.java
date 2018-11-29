@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class RegPersona extends JDialog {
 
@@ -91,6 +92,7 @@ public class RegPersona extends JDialog {
 		panel_fotoPerfil.setLayout(null);
 		
 		JButton btnSubirFoto = new JButton("Subir Foto...");
+		btnSubirFoto.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSubirFoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fotoPerfil = new JFileChooser();
@@ -103,8 +105,12 @@ public class RegPersona extends JDialog {
 			
 			}
 		});
-		btnSubirFoto.setBounds(6, 111, 93, 28);
+		btnSubirFoto.setBounds(6, 166, 117, 28);
 		panel_fotoPerfil.add(btnSubirFoto);
+		
+		JLabel lblImagenPerfil = new JLabel("");
+		lblImagenPerfil.setBounds(6, 6, 144, 144);
+		panel_fotoPerfil.add(lblImagenPerfil);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
