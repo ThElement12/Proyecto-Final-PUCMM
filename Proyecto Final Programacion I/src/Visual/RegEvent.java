@@ -35,6 +35,8 @@ public class RegEvent extends JDialog {
 	private JTextField txtNombre;
 	
 	private JComboBox<String> cbxArea = new JComboBox<>();
+	private JComboBox<String> cbxCampus = new JComboBox<>();
+	private JComboBox<String> cbxLugar = new JComboBox<>();
 	private JRadioButton rdbtnEventoDeVarios = new JRadioButton();
 	private JRadioButton rdbtnEventoDeUn = new JRadioButton();
 	private JPanel panelVariosDias = new JPanel();
@@ -89,7 +91,6 @@ public class RegEvent extends JDialog {
 			lblArea.setBounds(6, 117, 41, 16);
 			panelReg.add(lblArea);
 			
-			
 			cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Ciencias/Tecnolog\u00EDa", "Medicina", "Mercadeo/Administracion", "Deportivo"}));
 			cbxArea.setBounds(57, 112, 156, 26);
 			panelReg.add(cbxArea);
@@ -138,8 +139,8 @@ public class RegEvent extends JDialog {
 		lblLugar.setBounds(246, 117, 55, 16);
 		panelReg.add(lblLugar);
 		
-		JComboBox cbxLugar = new JComboBox();
-		cbxLugar.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Multiuso", "Teatro", "Anfiteatro", "Auditorio I", "Sede Postgrado", "Sala Reuniones (PA)"}));
+		
+		cbxLugar.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Multiuso", "Teatro", "Anfiteatro", "Auditorio I", "Sede Postgrado", "Sala Reuniones (PA)"}));
 		cbxLugar.setBounds(300, 112, 144, 26);
 		panelReg.add(cbxLugar);
 		
@@ -147,8 +148,8 @@ public class RegEvent extends JDialog {
 		lblCamps.setBounds(313, 76, 55, 16);
 		panelReg.add(lblCamps);
 		
-		JComboBox cbxCampus = new JComboBox();
-		cbxCampus.setModel(new DefaultComboBoxModel(new String[] {"CSTI", "CSTA"}));
+		
+		cbxCampus.setModel(new DefaultComboBoxModel<String>(new String[] {"CSTI", "CSTA"}));
 		cbxCampus.setBounds(380, 71, 64, 26);
 		panelReg.add(cbxCampus);
 		
@@ -173,8 +174,6 @@ public class RegEvent extends JDialog {
 		JLabel lblFechaFinalizacin = new JLabel("Fecha Finalizaci\u00F3n:");
 		lblFechaFinalizacin.setBounds(252, 21, 115, 16);
 		panelVariosDias.add(lblFechaFinalizacin);
-		
-		
 		
 		spnFechaFin.setModel(new SpinnerDateModel());
 		JSpinner.DateEditor te = new JSpinner.DateEditor(spnFechaFin, "dd/MM/yyy");
@@ -204,7 +203,6 @@ public class RegEvent extends JDialog {
 		spnHoraFin.setBounds(379, 64, 148, 28);
 		panelVariosDias.add(spnHoraFin);
 		
-		
 		panelUnDia.setVisible(false);
 		panelUnDia.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panelUnDia.setBounds(109, 211, 543, 130);
@@ -213,7 +211,9 @@ public class RegEvent extends JDialog {
 		panelUnDia.setLayout(null);
 		
 		
-		spnHoraIni1.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnHoraIni1.setModel(new SpinnerDateModel());
+		JSpinner.DateEditor horaini1 = new JSpinner.DateEditor(spnHoraIni1, "HH:mm:ss");
+		spnHoraIni1.setEditor(horaini1);
 		spnHoraIni1.setBounds(92, 39, 148, 28);
 		panelUnDia.add(spnHoraIni1);
 		
@@ -226,7 +226,9 @@ public class RegEvent extends JDialog {
 		panelUnDia.add(lblHoraFin);
 		
 		
-		spnHoraFin1.setModel(new SpinnerDateModel(new Date(1542859200000L), new Date(1542859200000L), null, Calendar.DAY_OF_YEAR));
+		spnHoraFin1.setModel(new SpinnerDateModel());
+		JSpinner.DateEditor horaFin1 = new JSpinner.DateEditor(spnHoraFin1, "HH:mm:ss");
+		spnHoraFin1.setEditor(horaFin1);	
 		spnHoraFin1.setBounds(379, 39, 148, 28);
 		panelUnDia.add(spnHoraFin1);
 		
@@ -250,6 +252,7 @@ public class RegEvent extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 					Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue());
 					PUCMM.pucmm().crearEvento(evento);
+					clean();
 						
 					}
 				});
@@ -271,6 +274,18 @@ public class RegEvent extends JDialog {
 	}
 	void clean() {
 		txtId.setText("");
+		txtNombre.setText("");
+		cbxArea.setSelectedIndex(0);
+		cbxCampus.setSelectedIndex(0);
+		cbxLugar.setSelectedIndex(0);
+		spnFechaFin.setValue(new Date());
+		spnFechaInicio.setValue(new Date());
+		spnHoraFin.setValue(new Date());
+		spnHoraFin1.setValue(new Date());
+		spnHoraIni.setValue(new Date());
+		spnHoraIni1.setValue(new Date());
+		
+		
 		
 	}
 }
