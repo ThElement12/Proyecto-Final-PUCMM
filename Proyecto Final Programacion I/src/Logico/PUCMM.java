@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import org.jfree.chart.*;
 
 public class PUCMM {
 	private ArrayList<Recurso> misRecursos;
@@ -18,6 +19,7 @@ public class PUCMM {
 		misEventos = new ArrayList<>();
 		
 	}
+	
 	public static PUCMM pucmm() {
 		if(pucmm == null) {
 			pucmm = new PUCMM();
@@ -26,6 +28,17 @@ public class PUCMM {
 		return pucmm;
 	}
 	
+	public void lineGraph() {
+		
+	}
+	
+	public void pieGraph() {
+		
+	}
+	
+	public void barGraph() {
+		
+	}
 	public void load() {
 		File Fname = new File("Pucmm Eventos.dat");
 		if(Fname.exists()) {
