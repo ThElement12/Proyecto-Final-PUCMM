@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public abstract class Persona implements Serializable {
 	protected boolean selecte;
-	private static int cant = 0;
+	private static int cant = 1;
 	protected String cedula;
 	protected String nombre;
 	protected String numero;
@@ -18,22 +18,11 @@ public abstract class Persona implements Serializable {
 		this.numero = numero;
 		this.evento = evento;
 		this.comision = comision;
-
+		cant++;
 	}
-	
-	
-	
 	public static int getCant() {
 		return cant;
 	}
-
-
-
-	public static void setCant(int cant) {
-		Persona.cant = cant;
-	}
-
-
 
 	public boolean isSelecte() {
 		return selecte;
