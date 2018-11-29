@@ -1,6 +1,8 @@
 package Logico;
 
-public class Recurso {
+import java.io.Serializable;
+
+public class Recurso implements Serializable {
 	private String id;
 	private String tipo;
 	private boolean disponible;

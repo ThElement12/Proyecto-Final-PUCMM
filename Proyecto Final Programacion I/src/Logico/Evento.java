@@ -4,10 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Evento {
+public class Evento implements Serializable {
 	private String id;
 	private String campus;
 	private String nombre;

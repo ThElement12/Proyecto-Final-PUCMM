@@ -1,8 +1,9 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Participante extends Persona {
+public class Participante extends Persona{
 	private String correo;
 	private String tema;
 	private ArrayList<Trabajo> misTrabajos;

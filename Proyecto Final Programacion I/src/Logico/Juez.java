@@ -1,5 +1,7 @@
 package Logico;
 
+import java.io.Serializable;
+
 public class Juez extends Persona {
 	private boolean representante;
 	private String tema;

@@ -6,10 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.jfree.chart.*;
 
-public class PUCMM {
+public class PUCMM implements Serializable{
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList<Evento> misEventos;
 	private static PUCMM pucmm;
