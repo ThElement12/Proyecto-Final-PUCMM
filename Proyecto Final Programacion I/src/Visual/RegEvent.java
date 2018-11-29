@@ -270,19 +270,17 @@ public class RegEvent extends JDialog {
 							if(rdbtnEventoDeVarios.isSelected()) {
 								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),(Date)spnHoraFin.getValue());
 								PUCMM.pucmm().crearEvento(evento);
+								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 							
 							}
 							else if(rdbtnEventoDeUn.isSelected()) {
 								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),(Date)spnHoraFin1.getValue());
 								PUCMM.pucmm().crearEvento(evento);
+								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 							}
 							
 							clean();
 						}
-						
-							
-					
-					
 						
 					}
 				});
@@ -303,7 +301,7 @@ public class RegEvent extends JDialog {
 		}
 	}
 	void clean() {
-		txtId.setText("");
+		txtId.setText(Integer.toString(PUCMM.pucmm().getCantEventos() + 1));
 		txtNombre.setText("");
 		cbxArea.setSelectedIndex(0);
 		cbxCampus.setSelectedIndex(0);
