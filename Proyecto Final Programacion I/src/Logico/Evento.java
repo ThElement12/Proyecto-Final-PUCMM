@@ -59,9 +59,20 @@ public class Evento {
 			bw.newLine();
 			bw.write("Cédula");
 			bw.write("  Nombre");
-			bw.write("  ");
+			bw.write("  Comisión");
+			bw.write("  Rol");
+			bw.newLine();
 			for(int i = 0; i < misMiembros.size(); i ++) {
-				
+				bw.write(misMiembros.get(i).getCedula());
+				bw.write("  "+misMiembros.get(i).getNombre());
+				bw.write("  "+misMiembros.get(i).getComision().getArea());
+				if(misMiembros.get(i) instanceof Juez) {
+					bw.write("  Juez");
+				}
+				else {
+					bw.write("  Participante");
+				}
+				bw.newLine();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

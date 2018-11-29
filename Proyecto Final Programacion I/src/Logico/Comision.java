@@ -24,8 +24,4 @@ public class Comision {
 	public void insertarPrincipante(Participante miParticipante) {
 		misMiembros.add(miParticipante);
 	}
-	
-	
-	
-
 }
