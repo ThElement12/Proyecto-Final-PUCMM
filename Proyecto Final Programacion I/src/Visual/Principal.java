@@ -1,3 +1,4 @@
+
 package Visual;
 
 import java.awt.BorderLayout;
@@ -16,6 +17,12 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.border.LineBorder;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import Logico.PUCMM;
 
@@ -109,5 +116,38 @@ public class Principal extends JFrame {
 		pnl_EventosPorMes.setBorder(new LineBorder(new Color(0, 0, 0)));
 		pnl_EventosPorMes.setBounds(6, 422, 1582, 370);
 		contentPane.add(pnl_EventosPorMes);
+		int [] meses = new int[12];
+		
+		getCantMonth(meses);
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		dataset.addValue(meses[0], "Eventos", "Enero");
+		dataset.addValue(meses[1], "Eventos", "Febrero");
+		dataset.addValue(meses[2], "Eventos", "Marzo");
+		dataset.addValue(meses[3], "Eventos", "Abril");
+		dataset.addValue(meses[4], "Eventos", "Mayo");
+		dataset.addValue(meses[5], "Eventos", "Junio");
+		dataset.addValue(meses[6], "Eventos", "Julio");
+		dataset.addValue(meses[7], "Eventos", "Agosto");
+		dataset.addValue(meses[8], "Eventos", "Septiembre");
+		dataset.addValue(meses[9], "Eventos", "Octubre");
+		dataset.addValue(meses[10], "Eventos", "Noviembre");
+		dataset.addValue(meses[11], "Eventos", "Diciembre");
+		
+		JFreeChart lineChart = ChartFactory.createLineChart("Eventos por Mes", "Meses",
+				"Cantidad de Eventos",dataset, PlotOrientation.VERTICAL, true, true, false);
+		ChartPanel linePanel = new ChartPanel(lineChart);
+		linePanel.setBounds(5, 420, 1579, 368);
+		pnl_EventosPorMes.add(linePanel);
+	}
+	
+	private void getCantMonth(int []mes) {
+		PUCMM pucmm = PUCMM.pucmm();
+		for(int i = 0;i < 12; i++) {
+			for(int j = 0; j < pucmm.getCantEventos(); j ++) {
+				if(pucmm.getMisEventos().get(j).getFechaIni().getMonth() == i) {
+					mes[i] += 1;
+				}
+			}
+		}
 	}
 }
