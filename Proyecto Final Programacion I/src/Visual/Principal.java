@@ -60,7 +60,7 @@ public class Principal extends JFrame {
 				PUCMM.save();
 			}
 		});
-		setResizable(false);
+		
 		PUCMM.setInstance();
 		setTitle("Manejador de Eventos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,6 +97,16 @@ public class Principal extends JFrame {
 		
 		JMenu mnPersonas = new JMenu("Personas");
 		menuBar.add(mnPersonas);
+		
+		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Personas");
+		mntmRegistrarPersonas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegPersona registrarPersona = new RegPersona();
+				registrarPersona.setModal(true);
+				registrarPersona.setVisible(true);
+			}
+		});
+		mnPersonas.add(mntmRegistrarPersonas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
