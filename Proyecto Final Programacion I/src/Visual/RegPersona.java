@@ -109,6 +109,8 @@ public class RegPersona extends JDialog {
 		panel_fotoPerfil.add(btnSubirFoto);
 		
 		JLabel lblImagenPerfil = new JLabel("");
+		lblImagenPerfil.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagenPerfil.setIcon(new ImageIcon(RegPersona.class.getResource("/img/iconfinder_user_118589.png")));
 		lblImagenPerfil.setBounds(6, 6, 144, 144);
 		panel_fotoPerfil.add(lblImagenPerfil);
 		{
