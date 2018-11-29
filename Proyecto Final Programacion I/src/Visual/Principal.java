@@ -114,13 +114,13 @@ public class Principal extends JFrame {
 		
 		JPanel pnl_EventosPorMes = new JPanel();
 		pnl_EventosPorMes.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnl_EventosPorMes.setBounds(6, 422, 1582, 370);
+		pnl_EventosPorMes.setBounds(6, 422, 1350, 300);
 		contentPane.add(pnl_EventosPorMes);
 		int [] meses = new int[12];
 		setzero(meses);
 		getCantMonth(meses);
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.addValue(meses[0], "E", "Ene");
+		dataset.addValue(meses[0], "Eventos", "Ene");
 		dataset.addValue(meses[1], "E", "Feb");
 		dataset.addValue(meses[2], "E", "Mar");
 		dataset.addValue(meses[3], "E", "Abr");
@@ -133,8 +133,7 @@ public class Principal extends JFrame {
 		dataset.addValue(meses[10], "E","Nov");
 		dataset.addValue(meses[11], "E","Dic");
 		
-		JFreeChart lineChart = ChartFactory.createLineChart("Eventos por Mes", "Meses",
-				"Cantidad de Eventos",dataset, PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart lineChart = ChartFactory.createLineChart("Eventos por Mes", "Meses","Cantidad de Eventos",dataset, PlotOrientation.VERTICAL, true, true, false);
 		pnl_EventosPorMes.setLayout(new BorderLayout(0, 0));
 		
 		ChartPanel linePanel = new ChartPanel(lineChart);
