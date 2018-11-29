@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Evento {
 	private String id;
+	private String campus;
 	private String nombre;
 	private String area;
 	private String lugar;
@@ -18,8 +19,9 @@ public class Evento {
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList <Trabajo> misTrabajos;
 	
-	public Evento(String id,String nombre, String area,String lugar, Date fechaIni, Date fechaFin) {
+	public Evento(String id,String nombre, String area,String lugar, String campus, Date fechaIni, Date fechaFin) {
 		this.id = id;
+		this.campus = campus;
 		this.nombre = nombre;
 		this.area = area;
 		this.lugar = lugar;
@@ -42,13 +44,22 @@ public class Evento {
 			bw.newLine();
 			bw.write("Id: " + id);
 			bw.newLine();
+			bw.write("Campus: " + campus);
+			bw.newLine();
 			bw.write("Area: " + area);
 			bw.newLine();
 			bw.write("Lugar: " + lugar);
 			bw.newLine();
 			bw.write("Fecha de Inicio: " + String.valueOf(fechaIni));
+			bw.newLine();
+			bw.write("Fecha de finalización: " + String.valueOf(fechaFin));
+			bw.newLine();
+			bw.newLine();
+			
+			for(int i = 0; i < misMiembros.size(); i ++) {
+				
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -117,6 +128,14 @@ public class Evento {
 
 	public ArrayList<Recurso> getMisRecursos() {
 		return misRecursos;
+	}
+
+	public String getCampus() {
+		return campus;
+	}
+
+	public void setCampus(String campus) {
+		this.campus = campus;
 	}
 
 	public Persona buscarParticipantePorCedula(String cedula) {

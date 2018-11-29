@@ -50,10 +50,11 @@ public class PUCMM {
 
 	public ArrayList<Persona> listTrabajadores(Trabajo trabajo, Evento evento){
 		ArrayList<Persona> misTrabajadores = new ArrayList<>();
+		boolean finded =false;
 		int i = 0;
-		while(i < misEventos.size()) {
+		while(i < misEventos.size() && !finded) {
 			if(misEventos.get(i).getId().equalsIgnoreCase(evento.getId())) {
-				break;
+				finded = true;
 			}
 			
 			else {
