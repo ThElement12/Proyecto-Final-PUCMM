@@ -13,6 +13,7 @@ public class PUCMM {
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList<Evento> misEventos;
 	private static PUCMM pucmm;
+	private static File Fname = new File("Pucmm Eventos.dat");
 
 	private PUCMM() {
 		misRecursos = new ArrayList<>();
@@ -24,8 +25,13 @@ public class PUCMM {
 		if(pucmm == null) {
 			pucmm = new PUCMM();
 		}
-		
 		return pucmm;
+	}
+	
+	public static void setInstance() {
+		if(Fname.exists()) {
+			load();
+		}
 	}
 	
 	public void lineGraph() {
@@ -39,22 +45,17 @@ public class PUCMM {
 	public void barGraph() {
 		
 	}
-	public void load() {
-		File Fname = new File("Pucmm Eventos.dat");
-		if(Fname.exists()) {
-			try {
-				ObjectInputStream input = new ObjectInputStream(new FileInputStream(Fname));
-				pucmm = (PUCMM) input.readObject();
-				input.close();
-				
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+	private static void load() {
+		try {
+			ObjectInputStream input = new ObjectInputStream(new FileInputStream(Fname));
+			pucmm = (PUCMM) input.readObject();
+			input.close();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	
 	public void save() {
-		File Fname = new File("Pucmm Eventos.dat");
 		ObjectOutputStream output = null;
 		try {
 			output = new ObjectOutputStream(new FileOutputStream(Fname));
