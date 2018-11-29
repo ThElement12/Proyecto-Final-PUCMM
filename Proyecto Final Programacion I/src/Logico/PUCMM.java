@@ -98,4 +98,10 @@ public class PUCMM {
 		}
 		return miEvento;
 	}
+	public ArrayList<Recurso> getMisRecursos() {
+		return misRecursos;
+	}
+	public ArrayList<Evento> getMisEventos() {
+		return misEventos;
+	}
 }
