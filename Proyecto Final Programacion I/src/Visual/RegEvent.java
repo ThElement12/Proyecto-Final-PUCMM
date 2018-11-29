@@ -268,16 +268,18 @@ public class RegEvent extends JDialog {
 						
 						if(option == JOptionPane.OK_OPTION) {
 							if(rdbtnEventoDeVarios.isSelected()) {
-								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue());
+								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),(Date)spnHoraFin.getValue());
 								PUCMM.pucmm().crearEvento(evento);
 							
 							}
 							else if(rdbtnEventoDeUn.isSelected()) {
-								///Evento evento = new Evento()
+								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),(Date)spnHoraFin1.getValue());
+								PUCMM.pucmm().crearEvento(evento);
 							}
 							
 							clean();
 						}
+						
 							
 					
 					

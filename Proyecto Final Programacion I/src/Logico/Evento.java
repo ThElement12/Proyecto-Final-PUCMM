@@ -15,11 +15,13 @@ public class Evento {
 	private String lugar;
 	private Date fechaIni;
 	private Date fechaFin;
+	private Date HorarioInicio;
+	private Date HorarioFin;
 	private ArrayList<Persona> misMiembros;
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList <Trabajo> misTrabajos;
 	
-	public Evento(String id,String nombre, String area,String lugar, String campus, Date fechaIni, Date fechaFin) {
+	public Evento(String id,String nombre, String area,String lugar, String campus, Date fechaIni, Date fechaFin, Date HorarioInicio, Date HorarioFin) {
 		this.id = id;
 		this.campus = campus;
 		this.nombre = nombre;
@@ -27,6 +29,8 @@ public class Evento {
 		this.lugar = lugar;
 		this.fechaIni = fechaIni;
 		this.fechaFin = fechaFin;
+		this.HorarioFin = HorarioFin;
+		this.HorarioInicio = HorarioInicio;
 		misMiembros = new ArrayList<>();
 		misRecursos = new ArrayList<>();
 		misTrabajos = new ArrayList<>();
@@ -211,6 +215,22 @@ public class Evento {
 			}
 		}
 		return aux;
+	}
+
+	public Date getHorarioInicio() {
+		return HorarioInicio;
+	}
+
+	public void setHorarioInicio(Date horarioInicio) {
+		HorarioInicio = horarioInicio;
+	}
+
+	public Date getHorarioFin() {
+		return HorarioFin;
+	}
+
+	public void setHorarioFin(Date horarioFin) {
+		HorarioFin = horarioFin;
 	}
 	
 }
