@@ -54,9 +54,9 @@ public class Evento {
 			bw.newLine();
 			bw.write("Lugar: " + lugar);
 			bw.newLine();
-			bw.write("Fecha de Inicio: " + String.valueOf(fechaIni));
+			bw.write("Fecha de Inicio: " + fechaIni.toString());
 			bw.newLine();
-			bw.write("Fecha de finalización: " + String.valueOf(fechaFin));
+			bw.write("Fecha de finalización: " + fechaFin.toString());
 			bw.newLine();
 			bw.newLine();
 			
