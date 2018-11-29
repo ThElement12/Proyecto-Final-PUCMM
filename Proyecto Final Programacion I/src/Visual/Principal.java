@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.border.LineBorder;
+
+import Logico.PUCMM;
+
 import java.awt.Color;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;

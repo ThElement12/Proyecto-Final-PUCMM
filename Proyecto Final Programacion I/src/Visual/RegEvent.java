@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
+
+import Logico.Evento;
+import Logico.PUCMM;
+
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -67,6 +71,7 @@ public class RegEvent extends JDialog {
 			
 			txtId = new JTextField();
 			txtId.setEditable(false);
+			txtId.setText(Integer.toString(PUCMM.pucmm().getCantEventos() + 1));
 			txtId.setBounds(57, 36, 102, 28);
 			panelReg.add(txtId);
 			txtId.setColumns(10);
@@ -128,6 +133,24 @@ public class RegEvent extends JDialog {
 			rdbtnEventoDeUn.setBackground(new Color(190,209,201));
 			panelReg.add(rdbtnEventoDeUn);
 		}
+		
+		JLabel lblLugar = new JLabel("Lugar:");
+		lblLugar.setBounds(246, 117, 55, 16);
+		panelReg.add(lblLugar);
+		
+		JComboBox cbxLugar = new JComboBox();
+		cbxLugar.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Multiuso", "Teatro", "Anfiteatro", "Auditorio I", "Sede Postgrado", "Sala Reuniones (PA)"}));
+		cbxLugar.setBounds(300, 112, 144, 26);
+		panelReg.add(cbxLugar);
+		
+		JLabel lblCamps = new JLabel("Camp\u00FAs:");
+		lblCamps.setBounds(313, 76, 55, 16);
+		panelReg.add(lblCamps);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"CSTI", "CSTA"}));
+		comboBox.setBounds(380, 71, 64, 26);
+		panelReg.add(comboBox);
 		
 		panelVariosDias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelVariosDias.setBackground(new Color(190,209,201));
@@ -223,6 +246,13 @@ public class RegEvent extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnRegistrar = new JButton("Registrar");
+				btnRegistrar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue());
+						PUCMM.pucmm().crearEvento(evento);
+						
+					}
+				});
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
 				getRootPane().setDefaultButton(btnRegistrar);
@@ -238,5 +268,9 @@ public class RegEvent extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+	}
+	void clean() {
+		txtId.setText("");
+		
 	}
 }

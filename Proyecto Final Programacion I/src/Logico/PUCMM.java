@@ -42,6 +42,11 @@ public class PUCMM {
 	public void registrarRecurso(Recurso recurso) {
 		misRecursos.add(recurso);
 	}
+	public int getCantEventos() {
+		
+		return misEventos.size();
+		
+	}
 
 	public ArrayList<Persona> listTrabajadores(Trabajo trabajo, Evento evento){
 		ArrayList<Persona> misTrabajadores = new ArrayList<>();
