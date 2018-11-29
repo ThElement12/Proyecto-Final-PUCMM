@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -21,6 +22,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.border.BevelBorder;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListEventos extends JDialog {
 
@@ -31,6 +36,8 @@ public class ListEventos extends JDialog {
 	public String selecte;
 	
 	public ListEventos() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListEventos.class.getResource("/img/Icono_pucmm.jpg")));
+		setTitle("Eventos ");
 		setBounds(100, 100, 735, 425);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -40,18 +47,21 @@ public class ListEventos extends JDialog {
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
+			panel.setBackground(new Color(190,209,201));
 			
 			JLabel label = new JLabel("");
 			label.setIcon(new ImageIcon(ListEventos.class.getResource("/img/RegEVento.jpg")));
-			label.setBounds(0, 0, 104, 335);
+			label.setBounds(0, 0, 102, 328);
 			panel.add(label);
 			
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.setBounds(114, 0, 585, 343);
+			scrollPane.setBackground(new Color(190,209,201));
+			scrollPane.setBounds(114, 0, 595, 328);
 			panel.add(scrollPane);
 			{
 				table = new JTable();
+				table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -74,16 +84,30 @@ public class ListEventos extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(190,209,201));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						RegEvent registrarEvento = new RegEvent();
+						registrarEvento.setModal(true);
+						registrarEvento.setVisible(true);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -91,7 +115,8 @@ public class ListEventos extends JDialog {
 	}
 	public static void loadEventos() {
 		model.setRowCount(0);
-		DateFormat dateformat = new SimpleDateFormat("HH");
+		DateFormat horaformat = new SimpleDateFormat("HH");
+		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyy");
 		fila = new Object[model.getColumnCount()];
 		for (Evento evento : PUCMM.pucmm().getMisEventos()) {
 			fila[0] = evento.getId();
@@ -99,9 +124,9 @@ public class ListEventos extends JDialog {
 			fila[2] = evento.getArea();
 			fila[3] = evento.getCampus();
 			fila[4] = evento.getLugar();
-			fila[5] = evento.getFechaIni().toString();
-			fila[6] = evento.getFechaFin().toString();
-			fila[7] = dateformat.format(evento.getHorarioInicio()).toString() + "-" + dateformat.format(evento.getHorarioFin()).toString();
+			fila[5] = dateformat.format(evento.getFechaIni()).toString();
+			fila[6] = dateformat.format(evento.getFechaFin()).toString();
+			fila[7] = horaformat.format(evento.getHorarioInicio()).toString() + "-" + horaformat.format(evento.getHorarioFin()).toString();
 			
 		}
 		model.addRow(fila);
