@@ -147,10 +147,10 @@ public class RegEvent extends JDialog {
 		lblCamps.setBounds(313, 76, 55, 16);
 		panelReg.add(lblCamps);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"CSTI", "CSTA"}));
-		comboBox.setBounds(380, 71, 64, 26);
-		panelReg.add(comboBox);
+		JComboBox cbxCampus = new JComboBox();
+		cbxCampus.setModel(new DefaultComboBoxModel(new String[] {"CSTI", "CSTA"}));
+		cbxCampus.setBounds(380, 71, 64, 26);
+		panelReg.add(cbxCampus);
 		
 		panelVariosDias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelVariosDias.setBackground(new Color(190,209,201));
@@ -248,8 +248,8 @@ public class RegEvent extends JDialog {
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue());
-						PUCMM.pucmm().crearEvento(evento);
+					Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue());
+					PUCMM.pucmm().crearEvento(evento);
 						
 					}
 				});
