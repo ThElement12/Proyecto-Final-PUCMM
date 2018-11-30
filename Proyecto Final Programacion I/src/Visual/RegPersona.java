@@ -3,6 +3,7 @@ package Visual;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,8 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
@@ -27,7 +30,10 @@ public class RegPersona extends JDialog {
 	private JTextField txtId;
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
+	private JLabel lblImagenPerfil = new JLabel("");
+	
 
+	
 	public RegPersona() {
 		setBounds(100, 100, 650, 430);
 		getContentPane().setLayout(new BorderLayout());
@@ -37,7 +43,7 @@ public class RegPersona extends JDialog {
 		
 		JPanel panel_principal = new JPanel();
 		panel_principal.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_principal.setBounds(6, 6, 415, 264);
+		panel_principal.setBounds(6, 6, 434, 264);
 		contentPanel.add(panel_principal);
 		panel_principal.setLayout(null);
 		
@@ -87,7 +93,7 @@ public class RegPersona extends JDialog {
 		panel_principal.add(cbxArea);
 		
 		JPanel panel_fotoPerfil = new JPanel();
-		panel_fotoPerfil.setBounds(433, 6, 195, 264);
+		panel_fotoPerfil.setBounds(452, 6, 176, 264);
 		contentPanel.add(panel_fotoPerfil);
 		panel_fotoPerfil.setLayout(null);
 		
@@ -100,18 +106,22 @@ public class RegPersona extends JDialog {
 				fotoPerfil.setFileFilter(filter);
 				int returnVal = fotoPerfil.showOpenDialog(btnSubirFoto);
 				if(returnVal ==JFileChooser.APPROVE_OPTION) {
+			
+					ImageIcon imagen = new ImageIcon(fotoPerfil.getSelectedFile().getPath());
+					lblImagenPerfil.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(96, 128, Image.SCALE_SMOOTH)));
+					
 					
 				}
 			
 			}
 		});
-		btnSubirFoto.setBounds(6, 166, 117, 28);
+		btnSubirFoto.setBounds(36, 164, 117, 28);
 		panel_fotoPerfil.add(btnSubirFoto);
 		
-		JLabel lblImagenPerfil = new JLabel("");
+		
 		lblImagenPerfil.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagenPerfil.setIcon(new ImageIcon(RegPersona.class.getResource("/img/iconfinder_user_118589(1).png")));
-		lblImagenPerfil.setBounds(6, 6, 144, 144);
+		lblImagenPerfil.setBounds(16, 6, 144, 144);
 		panel_fotoPerfil.add(lblImagenPerfil);
 		{
 			JPanel buttonPane = new JPanel();
