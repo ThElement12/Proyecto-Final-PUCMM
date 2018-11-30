@@ -152,18 +152,35 @@ public class Principal extends JFrame {
 		PUCMM pucmm = PUCMM.pucmm();
 		Evento [] event = new Evento [6];
 		int []part = new int [6];
-		for(int i = pucmm.getCantEventos() - 1 , j = 0; i > 0 && i > pucmm.getCantEventos() - 7 || j < 6; i -- , j ++) {
-			event[j] = pucmm.getMisEventos().get(i);
-		}
-		for(int i = 0; i < 6; i++) {
-			part[i] = event[i].getMisMiembros().size();
-		}
 		DefaultCategoryDataset dataBar = new DefaultCategoryDataset();
-		for(int i = 0; i < 6; i ++) {
-			dataBar.addValue(part[i], "Participantes", event[i].getNombre());
+		if(pucmm.getMisEventos().size() < 6) {
+			for(int i = pucmm.getMisEventos().size() - 1 , j = 0; i > 0 || j < pucmm.getMisEventos().size(); i -- , j ++) {
+				event[j] = pucmm.getMisEventos().get(i);
+			}
+		
+			for(int i = 0; i < pucmm.getMisEventos().size(); i++) {
+				part[i] = event[i].getMisMiembros().size();
+			}
+		
+			for(int i = 0; i < pucmm.getMisEventos().size(); i ++) {
+				dataBar.addValue(part[i], "Participantes", event[i].getNombre());
+			}
 		}
 		
-		JFreeChart barChart = ChartFactory.createBarChart3D("Cantidad de Participantes en eventos próximos", "Participantes", "Evento", dataBar);
+		else {
+			for(int i = pucmm.getMisEventos().size() , j = 0; i > 0 && i > pucmm.getCantEventos() - 6 || j < 6; i -- , j ++) {
+				event[j] = pucmm.getMisEventos().get(i);
+			}
+		
+			for(int i = 0; i < 6; i++) {
+				part[i] = event[i].getMisMiembros().size();
+			}
+		
+			for(int i = 0; i < 6; i ++) {
+				dataBar.addValue(part[i], "Participantes", event[i].getNombre());
+			}
+		}
+		JFreeChart barChart = ChartFactory.createBarChart3D("Cantidad de Participantes en eventos próximos", "Evento", "Participantes", dataBar);
 		barChart.getPlot().setBackgroundPaint(Color.DARK_GRAY);
 		barChart.setBackgroundPaint(Color.lightGray);
 		ChartPanel barPanel = new ChartPanel(barChart);
