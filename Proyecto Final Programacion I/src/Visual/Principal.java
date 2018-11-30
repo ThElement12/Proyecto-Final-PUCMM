@@ -147,6 +147,8 @@ public class Principal extends JFrame {
 		Principal.createBarGraph();
 	}
 	public static void createBarGraph() {
+		//como tu te atreve a decir que esto no funciona
+		//Hola desde el baño
 		PUCMM pucmm = PUCMM.pucmm();
 		Evento [] event = new Evento [6];
 		int []part = new int [6];
