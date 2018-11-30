@@ -1,6 +1,8 @@
 
 package Visual;
 
+import Logico.Evento;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -143,8 +145,29 @@ public class Principal extends JFrame {
 		contentPane.add(pnl_EventosPorMes);
 		Principal.createLineChart();
 		Principal.createPieChart();
-
+		Principal.createBarGraph();
+	}
+	public static void createBarGraph() {
+		PUCMM pucmm = PUCMM.pucmm();
+		Evento [] event = new Evento [6];
+		int []part = new int [6];
+		for(int i = pucmm.getCantEventos() - 1 , j = 0; i > 0 && i > pucmm.getCantEventos() - 7 || j < 6; i -- , j ++) {
+			event[j] = pucmm.getMisEventos().get(i);
+		}
+		for(int i = 0; i < 6; i++) {
+			part[i] = event[i].getMisMiembros().size();
+		}
+		DefaultCategoryDataset dataBar = new DefaultCategoryDataset();
+		for(int i = 0; i < 6; i ++) {
+			dataBar.addValue(part[i], "Participantes", event[i].getNombre());
+		}
 		
+		JFreeChart barChart = ChartFactory.createBarChart3D("Cantidad de Participantes en eventos próximos", "Participantes", "Evento", dataBar);
+		barChart.getPlot().setBackgroundPaint(Color.DARK_GRAY);
+		barChart.setBackgroundPaint(Color.lightGray);
+		ChartPanel barPanel = new ChartPanel(barChart);
+		pnl_Eventos.setLayout(new BorderLayout(0 ,0));
+		pnl_Eventos.add(barPanel);
 	}
 	
 	public static void createLineChart() {
