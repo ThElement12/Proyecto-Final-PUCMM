@@ -35,17 +35,6 @@ public class PUCMM implements Serializable{
 		}
 	}
 	
-	public void lineGraph() {
-		
-	}
-	
-	public void pieGraph() {
-		
-	}
-	
-	public void barGraph() {
-		
-	}
 	private static void load() {
 		try {
 			ObjectInputStream input = new ObjectInputStream(new FileInputStream(Fname));

@@ -28,6 +28,8 @@ import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
 import javax.swing.border.BevelBorder;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class RegEvent extends JDialog {
 
@@ -281,6 +283,8 @@ public class RegEvent extends JDialog {
 							
 							clean();
 						}
+						Principal.createLineChart();
+						Principal.createPieChart();
 						
 					}
 				});
@@ -292,6 +296,8 @@ public class RegEvent extends JDialog {
 				JButton btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						Principal.createLineChart();
+						Principal.createPieChart();
 						dispose();
 					}
 				});
