@@ -121,6 +121,28 @@ public class Principal extends JFrame {
 			}
 		});
 		mnPersonas.add(mntmRegistrarPersonas);
+	
+		JMenu mnRecurso = new JMenu("Recurso");
+		menuBar.add(mnRecurso);
+		JMenuItem mntmAgregarRecurso = new JMenuItem("Agregar Recurso");
+		mntmAgregarRecurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegRecursos registrarRecurso = new RegRecursos();
+				registrarRecurso.setModal(true);
+				registrarRecurso.setVisible(true);
+			}
+		});
+		mnRecurso.add(mntmAgregarRecurso);
+		
+		JMenuItem mntmListarRecursos = new JMenuItem("Listar Recursos");
+		mntmListarRecursos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListRecursos listarRecurso = new ListRecursos();
+				listarRecurso.setModal(true);
+				listarRecurso.setVisible(true);
+			}
+		});
+		mnRecurso.add(mntmListarRecursos);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

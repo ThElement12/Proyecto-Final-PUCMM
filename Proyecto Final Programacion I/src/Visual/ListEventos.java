@@ -114,7 +114,7 @@ public class ListEventos extends JDialog {
 			}
 		}
 	}
-	public static void loadEventos() {
+	private static void loadEventos() {
 		model.setRowCount(0);
 		DateFormat horaformat = new SimpleDateFormat("HH");
 		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyy");
