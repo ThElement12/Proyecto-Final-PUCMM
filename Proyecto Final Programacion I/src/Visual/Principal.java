@@ -133,6 +133,16 @@ public class Principal extends JFrame {
 			}
 		});
 		mnRecurso.add(mntmAgregarRecurso);
+		
+		JMenuItem mntmListarRecursos = new JMenuItem("Listar Recursos");
+		mntmListarRecursos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListRecursos listarRecurso = new ListRecursos();
+				listarRecurso.setModal(true);
+				listarRecurso.setVisible(true);
+			}
+		});
+		mnRecurso.add(mntmListarRecursos);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

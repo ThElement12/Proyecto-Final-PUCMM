@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -37,10 +38,12 @@ public class RegRecursos extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
+		contentPanel.setBackground(new Color(190,209,201));
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			contentPanel.add(panel, BorderLayout.CENTER);
+			panel.setBackground(new Color(190,209,201));
 			panel.setLayout(null);
 			{
 				JLabel lblId = new JLabel("ID: ");
@@ -84,6 +87,7 @@ public class RegRecursos extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(190,209,201));
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
