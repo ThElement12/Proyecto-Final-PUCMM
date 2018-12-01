@@ -91,14 +91,15 @@ public class PUCMM implements Serializable{
 		return misTrabajadores;
 	}
 	
-	public void insertarPersona(Persona miPersona, String eventId) {
+	public void insertarPersona(Persona miPersona, String eventId, String comId) {
 		Evento miEvento = searchEventoById(eventId);
+		int comPos = miEvento.searchPosComByComId(comId);
 		if(miPersona instanceof Juez) {
-			miEvento.agregarJuez(miPersona);
+			miEvento.getMisComisiones().get(comPos).getMisMiembros().add(miPersona);
 		}
 		
 		if(miPersona instanceof Participante) {
-			miEvento.agregarParticipante(miPersona);
+			miEvento.getMisComisiones().get(comPos).getMisMiembros().add(miPersona);
 		}
 	}
 	

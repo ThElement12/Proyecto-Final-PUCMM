@@ -18,7 +18,7 @@ public class Evento implements Serializable {
 	private Date fechaFin;
 	private Date HorarioInicio;
 	private Date HorarioFin;
-	private ArrayList<Persona> misMiembros;
+	private ArrayList<Comision> misComisiones;
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList <Trabajo> misTrabajos;
 	
@@ -32,7 +32,7 @@ public class Evento implements Serializable {
 		this.fechaFin = fechaFin;
 		this.HorarioFin = HorarioFin;
 		this.HorarioInicio = HorarioInicio;
-		misMiembros = new ArrayList<>();
+		misComisiones = new ArrayList<>();
 		misRecursos = new ArrayList<>();
 		misTrabajos = new ArrayList<>();
 	}
@@ -61,24 +61,15 @@ public class Evento implements Serializable {
 			bw.newLine();
 			bw.newLine();
 			
-			bw.write("Miembros");
+			bw.write("Comisiones");
 			bw.newLine();
-			bw.write("Cédula");
+			bw.write("Id");
 			bw.write("  Nombre");
-			bw.write("  Comisión");
-			bw.write("  Rol");
 			bw.newLine();
 			
-			for(int i = 0; i < misMiembros.size(); i ++) {
-				bw.write(misMiembros.get(i).getCedula());
-				bw.write("  "+misMiembros.get(i).getNombre());
-				bw.write("  "+misMiembros.get(i).getComision().getArea());
-				if(misMiembros.get(i) instanceof Juez) {
-					bw.write("  Juez");
-				}
-				else {
-					bw.write("  Participante");
-				}
+			for(int i = 0; i < misComisiones.size(); i ++) {
+				bw.write(misComisiones.get(i).getId());
+				bw.write("  "+misComisiones.get(i).getArea());
 				bw.newLine();
 			}
 		} catch (IOException e) {
@@ -127,12 +118,7 @@ public class Evento implements Serializable {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	public void agregarJuez(Persona juez) {
-		misMiembros.add(juez);
-	}
-	public void agregarParticipante(Persona participante) {
-		misMiembros.add(participante);
-	}
+
 	public void agregarRecurso(Recurso recurso) {
 		misRecursos.add(recurso);
 	}
@@ -140,8 +126,8 @@ public class Evento implements Serializable {
 		misTrabajos.add(trabajo);
 	}
 	
-	public ArrayList<Persona> getMisMiembros() {
-		return misMiembros;
+	public ArrayList<Comision> getMisComisiones() {
+		return misComisiones;
 	}
 
 	public ArrayList<Trabajo> getMisTrabajos() {
@@ -162,15 +148,15 @@ public class Evento implements Serializable {
 
 	public Persona buscarParticipantePorCedula(String cedula) {
 		Persona aux = null;
-		int i = 0;
-		boolean encontrado = false;
+		int i = 0 , j = 0;
+		boolean finded = false;
 		
-		while(encontrado != true && i < misMiembros.size()) {
-			
-			if(misMiembros.get(i) instanceof Participante) {
-				if(misMiembros.get(i).getCedula().equalsIgnoreCase(cedula)) {
-					aux = misMiembros.get(i);
-					encontrado = true;
+		while(!finded && i < misComisiones.size()) {
+			while(!finded && j <misComisiones.get(i).getMisMiembros().size())
+			if(misComisiones.get(i).getMisMiembros().get(j) instanceof Participante) {
+				if(misComisiones.get(i).getMisMiembros().get(j).getCedula().equalsIgnoreCase(cedula)) {
+					aux = misComisiones.get(i).getMisMiembros().get(j);
+					finded = true;
 				}
 			}
 			
@@ -179,28 +165,29 @@ public class Evento implements Serializable {
 	}
 	public Persona buscarJuezporCedula(String cedula) {
 		Persona aux = null;
-		int i = 0;
-		boolean encontrado = false;
+		int i = 0 , j = 0;
+		boolean finded = false;
 		
-		while(encontrado != true && i < misMiembros.size()) {
-			
-			if(misMiembros.get(i) instanceof Juez) {
-				if(misMiembros.get(i).getCedula().equalsIgnoreCase(cedula)) {
-					aux = misMiembros.get(i);
-					encontrado = true;
+		while(!finded && i < misComisiones.size()) {
+			while(!finded && j <misComisiones.get(i).getMisMiembros().size())
+			if(misComisiones.get(i).getMisMiembros().get(j) instanceof Juez) {
+				if(misComisiones.get(i).getMisMiembros().get(j).getCedula().equalsIgnoreCase(cedula)) {
+					aux = misComisiones.get(i).getMisMiembros().get(j);
+					finded = true;
 				}
 			}
-		}	
+			
+		}
 		return aux;
 	}
 	public Recurso buscarRecursosPorId(String id) {
 		Recurso aux = null;
 		int i = 0;
-		boolean encontrado = false;
-		while(encontrado != true && i < misRecursos.size()) {
+		boolean finded = false;
+		while(!finded && i < misRecursos.size()) {
 			if(misRecursos.get(i).getId().equalsIgnoreCase(id)) {
 				aux = misRecursos.get(i);
-				encontrado = true;
+				finded = true;
 			}		
 		}
 		return aux;
@@ -234,4 +221,29 @@ public class Evento implements Serializable {
 		HorarioFin = horarioFin;
 	}
 	
+	public int cantParticipantes() {
+		int cant = 0;
+		for(int i = 0; i < misComisiones.size(); i ++) {
+			for(int j = 0; j < misComisiones.get(i).getMisMiembros().size(); j ++) {
+				cant ++;
+			}
+		}
+		return cant;
+	}
+	
+	public int searchPosComByComId(String comId) {
+		boolean finded = false;
+		int i = 0;
+		while(!finded && i < misComisiones.size()) {
+			if(misComisiones.get(i).getId().equalsIgnoreCase(comId)) {
+				finded = true;
+			}
+			
+			else {
+				i ++;
+			}
+		}
+		
+		return i;
+	}
 }

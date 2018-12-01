@@ -159,7 +159,7 @@ public class Principal extends JFrame {
 			}
 		
 			for(int i = 0; i < pucmm.getMisEventos().size(); i++) {
-				part[i] = event[i].getMisMiembros().size();
+				part[i] = event[i].cantParticipantes();
 			}
 		
 			for(int i = 0; i < pucmm.getMisEventos().size(); i ++) {
@@ -173,7 +173,7 @@ public class Principal extends JFrame {
 			}
 		
 			for(int i = 0; i < 6; i++) {
-				part[i] = event[i].getMisMiembros().size();
+				part[i] = event[i].cantParticipantes();
 			}
 		
 			for(int i = 0; i < 6; i ++) {
