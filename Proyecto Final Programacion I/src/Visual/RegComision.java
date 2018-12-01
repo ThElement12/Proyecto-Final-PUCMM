@@ -204,6 +204,8 @@ public class RegComision extends JDialog {
 			if(juez instanceof Juez) {
 				if(juez.isdisponible()) {
 					if(juez.getArea().equalsIgnoreCase(evento.getArea())){
+						Jfila[0] =Integer.toString(juez.getCant());
+						
 						
 					}
 				}
