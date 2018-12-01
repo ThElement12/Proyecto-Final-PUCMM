@@ -39,8 +39,9 @@ public class RegComision extends JDialog {
 	private static Object[] Jfila;
 	private static Object[] Pfila;
 	private static ArrayList<Persona> misPersonas = PUCMM.pucmm().getMisPersonas();
-	private int Jindex;
-	private int Pindex;
+	private JList<String> listSeleccionados = new JList<String>();
+	private static DefaultListModel<String> model = new DefaultListModel<>();
+	private int Jindex = 0;
 	private String Jselect = "";
 	private String Pselect = "";
 	private JTextField txtJuezSecundario1;
@@ -101,7 +102,7 @@ public class RegComision extends JDialog {
 			scrollPane.setBounds(6, 38, 320, 186);
 			panelParticipante.add(scrollPane);
 			
-			JList listSeleccionados = new JList();
+			
 			scrollPane.setViewportView(listSeleccionados);
 		}
 		
@@ -126,7 +127,7 @@ public class RegComision extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = tableJueces.getSelectedRow();
 				if(index >= 0) {
-					Jselect = tableJueces.getValueAt(index, 0).toString();
+					Jselect = tableJueces.getValueAt(index, 1).toString();
 				}
 			}
 		});
@@ -152,7 +153,7 @@ public class RegComision extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = tableParticipant.getSelectedRow();
 				if(index >= 0) {
-					Pselect = tableParticipant.getValueAt(index, 0).toString();
+					Pselect = tableParticipant.getValueAt(index, 1).toString();
 				}
 			}
 		});
@@ -166,19 +167,52 @@ public class RegComision extends JDialog {
 		JButton btnAsignarPrincipal = new JButton("Asignar Principal");
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				txtJuezPrincipal.setText(Pselect);	
 			}
 		});
-		btnAsignarPrincipal.setBounds(372, 38, 123, 28);
+		btnAsignarPrincipal.setBounds(372, 19, 132, 28);
 		contentPanel.add(btnAsignarPrincipal);
 		
 		JButton btnAsignarSecundario = new JButton("Asignar Secundario");
-		btnAsignarSecundario.setBounds(372, 78, 136, 28);
+		btnAsignarSecundario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Jindex == 0) {
+					txtJuezSecundario1.setText(Jselect);
+					Jindex = 1;
+				}
+				else if(Jindex == 1) {
+					txtJuezSecundario2.setText(Jselect);
+					Jindex = 0;
+				}
+				
+			}
+		});
+		btnAsignarSecundario.setBounds(372, 95, 136, 28);
 		contentPanel.add(btnAsignarSecundario);
 		
 		JButton btnAgregarParticipante = new JButton("Agregar Part.");
+		btnAgregarParticipante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model.addElement(Pselect);
+				listSeleccionados.setModel(model);
+				
+				
+			}
+		});
 		btnAgregarParticipante.setBounds(372, 250, 132, 28);
 		contentPanel.add(btnAgregarParticipante);
+		
+		JButton btnQuitarPart = new JButton("Quitar  Part.");
+		btnQuitarPart.setBounds(372, 290, 132, 28);
+		contentPanel.add(btnQuitarPart);
+		
+		JButton btnQuitarPrincipal = new JButton("Quitar Principal");
+		btnQuitarPrincipal.setBounds(372, 48, 132, 28);
+		contentPanel.add(btnQuitarPrincipal);
+		
+		JButton btnQuitarSecundario = new JButton("Quitar Secundario");
+		btnQuitarSecundario.setBounds(372, 125, 136, 28);
+		contentPanel.add(btnQuitarSecundario);
 		Jmodel = new DefaultTableModel();
 		String [] JCNames = {"Cédula", "Nombre","Area"};
 		Jmodel.setColumnIdentifiers(JCNames);
@@ -245,5 +279,4 @@ public class RegComision extends JDialog {
 		}
 	
 	}
-	
 }
