@@ -346,14 +346,14 @@ public class RegComision extends JDialog {
 		Pfila = new Object[Pmodel.getColumnCount()];
 		
 		for (Persona persona : PUCMM.pucmm().getMisPersonas()) {
-			if(persona instanceof Persona) {
+			if(persona instanceof Participante) {
 				if(persona.isdisponible()) {
 					if(persona.getArea().equalsIgnoreCase(evento.getArea())) {
 						Pfila[0] = Integer.toString(persona.getId());
 						Pfila[1] = persona.getNombre();
 						Pfila[2] = persona.getArea();
 						
-						Pmodel.addRow(Jfila);
+						Pmodel.addRow(Pfila);
 					}
 					
 				}
