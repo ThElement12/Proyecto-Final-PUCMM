@@ -30,6 +30,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class RegEvent extends JDialog {
 
@@ -53,51 +54,55 @@ public class RegEvent extends JDialog {
 	private JSpinner spnDiaDelEvento = new JSpinner();
 	private JPanel panelImagen = new JPanel();
 	private JPanel panelReg = new JPanel();
+	private Evento evento;
 	private final JButton btnSiguiente = new JButton("Siguiente");
+	private final JLabel lblCantComisiones = new JLabel("Cant. Comisiones:");
+	private final JSpinner spnCantComisiones = new JSpinner();
+	
 
 	
 	public RegEvent() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registrar Nuevo Evento");
-		setBounds(100, 100, 674, 426);
+		setBounds(100, 100, 674, 437);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		contentPanel.setBackground(new Color(190,209,201));
 		{
-			panelReg.setBounds(109, 5, 543, 194);
+			panelReg.setBounds(119, 5, 533, 192);
 			panelReg.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			panelReg.setBackground(new Color(190,209,201));
 			contentPanel.add(panelReg);
 			panelReg.setLayout(null);
 			
 			JLabel lblId = new JLabel("ID: ");
-			lblId.setBounds(6, 42, 29, 16);
+			lblId.setBounds(6, 18, 29, 16);
 			panelReg.add(lblId);
 			
 			txtId = new JTextField();
 			txtId.setEditable(false);
 			txtId.setText(Integer.toString(PUCMM.pucmm().getCantEventos() + 1));
-			txtId.setBounds(57, 36, 102, 28);
+			txtId.setBounds(47, 12, 102, 28);
 			panelReg.add(txtId);
 			txtId.setColumns(10);
 			
 			JLabel lblNombre = new JLabel("Nombre: ");
-			lblNombre.setBounds(6, 76, 55, 16);
+			lblNombre.setBounds(6, 52, 55, 16);
 			panelReg.add(lblNombre);
 			
 			txtNombre = new JTextField();
-			txtNombre.setBounds(57, 70, 244, 28);
+			txtNombre.setBounds(57, 46, 244, 28);
 			panelReg.add(txtNombre);
 			txtNombre.setColumns(10);
 			
 			JLabel lblArea = new JLabel("Area:");
-			lblArea.setBounds(6, 117, 41, 16);
+			lblArea.setBounds(6, 133, 41, 16);
 			panelReg.add(lblArea);
 			
 			cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Ciencias/Tecnolog\u00EDa", "Medicina", "Mercadeo/Administracion", "Deportivo"}));
-			cbxArea.setBounds(57, 112, 156, 26);
+			cbxArea.setBounds(47, 128, 156, 26);
 			panelReg.add(cbxArea);
 			rdbtnEventoDeVarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -134,33 +139,40 @@ public class RegEvent extends JDialog {
 			});
 			
 			
-			rdbtnEventoDeUn.setBounds(225, 158, 156, 18);
+			rdbtnEventoDeUn.setBounds(256, 158, 156, 18);
 			rdbtnEventoDeUn.setText("Evento de Un Solo D\u00EDa");
 			rdbtnEventoDeUn.setBackground(new Color(190,209,201));
 			panelReg.add(rdbtnEventoDeUn);
 		}
 		
 		JLabel lblLugar = new JLabel("Lugar:");
-		lblLugar.setBounds(246, 117, 55, 16);
+		lblLugar.setBounds(246, 133, 55, 16);
 		panelReg.add(lblLugar);
 		
 		
 		cbxLugar.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Multiuso", "Teatro", "Anfiteatro", "Auditorio I", "Sede Postgrado", "Sala Reuniones (PA)"}));
-		cbxLugar.setBounds(300, 112, 144, 26);
+		cbxLugar.setBounds(300, 128, 144, 26);
 		panelReg.add(cbxLugar);
 		
 		JLabel lblCamps = new JLabel("Camp\u00FAs:");
-		lblCamps.setBounds(313, 76, 55, 16);
+		lblCamps.setBounds(220, 91, 55, 16);
 		panelReg.add(lblCamps);
 		
 		
 		cbxCampus.setModel(new DefaultComboBoxModel<String>(new String[] {"CSTI", "CSTA"}));
-		cbxCampus.setBounds(380, 71, 64, 26);
+		cbxCampus.setBounds(290, 86, 64, 26);
 		panelReg.add(cbxCampus);
+		lblCantComisiones.setBounds(6, 89, 118, 16);
+		
+		panelReg.add(lblCantComisiones);
+		spnCantComisiones.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spnCantComisiones.setBounds(118, 83, 74, 28);
+		
+		panelReg.add(spnCantComisiones);
 		
 		panelVariosDias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelVariosDias.setBackground(new Color(190,209,201));
-		panelVariosDias.setBounds(109, 211, 543, 130);
+		panelVariosDias.setBounds(119, 211, 533, 130);
 		contentPanel.add(panelVariosDias);
 		panelVariosDias.setLayout(null);
 		
@@ -210,7 +222,7 @@ public class RegEvent extends JDialog {
 		
 		panelUnDia.setVisible(false);
 		panelUnDia.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panelUnDia.setBounds(109, 211, 543, 130);
+		panelUnDia.setBounds(119, 211, 533, 130);
 		panelUnDia.setBackground(new Color(190,209,201));
 		contentPanel.add(panelUnDia);
 		panelUnDia.setLayout(null);
@@ -271,19 +283,23 @@ public class RegEvent extends JDialog {
 						
 						if(option == JOptionPane.OK_OPTION) {
 							if(rdbtnEventoDeVarios.isSelected()) {
-								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),(Date)spnHoraFin.getValue());
+								evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+									cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
+										(Date)spnHoraFin.getValue(), (Integer) spnCantComisiones.getValue());
 								PUCMM.pucmm().crearEvento(evento);
 								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 							
 							}
 							else if(rdbtnEventoDeUn.isSelected()) {
-								Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),(Date)spnHoraFin1.getValue());
-								PUCMM.pucmm().crearEvento(evento);
+							 evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+									cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
+									(Date)spnHoraFin1.getValue(),(Integer)spnCantComisiones.getValue());
+							PUCMM.pucmm().crearEvento(evento);
 								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 							}
 							
 							clean();
-						}//hello
+						}
 						Principal.createLineChart();
 						Principal.createPieChart();
 						
@@ -291,7 +307,6 @@ public class RegEvent extends JDialog {
 				});
 				btnSiguiente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),(Date)spnHoraFin.getValue());
 						PUCMM.pucmm().crearEvento(evento);
 						evento = PUCMM.pucmm().getMisEventos().get(PUCMM.pucmm().getCantEventos()-1);
 						RegComision comFrame = new RegComision(evento);
