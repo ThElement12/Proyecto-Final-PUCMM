@@ -277,37 +277,36 @@ public class RegEvent extends JDialog {
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
+								"Advertencia",JOptionPane.WARNING_MESSAGE);
+						
+						if(option == JOptionPane.OK_OPTION) {
+							
+							PUCMM.pucmm().crearEvento(evento);
+							JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+						
+							clean();
+						}
 					
 					}
 				});
 				btnSiguiente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
-								"Advertencia",JOptionPane.WARNING_MESSAGE);
 						
-						if(option == JOptionPane.OK_OPTION) {
-							if(rdbtnEventoDeVarios.isSelected()) {
-								evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
-									cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
-										(Date)spnHoraFin.getValue(), (Integer) spnCantComisiones.getValue());
-								PUCMM.pucmm().crearEvento(evento);
-								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+						if(rdbtnEventoDeVarios.isSelected()) {
+							evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+								cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
+									(Date)spnHoraFin.getValue(), (Integer) spnCantComisiones.getValue());
 							
-							}
-							else if(rdbtnEventoDeUn.isSelected()) {
-							 evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
-									cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
-									(Date)spnHoraFin1.getValue(),(Integer)spnCantComisiones.getValue());
-							PUCMM.pucmm().crearEvento(evento);
-								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-							}
-							
-							clean();
 						}
+						else if(rdbtnEventoDeUn.isSelected()) {
+						 evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+								cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
+								(Date)spnHoraFin1.getValue(),(Integer)spnCantComisiones.getValue());
+						 	}
+				
 						Principal.createLineChart();
-						Principal.createPieChart();
-						
-					
+						Principal.createPieChart();	
 						PUCMM.pucmm().crearEvento(evento);
 						evento = PUCMM.pucmm().getMisEventos().get(PUCMM.pucmm().getCantEventos()-1);
 						RegComision comFrame = new RegComision(evento);

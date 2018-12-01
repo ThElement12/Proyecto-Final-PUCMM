@@ -189,7 +189,7 @@ public class Principal extends JFrame {
 		}
 		
 		else {
-			for(int i = pucmm.getMisEventos().size() , j = 0; i > 0 && i > pucmm.getCantEventos() - 6 || j < 6; i -- , j ++) {
+			for(int i = pucmm.getMisEventos().size() - 1, j = 0; i > 0 && i > pucmm.getCantEventos() - 6 || j < 6; i -- , j ++) {
 				event[j] = pucmm.getMisEventos().get(i);
 			}
 		
