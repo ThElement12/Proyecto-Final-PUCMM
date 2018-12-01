@@ -53,6 +53,7 @@ public class RegEvent extends JDialog {
 	private JSpinner spnDiaDelEvento = new JSpinner();
 	private JPanel panelImagen = new JPanel();
 	private JPanel panelReg = new JPanel();
+	private final JButton btnSiguiente = new JButton("Siguiente");
 
 	
 	public RegEvent() {
@@ -288,6 +289,15 @@ public class RegEvent extends JDialog {
 						
 					}
 				});
+				btnSiguiente.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						RegComision comFrame = new RegComision();
+						comFrame.setModal(true);
+						comFrame.setVisible(true);
+					}
+				});
+				
+				buttonPane.add(btnSiguiente);
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
 				getRootPane().setDefaultButton(btnRegistrar);
