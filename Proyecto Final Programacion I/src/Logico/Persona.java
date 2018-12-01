@@ -1,5 +1,6 @@
 package Logico;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 public abstract class Persona implements Serializable {
@@ -12,13 +13,15 @@ public abstract class Persona implements Serializable {
 	protected String tema;
 	protected Comision comision;
 	protected String area;
+	protected Image foto;
 
-	public Persona(String cedula, String nombre, String numero, String area) {
+	public Persona(String cedula, String nombre, String numero, String area, Image foto) {
 		selecte = false;
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
 		this.area = area;
+		this.foto = foto;
 		cant++;
 	}
 	public static int getCant() {
@@ -73,6 +76,9 @@ public abstract class Persona implements Serializable {
 	}
 	public void setArea(String area) {
 		this.area = area;
+	}
+	public Image getFoto() {
+		return foto;
 	}
 	
 

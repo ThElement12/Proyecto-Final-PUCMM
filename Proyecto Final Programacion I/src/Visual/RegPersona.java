@@ -191,7 +191,7 @@ public class RegPersona extends JDialog {
 							}
 							else if(rdbtnParticipante.isSelected()) {
 								Participante miParticipante = new Participante(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
-								,cbxArea.getSelectedItem().toString());
+								,cbxArea.getSelectedItem().toString(), imagen.getImage());
 								
 								PUCMM.pucmm().getMisPersonas().add(miParticipante);
 							}

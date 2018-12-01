@@ -8,7 +8,7 @@ public class Juez extends Persona {
 	private Image foto;
 	
 	public Juez(String cedula, String nombre, String numero, String area, Image foto) {
-		super(cedula, nombre, numero,area);
+		super(cedula, nombre, numero,area, foto);
 		representante = false;
 		this.area = area;	
 		this.foto = foto;

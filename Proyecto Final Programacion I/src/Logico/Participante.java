@@ -1,5 +1,6 @@
 package Logico;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,8 +8,8 @@ public class Participante extends Persona{
 	private String correo;
 	private ArrayList<Trabajo> misTrabajos;
 
-	public Participante(String cedula, String nombre, String numero, String area) {
-		super(cedula, nombre, numero,area);
+	public Participante(String cedula, String nombre, String numero, String area, Image foto) {
+		super(cedula, nombre, numero,area,foto);
 		misTrabajos = new ArrayList<>();
 	}
 
