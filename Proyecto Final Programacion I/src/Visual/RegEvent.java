@@ -278,6 +278,10 @@ public class RegEvent extends JDialog {
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 					
+					}
+				});
+				btnSiguiente.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
 						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
 								"Advertencia",JOptionPane.WARNING_MESSAGE);
 						
@@ -303,10 +307,7 @@ public class RegEvent extends JDialog {
 						Principal.createLineChart();
 						Principal.createPieChart();
 						
-					}
-				});
-				btnSiguiente.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
+					
 						PUCMM.pucmm().crearEvento(evento);
 						evento = PUCMM.pucmm().getMisEventos().get(PUCMM.pucmm().getCantEventos()-1);
 						RegComision comFrame = new RegComision(evento);
