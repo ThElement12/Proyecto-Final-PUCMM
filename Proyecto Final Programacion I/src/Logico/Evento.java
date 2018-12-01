@@ -180,12 +180,13 @@ public class Evento implements Serializable {
 		}
 		return aux;
 	}
-	public Recurso buscarRecursosPorId(String id) {
+	public Recurso buscarRecursosPorId(int id) {
 		Recurso aux = null;
 		int i = 0;
 		boolean finded = false;
 		while(!finded && i < misRecursos.size()) {
-			if(misRecursos.get(i).getId().equalsIgnoreCase(id)) {
+			misRecursos.get(i);
+			if(Recurso.getId() == id) {
 				aux = misRecursos.get(i);
 				finded = true;
 			}		
