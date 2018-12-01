@@ -124,8 +124,6 @@ public class PUCMM implements Serializable{
 		return miEvento;
 	}
 	
-	
-	
 	public ArrayList<Persona> getMisPersonas() {
 		return misPersonas;
 	}
