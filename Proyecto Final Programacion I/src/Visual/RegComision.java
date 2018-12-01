@@ -27,145 +27,160 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
 
 public class RegComision extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private static JTextField txtIdEvent;
-	private JTextField txtNombre;
-	private JTextField txtArea;
-	private JTextField txtCantArea;
 	private static DefaultTableModel Jmodel;
 	private static DefaultTableModel Pmodel;
 	private static Object[] Jfila;
 	private static Object[] Pfila;
-	private static ArrayList<Persona> misPersonas;
-	private JTable tblJuez;
-	private JTable tblPart;
+	private static ArrayList<Persona> misPersonas = PUCMM.pucmm().getMisPersonas();
 	private int Jindex;
 	private int Pindex;
-	private JButton btnSelect;
 	private String Jselect = "";
 	private String Pselect = "";
-
+	private JTextField txtJuezSecundario1;
+	private JTextField txtJuezSecundario2;
+	private JTable tableJueces;
+	private JTable tableParticipant;
+	private	static Evento evento;
 	 
 	public RegComision(Evento miEvento) {
-		setBounds(100, 100, 691, 438);
+		evento = miEvento;
+		setBounds(100, 100, 870, 482);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JPanel pnl_Info = new JPanel();
-		pnl_Info.setBounds(6, 6, 663, 91);
-		contentPanel.add(pnl_Info);
-		pnl_Info.setLayout(null);
+		JPanel panelJueces = new JPanel();
+		panelJueces.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelJueces.setBounds(516, 6, 332, 147);
+		contentPanel.add(panelJueces);
+		panelJueces.setLayout(null);
+		
+		JLabel lblJuezPrincipal = new JLabel("Juez Principal");
+		lblJuezPrincipal.setBounds(123, 6, 89, 16);
+		panelJueces.add(lblJuezPrincipal);
+		
+		JTextField txtJuezPrincipal = new JTextField();
+		txtJuezPrincipal.setBounds(106, 27, 122, 28);
+		panelJueces.add(txtJuezPrincipal);
+		txtJuezPrincipal.setColumns(10);
+		
+		JLabel lblJuecesSecundarios = new JLabel("Jueces Secundarios");
+		lblJuecesSecundarios.setBounds(106, 60, 122, 16);
+		panelJueces.add(lblJuecesSecundarios);
+		
+		txtJuezSecundario1 = new JTextField();
+		txtJuezSecundario1.setBounds(24, 88, 122, 28);
+		panelJueces.add(txtJuezSecundario1);
+		txtJuezSecundario1.setColumns(10);
+		
+		txtJuezSecundario2 = new JTextField();
+		txtJuezSecundario2.setBounds(177, 88, 122, 28);
+		panelJueces.add(txtJuezSecundario2);
+		txtJuezSecundario2.setColumns(10);
 		{
-			JLabel lblId = new JLabel("Id:");
-			lblId.setBounds(6, 6, 22, 16);
-			pnl_Info.add(lblId);
+			JPanel panelParticipante = new JPanel();
+			panelParticipante.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			panelParticipante.setBounds(516, 165, 332, 230);
+			contentPanel.add(panelParticipante);
+			panelParticipante.setLayout(null);
+			
+			JLabel lblParticipantes = new JLabel("Participantes: ");
+			lblParticipantes.setHorizontalAlignment(SwingConstants.CENTER);
+			lblParticipantes.setBounds(113, 6, 97, 23);
+			panelParticipante.add(lblParticipantes);
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(6, 38, 320, 186);
+			panelParticipante.add(scrollPane);
+			
+			JList listSeleccionados = new JList();
+			scrollPane.setViewportView(listSeleccionados);
 		}
 		
-		txtIdEvent = new JTextField();
-		txtIdEvent.setText(miEvento.getId());
-		txtIdEvent.setEditable(false);
-		txtIdEvent.setBounds(27, 4, 86, 20);
-		pnl_Info.add(txtIdEvent);
-		txtIdEvent.setColumns(10);
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(6, 6, 354, 389);
+		contentPanel.add(panel);
+		panel.setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(6, 31, 64, 14);
-		pnl_Info.add(lblNombre);
+		JLabel lblJuecesDisponibles = new JLabel("Jueces Disponibles");
+		lblJuecesDisponibles.setBounds(122, 6, 116, 16);
+		panel.add(lblJuecesDisponibles);
 		
-		txtNombre = new JTextField();
-		txtNombre.setText(miEvento.getNombre());
-		txtNombre.setEditable(false);
-		txtNombre.setBounds(62, 28, 148, 20);
-		pnl_Info.add(txtNombre);
-		txtNombre.setColumns(10);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 34, 342, 136);
+		panel.add(scrollPane);
 		
-		JLabel lblAreasDisp = new JLabel("Seleccionar Area:");
-		lblAreasDisp.setBounds(370, 7, 104, 14);
-		pnl_Info.add(lblAreasDisp);
-		
-		JComboBox cbxSelAr = new JComboBox();
-		cbxSelAr.setBounds(473, 4, 148, 20);
-		pnl_Info.add(cbxSelAr);
-		
-		JLabel lblArea = new JLabel("Area:");
-		lblArea.setBounds(6, 57, 35, 14);
-		pnl_Info.add(lblArea);
-		
-		txtArea = new JTextField();
-		txtArea.setText(miEvento.getArea());
-		txtArea.setEditable(false);
-		txtArea.setBounds(38, 54, 141, 20);
-		pnl_Info.add(txtArea);
-		txtArea.setColumns(10);
-		
-		JLabel lblCantDeAreas = new JLabel("Cant. de Comisiones Disp.:");
-		lblCantDeAreas.setBounds(335, 34, 144, 14);
-		pnl_Info.add(lblCantDeAreas);
-		
-		txtCantArea = new JTextField();
-		txtCantArea.setEditable(false);
-		txtCantArea.setBounds(473, 28, 35, 20);
-		pnl_Info.add(txtCantArea);
-		txtCantArea.setColumns(10);
-		
-		JPanel pnl_Juez = new JPanel();
-		pnl_Juez.setBounds(6, 109, 266, 251);
-		contentPanel.add(pnl_Juez);
-		pnl_Juez.setLayout(new BorderLayout(0, 0));
-		
-		tblJuez = new JTable();
-		pnl_Juez.add(tblJuez, BorderLayout.CENTER);
-		tblJuez.addMouseListener(new MouseAdapter() {
+		tableJueces = new JTable();
+		tableJueces.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tableJueces.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Jindex = tblJuez.getSelectedRow();
-				if(Jindex >= 0) {
-					Jselect = tblJuez.getValueAt(Jindex, 0).toString();
-					btnSelect.setEnabled(true);
+			public void mouseClicked(MouseEvent e) {
+				int index = tableJueces.getSelectedRow();
+				if(index >= 0) {
+					Jselect = tableJueces.getValueAt(index, 0).toString();
 				}
 			}
-			
 		});
 		Jmodel = new DefaultTableModel();
-		String [] JCNames = {"Cédula", "Nombre","Area"};
-		Jmodel.setColumnIdentifiers(JCNames);
+		String[] columnNamesJuez = {"Id","Nombre","Area"};
+		Jmodel.setColumnIdentifiers(columnNamesJuez);
+		tableJueces.setModel(Jmodel);
+		scrollPane.setViewportView(tableJueces);
 		
-		btnSelect = new JButton("A\u00F1adir");
-		btnSelect.setEnabled(false);
-		btnSelect.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		btnSelect.setBounds(274, 213, 89, 23);
-		contentPanel.add(btnSelect);
+		JLabel lblParticipanteDisponible = new JLabel("Participantes Disponibles");
+		lblParticipanteDisponible.setBounds(122, 180, 152, 16);
+		panel.add(lblParticipanteDisponible);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(363, 109, 306, 251);
-		contentPanel.add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(6, 208, 342, 175);
+		panel.add(scrollPane_1);
 		
-		tblPart = new JTable();
-		tblPart.addMouseListener(new MouseAdapter() {
+		tableParticipant = new JTable();
+		tableParticipant.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tableParticipant.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent e) {
-				Pindex = tblPart.getSelectedRow();
-				if(Pindex >= 0) {
-					Pselect = tblPart.getValueAt(Pindex, 0).toString();
-					btnSelect.setEnabled(true);
+				int index = tableParticipant.getSelectedRow();
+				if(index >= 0) {
+					Pselect = tableParticipant.getValueAt(index, 0).toString();
 				}
 			}
 		});
 		Pmodel = new DefaultTableModel();
+		String[] columnNamesPart = {"Id","Nombre","Area"};
+		Pmodel.setColumnIdentifiers(columnNamesPart);
+		tableParticipant.setModel(Pmodel);
+		scrollPane_1.setViewportView(tableParticipant);
+		
+		JButton btnAsignarPrincipal = new JButton("Asignar Principal");
+		btnAsignarPrincipal.setBounds(372, 38, 123, 28);
+		contentPanel.add(btnAsignarPrincipal);
+		
+		JButton btnAsignarSecundario = new JButton("Asignar Secundario");
+		btnAsignarSecundario.setBounds(372, 78, 136, 28);
+		contentPanel.add(btnAsignarSecundario);
+		
+		JButton btnAgregarParticipante = new JButton("Agregar Part.");
+		btnAgregarParticipante.setBounds(372, 250, 132, 28);
+		contentPanel.add(btnAgregarParticipante);
+		Jmodel = new DefaultTableModel();
+		String [] JCNames = {"Cédula", "Nombre","Area"};
+		Jmodel.setColumnIdentifiers(JCNames);
+		Pmodel = new DefaultTableModel();
 		String [] PMNames = {"Cédula","Nombre"};
 		Pmodel.setColumnIdentifiers(PMNames);
-		panel.add(tblPart, BorderLayout.CENTER);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -181,37 +196,25 @@ public class RegComision extends JDialog {
 			}
 		}
 	}
-	
-	private static void filterP() {
-		for(int i = 0; i < PUCMM.pucmm().getMisPersonas().size(); i ++) {
-			if(PUCMM.pucmm().getMisPersonas().get(i).getEvento().getId().equalsIgnoreCase(txtIdEvent.getText()) && !PUCMM.pucmm().getMisPersonas().get(i).isSelecte()) {
-				misPersonas.add(PUCMM.pucmm().getMisPersonas().get(i));
-			}
-		}
-	}
-	
-	private static void loadJuez() {
+	private static void loadjueces() {
 		Jmodel.setRowCount(0);
 		Jfila = new Object[Jmodel.getColumnCount()];
-		for(int i = 0; i < misPersonas.size(); i ++) {
-				if(misPersonas.get(i) instanceof Juez) {
-					Jfila[0] = misPersonas.get(i).getCedula();
-					Jfila[1] = misPersonas.get(i).getNombre();
-					Jfila[2] = misPersonas.get(i).getArea();
-					Jmodel.addRow(Jfila);
+		
+		for (Persona juez : PUCMM.pucmm().getMisPersonas()) {
+			if(juez instanceof Juez) {
+				if(juez.isdisponible()) {
+					if(juez.getArea().equalsIgnoreCase(evento.getArea())){
+						
+					}
+				}
+				
 			}
+			
 		}
+		
+		
+		
+		
 	}
 	
-	private static void loadPart() {
-		Pmodel.setRowCount(0);
-		Pfila = new Object[Pmodel.getColumnCount()];
-		for(int i = 0; i < misPersonas.size(); i++) {
-			if(misPersonas.get(i) instanceof Participante) {
-				Pfila[0] = misPersonas.get(i).getCedula();
-				Pfila[1] = misPersonas.get(i).getNombre();
-				Pmodel.addRow(Pfila);
-			}
-		}
-	}
 }

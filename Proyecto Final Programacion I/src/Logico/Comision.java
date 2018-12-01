@@ -5,12 +5,14 @@ import java.util.ArrayList;
 
 public class Comision implements Serializable{
 	private String id;
+	private String tema;
 	private ArrayList<Persona> misMiembros;
 	private String area;
 	
-	public Comision(String id,String area) {
+	public Comision(String id,String area, String tema) {
 		this.id = id;
 		this.area = area;
+		this.tema = tema;
 		misMiembros = new ArrayList<>();
 	}
 
@@ -39,5 +41,10 @@ public class Comision implements Serializable{
 	}
 	public void insertarPrincipante(Participante miParticipante) {
 		misMiembros.add(miParticipante);
+	}
+
+
+	public String getTema() {
+		return tema;
 	}
 }

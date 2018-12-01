@@ -4,19 +4,18 @@ import java.awt.Image;
 import java.io.Serializable;
 
 public abstract class Persona implements Serializable {
-	protected boolean selecte;
+	protected boolean disponible;
 	private static int cant = 1;
 	protected String cedula;
 	protected String nombre;
 	protected String numero;
 	protected Evento evento;
-	protected String tema;
 	protected Comision comision;
 	protected String area;
 	protected Image foto;
 
 	public Persona(String cedula, String nombre, String numero, String area, Image foto) {
-		selecte = false;
+		disponible = true;
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
@@ -28,12 +27,12 @@ public abstract class Persona implements Serializable {
 		return cant;
 	}
 
-	public boolean isSelecte() {
-		return selecte;
+	public boolean isdisponible() {
+		return disponible;
 	}
 
-	public void setSelecte(boolean selecte) {
-		this.selecte = selecte;
+	public void setdisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 	public String getCedula() {
 		return cedula;
@@ -64,12 +63,6 @@ public abstract class Persona implements Serializable {
 	}
 	public void setComision(Comision comision) {
 		this.comision = comision;
-	}
-	public String getTema() {
-		return tema;
-	}
-	public void setTema(String tema) {
-		this.tema = tema;
 	}
 	public String getArea() {
 		return area;

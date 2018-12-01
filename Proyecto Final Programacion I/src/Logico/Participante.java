@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Participante extends Persona{
-	private String correo;
+	
 	private ArrayList<Trabajo> misTrabajos;
 
 	public Participante(String cedula, String nombre, String numero, String area, Image foto) {
@@ -13,13 +13,6 @@ public class Participante extends Persona{
 		misTrabajos = new ArrayList<>();
 	}
 
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
 	public void agregarTrabajo(Trabajo trabajo) {
 		
 		misTrabajos.add(trabajo);

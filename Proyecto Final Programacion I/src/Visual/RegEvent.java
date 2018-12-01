@@ -30,6 +30,9 @@ import javax.swing.border.BevelBorder;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.swing.SpinnerNumberModel;
 
 public class RegEvent extends JDialog {
@@ -55,6 +58,7 @@ public class RegEvent extends JDialog {
 	private JPanel panelImagen = new JPanel();
 	private JPanel panelReg = new JPanel();
 	private Evento evento;
+	private SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
 	private final JButton btnSiguiente = new JButton("Siguiente");
 	private final JLabel lblCantComisiones = new JLabel("Cant. Comisiones:");
 	private final JSpinner spnCantComisiones = new JSpinner();
@@ -207,6 +211,12 @@ public class RegEvent extends JDialog {
 		JSpinner.DateEditor horaIni = new JSpinner.DateEditor(spnHoraIni, "HH:mm:ss");
 		spnHoraIni.setEditor(horaIni);
 		spnHoraIni.setBounds(92, 64, 148, 28);
+		try {
+			spnHoraIni.setValue(formatoHora.parse("8:00"));
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		panelVariosDias.add(spnHoraIni);
 		
 		JLabel lblHoraDeFinalizacion = new JLabel("Hora de Finalizacion:");
@@ -218,6 +228,12 @@ public class RegEvent extends JDialog {
 		JSpinner.DateEditor horaFin = new JSpinner.DateEditor(spnHoraFin, "HH:mm:ss");
 		spnHoraFin.setEditor(horaFin);
 		spnHoraFin.setBounds(379, 64, 148, 28);
+		try {
+			spnHoraFin.setValue(formatoHora.parse("8:00"));
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		panelVariosDias.add(spnHoraFin);
 		
 		panelUnDia.setVisible(false);
@@ -232,6 +248,12 @@ public class RegEvent extends JDialog {
 		JSpinner.DateEditor horaini1 = new JSpinner.DateEditor(spnHoraIni1, "HH:mm:ss");
 		spnHoraIni1.setEditor(horaini1);
 		spnHoraIni1.setBounds(92, 15, 148, 28);
+		try {
+			spnHoraIni1.setValue(formatoHora.parse("8:00"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		panelUnDia.add(spnHoraIni1);
 		
 		JLabel lblHoraInicio = new JLabel("Hora De Inicio:");
@@ -247,6 +269,12 @@ public class RegEvent extends JDialog {
 		JSpinner.DateEditor horaFin1 = new JSpinner.DateEditor(spnHoraFin1, "HH:mm:ss");
 		spnHoraFin1.setEditor(horaFin1);	
 		spnHoraFin1.setBounds(379, 15, 148, 28);
+		try {
+			spnHoraFin1.setValue(formatoHora.parse("8:00"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		panelUnDia.add(spnHoraFin1);
 		
 		spnDiaDelEvento.setModel(new SpinnerDateModel());
@@ -324,8 +352,7 @@ public class RegEvent extends JDialog {
 				JButton btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Principal.createLineChart();
-						Principal.createPieChart();
+						
 						dispose();
 					}
 				});
@@ -342,10 +369,16 @@ public class RegEvent extends JDialog {
 		cbxLugar.setSelectedIndex(0);
 		spnFechaFin.setValue(new Date());
 		spnFechaInicio.setValue(new Date());
-		spnHoraFin.setValue(new Date());
-		spnHoraFin1.setValue(new Date());
-		spnHoraIni.setValue(new Date());
-		spnHoraIni1.setValue(new Date());
+		try {
+			spnHoraFin.setValue(formatoHora.parse("8:00"));
+			spnHoraFin1.setValue(formatoHora.parse("8:00"));
+			spnHoraIni.setValue(formatoHora.parse("8:00"));
+			spnHoraIni1.setValue(formatoHora.parse("8:00"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		spnDiaDelEvento.setValue(new Date());
 		
 		
