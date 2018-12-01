@@ -129,7 +129,7 @@ public class RegPersona extends JDialog {
 		panel_principal.add(lblAreaEspecializado);
 		
 		
-		cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Medicina", "Mercadeo", "Informatica", "Ingenieria General", "Arquitectura"}));
+		cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"}));
 		cbxArea.setBounds(127, 164, 134, 26);
 		panel_principal.add(cbxArea);
 		

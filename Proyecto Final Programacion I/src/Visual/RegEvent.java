@@ -105,7 +105,7 @@ public class RegEvent extends JDialog {
 			lblArea.setBounds(6, 133, 41, 16);
 			panelReg.add(lblArea);
 			
-			cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Ciencias/Tecnolog\u00EDa", "Medicina", "Mercadeo/Administracion", "Deportivo"}));
+			cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"}));
 			cbxArea.setBounds(47, 128, 156, 26);
 			panelReg.add(cbxArea);
 			rdbtnEventoDeVarios.addActionListener(new ActionListener() {
