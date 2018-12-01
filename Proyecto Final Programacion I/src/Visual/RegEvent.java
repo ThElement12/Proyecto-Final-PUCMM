@@ -306,11 +306,14 @@ public class RegEvent extends JDialog {
 				btnRegistrar.setEnabled(false);
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
 								"Advertencia",JOptionPane.WARNING_MESSAGE);
 						
 						if(option == JOptionPane.OK_OPTION) {
 							
+							Principal.createLineChart();
+							Principal.createPieChart();	
 							PUCMM.pucmm().crearEvento(evento);
 							JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 						
@@ -333,11 +336,7 @@ public class RegEvent extends JDialog {
 								cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
 								(Date)spnHoraFin1.getValue(),(Integer)spnCantComisiones.getValue());
 						 	}
-				
-						Principal.createLineChart();
-						Principal.createPieChart();	
-						PUCMM.pucmm().crearEvento(evento);
-						evento = PUCMM.pucmm().getMisEventos().get(PUCMM.pucmm().getCantEventos()-1);
+						
 						RegComision comFrame = new RegComision(evento);
 						comFrame.setModal(true);
 						comFrame.setVisible(true);

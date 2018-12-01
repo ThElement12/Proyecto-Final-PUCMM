@@ -4,25 +4,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Comision implements Serializable{
-	private String id;
+	private int id;
 	private String tema;
 	private ArrayList<Persona> misMiembros;
 	private String area;
+	private static int cant = 1;
 	
-	public Comision(String id,String area, String tema) {
-		this.id = id;
+	public Comision(String area, String tema) {
 		this.area = area;
 		this.tema = tema;
 		misMiembros = new ArrayList<>();
+		id = cant;
+		cant++;
 	}
 
 	
-	public String getId() {
+	public int getId() {
 		return id;
-	}
-	
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getArea() {

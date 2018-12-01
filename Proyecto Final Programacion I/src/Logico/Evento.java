@@ -238,11 +238,11 @@ public class Evento implements Serializable {
 		return cant;
 	}
 	
-	public int searchPosComByComId(String comId) {
+	public int searchPosComByComId(int comId) {
 		boolean finded = false;
 		int i = 0;
 		while(!finded && i < misComisiones.size()) {
-			if(misComisiones.get(i).getId().equalsIgnoreCase(comId)) {
+			if(misComisiones.get(i).getId() == comId) {
 				finded = true;
 			}
 			

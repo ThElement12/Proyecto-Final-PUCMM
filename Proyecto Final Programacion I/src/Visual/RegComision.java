@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Logico.Comision;
 import Logico.Evento;
 import Logico.Juez;
 import Logico.PUCMM;
@@ -42,33 +43,75 @@ public class RegComision extends JDialog {
 	private JList<String> listSeleccionados = new JList<String>();
 	private static DefaultListModel<String> model = new DefaultListModel<>();
 	private int Jindex = 0;
+	private int cant = 0;
+	private int index = -1;
 	private String Jselect = "";
 	private String Pselect = "";
-	private JTextField txtJuezSecundario1;
-	private JTextField txtJuezSecundario2;
+	private JTextField txtJuezPrincipal = new JTextField();
+	private JTextField txtJuezSecundario1 = new JTextField();
+	private JTextField txtJuezSecundario2 = new JTextField();
 	private JTable tableJueces;
 	private JTable tableParticipant;
 	private	static Evento evento;
+	private JButton btnAsignarPrincipal = new JButton("Asignar Principal");
+	private JButton btnAsignarSecundario = new JButton("Asignar Secundario");
+	private JButton btnAgregarParticipante = new JButton("Agregar Part.");
+	private JButton btnQuitarPart = new JButton("Quitar  Part.");
+	private JButton btnQuitarPrincipal = new JButton("Quitar Principal");
+	private JButton btnQuitarSecundario = new JButton("Quitar Secundario");
+	private JTextField txtTema;
+	
 	 
 	public RegComision(Evento miEvento) {
 		evento = miEvento;
-		setBounds(100, 100, 870, 482);
+		setBounds(100, 100, 916, 523);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
+		if(Jselect.isEmpty()) {
+			btnAsignarPrincipal.setEnabled(false);
+			btnAsignarSecundario.setEnabled(false);
+		}
+		else {
+			btnAsignarPrincipal.setEnabled(true);
+			btnAsignarSecundario.setEnabled(true);
+		}
+		
+		if(txtJuezPrincipal.getText().isEmpty()) {
+			btnQuitarPrincipal.setEnabled(false);
+		}
+		else {
+			btnQuitarPrincipal.setEnabled(true);
+		}
+		if(Pselect.isEmpty()) {
+			btnAgregarParticipante.setEnabled(false);
+		}
+		else {
+			btnAgregarParticipante.setEnabled(true);
+		}
+		if(index == -1) {
+			btnQuitarPart.setEnabled(false);
+		}
+		else {
+			btnQuitarPart.setEnabled(true);
+		}
+		
+		
+		
 		JPanel panelJueces = new JPanel();
 		panelJueces.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelJueces.setBounds(516, 6, 332, 147);
+		panelJueces.setBounds(562, 47, 332, 147);
 		contentPanel.add(panelJueces);
 		panelJueces.setLayout(null);
 		
 		JLabel lblJuezPrincipal = new JLabel("Juez Principal");
 		lblJuezPrincipal.setBounds(123, 6, 89, 16);
 		panelJueces.add(lblJuezPrincipal);
+		txtJuezPrincipal.setEditable(false);
 		
-		JTextField txtJuezPrincipal = new JTextField();
+	
 		txtJuezPrincipal.setBounds(106, 27, 122, 28);
 		panelJueces.add(txtJuezPrincipal);
 		txtJuezPrincipal.setColumns(10);
@@ -77,19 +120,21 @@ public class RegComision extends JDialog {
 		lblJuecesSecundarios.setBounds(106, 60, 122, 16);
 		panelJueces.add(lblJuecesSecundarios);
 		
-		txtJuezSecundario1 = new JTextField();
+	
+		txtJuezSecundario1.setEditable(false);
 		txtJuezSecundario1.setBounds(24, 88, 122, 28);
 		panelJueces.add(txtJuezSecundario1);
 		txtJuezSecundario1.setColumns(10);
 		
-		txtJuezSecundario2 = new JTextField();
+		
+		txtJuezSecundario2.setEditable(false);
 		txtJuezSecundario2.setBounds(177, 88, 122, 28);
 		panelJueces.add(txtJuezSecundario2);
 		txtJuezSecundario2.setColumns(10);
 		{
 			JPanel panelParticipante = new JPanel();
 			panelParticipante.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			panelParticipante.setBounds(516, 165, 332, 230);
+			panelParticipante.setBounds(562, 206, 332, 230);
 			contentPanel.add(panelParticipante);
 			panelParticipante.setLayout(null);
 			
@@ -108,7 +153,7 @@ public class RegComision extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(6, 6, 354, 389);
+		panel.setBounds(6, 47, 354, 389);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -164,21 +209,21 @@ public class RegComision extends JDialog {
 		scrollPane_1.setViewportView(tableParticipant);
 		loadparticipantes();
 		
-		JButton btnAsignarPrincipal = new JButton("Asignar Principal");
+		
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtJuezPrincipal.setText(Pselect);	
 			}
 		});
-		btnAsignarPrincipal.setBounds(372, 19, 132, 28);
+		btnAsignarPrincipal.setBounds(390, 101, 132, 28);
 		contentPanel.add(btnAsignarPrincipal);
 		
-		JButton btnAsignarSecundario = new JButton("Asignar Secundario");
 		btnAsignarSecundario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Jindex == 0) {
 					txtJuezSecundario1.setText(Jselect);
 					Jindex = 1;
+					
 				}
 				else if(Jindex == 1) {
 					txtJuezSecundario2.setText(Jselect);
@@ -187,10 +232,10 @@ public class RegComision extends JDialog {
 				
 			}
 		});
-		btnAsignarSecundario.setBounds(372, 95, 136, 28);
+		btnAsignarSecundario.setBounds(390, 177, 136, 28);
 		contentPanel.add(btnAsignarSecundario);
 		
-		JButton btnAgregarParticipante = new JButton("Agregar Part.");
+		
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.addElement(Pselect);
@@ -199,20 +244,51 @@ public class RegComision extends JDialog {
 				
 			}
 		});
-		btnAgregarParticipante.setBounds(372, 250, 132, 28);
+		btnAgregarParticipante.setBounds(390, 332, 132, 28);
 		contentPanel.add(btnAgregarParticipante);
 		
-		JButton btnQuitarPart = new JButton("Quitar  Part.");
-		btnQuitarPart.setBounds(372, 290, 132, 28);
+	
+		btnQuitarPart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				index = listSeleccionados.getSelectedIndex();
+				listSeleccionados.remove(index);
+			}
+		});
+		btnQuitarPart.setBounds(390, 372, 132, 28);
 		contentPanel.add(btnQuitarPart);
 		
-		JButton btnQuitarPrincipal = new JButton("Quitar Principal");
-		btnQuitarPrincipal.setBounds(372, 48, 132, 28);
+		
+		btnQuitarPrincipal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtJuezPrincipal.setText("");
+			}
+		});
+		btnQuitarPrincipal.setBounds(390, 130, 132, 28);
 		contentPanel.add(btnQuitarPrincipal);
 		
-		JButton btnQuitarSecundario = new JButton("Quitar Secundario");
-		btnQuitarSecundario.setBounds(372, 125, 136, 28);
+		btnQuitarSecundario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Jindex == 0) {
+					txtJuezSecundario2.setText("");
+					
+				}
+				else if(Jindex == 1) {
+					txtJuezSecundario1.setText("");
+				}
+				
+			}
+		});
+		btnQuitarSecundario.setBounds(390, 207, 136, 28);
 		contentPanel.add(btnQuitarSecundario);
+		
+		JLabel lblTemaPrincipal = new JLabel("Tema Principal:");
+		lblTemaPrincipal.setBounds(6, 19, 93, 16);
+		contentPanel.add(lblTemaPrincipal);
+		
+		txtTema = new JTextField();
+		txtTema.setBounds(111, 13, 231, 28);
+		contentPanel.add(txtTema);
+		txtTema.setColumns(10);
 		Jmodel = new DefaultTableModel();
 		String [] JCNames = {"Cédula", "Nombre","Area"};
 		Jmodel.setColumnIdentifiers(JCNames);
@@ -225,15 +301,24 @@ public class RegComision extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Salir");
-				okButton.addActionListener(new ActionListener() {
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				
+				JButton btnRegistrar = new JButton("Registrar");
+				btnRegistrar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Comision comision = new Comision(miEvento.getArea(), txtTema.getText());
+						miEvento.getMisComisiones().add(comision);
+					}
+				});
+				buttonPane.add(btnRegistrar);
+				btnCancelar.setActionCommand("OK");
+				buttonPane.add(btnCancelar);
+				getRootPane().setDefaultButton(btnCancelar);
 			}
 		}
 	}
