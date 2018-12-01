@@ -248,7 +248,7 @@ public class Principal extends JFrame {
 	private static void getCantMonth(int []mes) {
 		PUCMM pucmm = PUCMM.pucmm();
 		for(int i = 0;i < 12; i++) {
-			for(int j = 0; j < pucmm.getCantEventos(); j ++) {
+			for(int j = 0; j < pucmm.getCantEventos() - 1; j ++) {
 				if(pucmm.getMisEventos().get(j).getFechaIni().getMonth() == i) {
 					mes[i] += 1;
 				}
@@ -259,7 +259,7 @@ public class Principal extends JFrame {
 	private static void getCantArea(String area[],int cantArea[]) {
 		PUCMM pucmm = PUCMM.pucmm();
 		for(int i = 0; i < 4; i ++) {
-			for(int j = 0; j < pucmm.getCantEventos() ; j++) {
+			for(int j = 0; j < pucmm.getCantEventos() - 1 ; j++) {
 				if(area[i].equalsIgnoreCase(pucmm.getMisEventos().get(j).getArea())) {
 					cantArea[i] += 1;
 				}
