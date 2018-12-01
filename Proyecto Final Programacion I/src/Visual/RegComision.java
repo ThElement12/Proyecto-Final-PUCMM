@@ -135,6 +135,7 @@ public class RegComision extends JDialog {
 		Jmodel.setColumnIdentifiers(columnNamesJuez);
 		tableJueces.setModel(Jmodel);
 		scrollPane.setViewportView(tableJueces);
+		loadjueces();
 		
 		JLabel lblParticipanteDisponible = new JLabel("Participantes Disponibles");
 		lblParticipanteDisponible.setBounds(122, 180, 152, 16);
@@ -160,8 +161,14 @@ public class RegComision extends JDialog {
 		Pmodel.setColumnIdentifiers(columnNamesPart);
 		tableParticipant.setModel(Pmodel);
 		scrollPane_1.setViewportView(tableParticipant);
+		loadparticipantes();
 		
 		JButton btnAsignarPrincipal = new JButton("Asignar Principal");
+		btnAsignarPrincipal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnAsignarPrincipal.setBounds(372, 38, 123, 28);
 		contentPanel.add(btnAsignarPrincipal);
 		
@@ -204,19 +211,39 @@ public class RegComision extends JDialog {
 			if(juez instanceof Juez) {
 				if(juez.isdisponible()) {
 					if(juez.getArea().equalsIgnoreCase(evento.getArea())){
-						Jfila[0] =Integer.toString(juez.getCant());
+						Jfila[0] =Integer.toString(juez.getId()); 
+						Jfila[1] = juez.getNombre();
+						Jfila[2] = juez.getArea();
 						
-						
+						Jmodel.addRow(Jfila);
 					}
 				}
-				
 			}
-			
 		}
 		
+	}
+	private static void loadparticipantes() {
+		Pmodel.setRowCount(0);
+		Pfila = new Object[Pmodel.getColumnCount()];
+		
+		for (Persona persona : PUCMM.pucmm().getMisPersonas()) {
+			if(persona instanceof Persona) {
+				if(persona.isdisponible()) {
+					if(persona.getArea().equalsIgnoreCase(evento.getArea())) {
+						Pfila[0] = Integer.toString(persona.getId());
+						Pfila[1] = persona.getNombre();
+						Pfila[2] = persona.getArea();
+						
+						Pmodel.addRow(Jfila);
+					}
+					
+				}
+			
+			}
 		
 		
-		
+		}
+	
 	}
 	
 }

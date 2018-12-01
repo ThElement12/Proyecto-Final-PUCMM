@@ -6,6 +6,7 @@ import java.io.Serializable;
 public abstract class Persona implements Serializable {
 	protected boolean disponible;
 	private static int cant = 1;
+	protected int id;
 	protected String cedula;
 	protected String nombre;
 	protected String numero;
@@ -21,6 +22,7 @@ public abstract class Persona implements Serializable {
 		this.numero = numero;
 		this.area = area;
 		this.foto = foto;
+		id = cant;
 		cant++;
 	}
 	public static int getCant() {
@@ -72,6 +74,9 @@ public abstract class Persona implements Serializable {
 	}
 	public Image getFoto() {
 		return foto;
+	}
+	public int getId() {
+		return id;
 	}
 	
 
