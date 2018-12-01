@@ -7,7 +7,7 @@ public class Participante extends Persona{
 	private String correo;
 	private ArrayList<Trabajo> misTrabajos;
 
-	public Participante(String cedula, String nombre, String numero,String correo, String area) {
+	public Participante(String cedula, String nombre, String numero, String area) {
 		super(cedula, nombre, numero,area);
 		misTrabajos = new ArrayList<>();
 	}
