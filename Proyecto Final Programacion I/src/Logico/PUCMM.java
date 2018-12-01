@@ -13,10 +13,12 @@ import org.jfree.chart.*;
 public class PUCMM implements Serializable{
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList<Evento> misEventos;
+	private ArrayList<Persona> misPersonas;
 	private static PUCMM pucmm;
 	private static File Fname = new File("Pucmm Eventos.dat");
 
 	private PUCMM() {
+		misPersonas = new ArrayList<>();
 		misRecursos = new ArrayList<>();
 		misEventos = new ArrayList<>();
 		
@@ -55,6 +57,8 @@ public class PUCMM implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	public void crearEvento(Evento evento) {
 		misEventos.add(evento);
@@ -119,6 +123,13 @@ public class PUCMM implements Serializable{
 		}
 		return miEvento;
 	}
+	
+	
+	
+	public ArrayList<Persona> getMisPersonas() {
+		return misPersonas;
+	}
+
 	public ArrayList<Recurso> getMisRecursos() {
 		return misRecursos;
 	}
