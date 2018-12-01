@@ -16,6 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import Logico.Juez;
 import Logico.PUCMM;
 import Logico.Participante;
+import Logico.Persona;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
@@ -40,10 +41,13 @@ public class RegPersona extends JDialog {
 	private JLabel lblImagenPerfil = new JLabel("");
 	private JTextField txtCedula;
 	private ImageIcon imagen;
-	
+	private JRadioButton rdbtnParticipante;
+	private JRadioButton rdbtnJuez;
+	private JComboBox<String> cbxArea = new JComboBox<>();
 
 	
 	public RegPersona() {
+		setTitle("Registrar Persona ");
 		setBounds(100, 100, 650, 373);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,6 +69,7 @@ public class RegPersona extends JDialog {
 		txtId = new JTextField();
 		txtId.setEditable(false);
 		txtId.setBounds(41, 19, 122, 28);
+		txtId.setText(Integer.toString(Persona.getCant()));
 		panel_principal.add(txtId);
 		txtId.setColumns(10);
 		
@@ -86,12 +91,34 @@ public class RegPersona extends JDialog {
 		panel_principal.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		JRadioButton rdbtnJuez = new JRadioButton("Juez");
+		rdbtnJuez = new JRadioButton("Juez");
+		rdbtnJuez.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnParticipante.isSelected()) {
+					rdbtnJuez.setSelected(true);
+					rdbtnParticipante.setSelected(false);
+				}
+				else if(rdbtnJuez.isSelected()) {
+					rdbtnJuez.setSelected(true);
+				}
+			}
+		});
 		rdbtnJuez.setBounds(6, 202, 115, 18);
 		panel_principal.add(rdbtnJuez);
 		rdbtnJuez.setBackground(new Color(190,209,201));
 		
-		JRadioButton rdbtnParticipante = new JRadioButton("Participante");
+		rdbtnParticipante = new JRadioButton("Participante");
+		rdbtnParticipante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnJuez.isSelected()) {
+					rdbtnParticipante.setSelected(true);
+					rdbtnJuez.setSelected(false);
+				}
+				else if(rdbtnParticipante.isSelected()) {
+					rdbtnParticipante.setSelected(true);
+				}
+			}
+		});
 		rdbtnParticipante.setSelected(true);
 		rdbtnParticipante.setBounds(145, 202, 115, 18);
 		rdbtnParticipante.setBackground(new Color(190,209,201));
@@ -101,8 +128,8 @@ public class RegPersona extends JDialog {
 		lblAreaEspecializado.setBounds(6, 174, 108, 16);
 		panel_principal.add(lblAreaEspecializado);
 		
-		JComboBox cbxArea = new JComboBox();
-		cbxArea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Medicina", "Mercadeo", "Informatica", "Ingenieria General", "Arquitectura"}));
+		
+		cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Medicina", "Mercadeo", "Informatica", "Ingenieria General", "Arquitectura"}));
 		cbxArea.setBounds(127, 164, 134, 26);
 		panel_principal.add(cbxArea);
 		
@@ -111,7 +138,7 @@ public class RegPersona extends JDialog {
 		panel_principal.add(lblCedula);
 		
 		txtCedula = new JTextField();
-		txtCedula.setBounds(61, 53, 248, 28);
+		txtCedula.setBounds(51, 53, 248, 28);
 		panel_principal.add(txtCedula);
 		txtCedula.setColumns(10);
 		
@@ -130,11 +157,8 @@ public class RegPersona extends JDialog {
 				fotoPerfil.setFileFilter(filter);
 				int returnVal = fotoPerfil.showOpenDialog(btnSubirFoto);
 				if(returnVal ==JFileChooser.APPROVE_OPTION) {
-			
 					imagen = new ImageIcon(fotoPerfil.getSelectedFile().getPath());
 					lblImagenPerfil.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(96, 128, Image.SCALE_SMOOTH)));
-					
-					
 				}
 			
 			}
@@ -163,14 +187,15 @@ public class RegPersona extends JDialog {
 							if(rdbtnJuez.isSelected()) {
 								Juez miJuez = new Juez(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
 								cbxArea.getSelectedItem().toString(),imagen.getImage());
-								PUCMM.pucmm().insertarPersona(miJuez, "0");
+								PUCMM.pucmm().getMisPersonas().add(miJuez);
 							}
 							else if(rdbtnParticipante.isSelected()) {
 								Participante miParticipante = new Participante(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
 								,cbxArea.getSelectedItem().toString());
 								
-								PUCMM.pucmm().insertarPersona(miParticipante, "0");
+								PUCMM.pucmm().getMisPersonas().add(miParticipante);
 							}
+							clean();
 						}
 						
 					}
@@ -191,4 +216,15 @@ public class RegPersona extends JDialog {
 			}
 		}
 	}
+	private void clean() {
+		txtId.setText(Integer.toString(Persona.getCant()));
+		txtCedula.setText("");
+		txtNombre.setText("");
+		txtTelefono.setText("");
+		cbxArea.setSelectedIndex(0);
+		lblImagenPerfil.setIcon(new ImageIcon(RegPersona.class.getResource("/img/iconfinder_user_118589(1).png")));
+		
+		
+	}
+	
 }
