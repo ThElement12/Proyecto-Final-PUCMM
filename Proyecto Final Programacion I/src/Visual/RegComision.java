@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Logico.Evento;
 import Logico.Juez;
 import Logico.PUCMM;
 import Logico.Participante;
@@ -21,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
@@ -39,9 +42,14 @@ public class RegComision extends JDialog {
 	private static ArrayList<Persona> misPersonas;
 	private JTable tblJuez;
 	private JTable tblPart;
+	private int Jindex;
+	private int Pindex;
+	private JButton btnSelect;
+	private String Jselect = "";
+	private String Pselect = "";
 
 	 
-	public RegComision() {
+	public RegComision(Evento miEvento) {
 		setBounds(100, 100, 691, 438);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,6 +67,7 @@ public class RegComision extends JDialog {
 		}
 		
 		txtIdEvent = new JTextField();
+		txtIdEvent.setText(miEvento.getId());
 		txtIdEvent.setEditable(false);
 		txtIdEvent.setBounds(27, 4, 86, 20);
 		pnl_Info.add(txtIdEvent);
@@ -69,6 +78,7 @@ public class RegComision extends JDialog {
 		pnl_Info.add(lblNombre);
 		
 		txtNombre = new JTextField();
+		txtNombre.setText(miEvento.getNombre());
 		txtNombre.setEditable(false);
 		txtNombre.setBounds(62, 28, 148, 20);
 		pnl_Info.add(txtNombre);
@@ -87,18 +97,19 @@ public class RegComision extends JDialog {
 		pnl_Info.add(lblArea);
 		
 		txtArea = new JTextField();
+		txtArea.setText(miEvento.getArea());
 		txtArea.setEditable(false);
 		txtArea.setBounds(38, 54, 141, 20);
 		pnl_Info.add(txtArea);
 		txtArea.setColumns(10);
 		
-		JLabel lblCantDeAreas = new JLabel("Cant. de Areas Disp.:");
-		lblCantDeAreas.setBounds(370, 34, 122, 14);
+		JLabel lblCantDeAreas = new JLabel("Cant. de Comisiones Disp.:");
+		lblCantDeAreas.setBounds(335, 34, 144, 14);
 		pnl_Info.add(lblCantDeAreas);
 		
 		txtCantArea = new JTextField();
 		txtCantArea.setEditable(false);
-		txtCantArea.setBounds(483, 31, 35, 20);
+		txtCantArea.setBounds(473, 28, 35, 20);
 		pnl_Info.add(txtCantArea);
 		txtCantArea.setColumns(10);
 		
@@ -109,11 +120,28 @@ public class RegComision extends JDialog {
 		
 		tblJuez = new JTable();
 		pnl_Juez.add(tblJuez, BorderLayout.CENTER);
+		tblJuez.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Jindex = tblJuez.getSelectedRow();
+				if(Jindex >= 0) {
+					Jselect = tblJuez.getValueAt(Jindex, 0).toString();
+					btnSelect.setEnabled(true);
+				}
+			}
+			
+		});
 		Jmodel = new DefaultTableModel();
 		String [] JCNames = {"Cédula", "Nombre","Area"};
 		Jmodel.setColumnIdentifiers(JCNames);
 		
-		JButton btnSelect = new JButton("A\u00F1adir");
+		btnSelect = new JButton("A\u00F1adir");
+		btnSelect.setEnabled(false);
+		btnSelect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnSelect.setBounds(274, 213, 89, 23);
 		contentPanel.add(btnSelect);
 		
@@ -123,6 +151,15 @@ public class RegComision extends JDialog {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		tblPart = new JTable();
+		tblPart.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Pindex = tblPart.getSelectedRow();
+				if(Pindex >= 0) {
+					Pselect = tblPart.getValueAt(Pindex, 0).toString();
+					btnSelect.setEnabled(true);
+				}
+			}
+		});
 		Pmodel = new DefaultTableModel();
 		String [] PMNames = {"Cédula","Nombre"};
 		Pmodel.setColumnIdentifiers(PMNames);

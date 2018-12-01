@@ -291,7 +291,10 @@ public class RegEvent extends JDialog {
 				});
 				btnSiguiente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						RegComision comFrame = new RegComision();
+						Evento evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),(Date)spnHoraFin.getValue());
+						PUCMM.pucmm().crearEvento(evento);
+						evento = PUCMM.pucmm().getMisEventos().get(PUCMM.pucmm().getCantEventos()-1);
+						RegComision comFrame = new RegComision(evento);
 						comFrame.setModal(true);
 						comFrame.setVisible(true);
 					}
