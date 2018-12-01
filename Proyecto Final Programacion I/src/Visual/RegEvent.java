@@ -283,7 +283,7 @@ public class RegEvent extends JDialog {
 							}
 							
 							clean();
-						}
+						}//hello
 						Principal.createLineChart();
 						Principal.createPieChart();
 						
