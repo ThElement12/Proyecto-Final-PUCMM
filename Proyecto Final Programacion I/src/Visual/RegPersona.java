@@ -31,6 +31,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class RegPersona extends JDialog {
 
@@ -40,10 +41,11 @@ public class RegPersona extends JDialog {
 	private JTextField txtTelefono;
 	private JLabel lblImagenPerfil = new JLabel("");
 	private JTextField txtCedula;
-	private ImageIcon imagen;
+	private ImageIcon imagen = new ImageIcon();
 	private JRadioButton rdbtnParticipante;
 	private JRadioButton rdbtnJuez;
 	private JComboBox<String> cbxArea = new JComboBox<>();
+	private boolean imagenSubida = false;
 
 	
 	public RegPersona() {
@@ -130,7 +132,7 @@ public class RegPersona extends JDialog {
 		
 		
 		cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"}));
-		cbxArea.setBounds(127, 164, 134, 26);
+		cbxArea.setBounds(126, 169, 134, 26);
 		panel_principal.add(cbxArea);
 		
 		JLabel lblCedula = new JLabel("C\u00E9dula: ");
@@ -141,6 +143,22 @@ public class RegPersona extends JDialog {
 		txtCedula.setBounds(51, 53, 248, 28);
 		panel_principal.add(txtCedula);
 		txtCedula.setColumns(10);
+		
+		JLabel lbll = new JLabel("*");
+		lbll.setBounds(311, 59, 55, 16);
+		panel_principal.add(lbll);
+		
+		JLabel label = new JLabel("*");
+		label.setBounds(370, 96, 55, 16);
+		panel_principal.add(label);
+		
+		JLabel label_1 = new JLabel("*");
+		label_1.setBounds(395, 130, 33, 16);
+		panel_principal.add(label_1);
+		
+		JLabel label_2 = new JLabel("*");
+		label_2.setBounds(272, 174, 55, 16);
+		panel_principal.add(label_2);
 		
 		JPanel panel_fotoPerfil = new JPanel();
 		panel_fotoPerfil.setBounds(452, 6, 176, 264);
@@ -159,6 +177,7 @@ public class RegPersona extends JDialog {
 				if(returnVal ==JFileChooser.APPROVE_OPTION) {
 					imagen = new ImageIcon(fotoPerfil.getSelectedFile().getPath());
 					lblImagenPerfil.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(96, 128, Image.SCALE_SMOOTH)));
+					imagenSubida = true;
 				}
 			
 			}
@@ -181,25 +200,43 @@ public class RegPersona extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
-								"Advertencia",JOptionPane.WARNING_MESSAGE);
-						if(option == JOptionPane.OK_OPTION) {
-							if(rdbtnJuez.isSelected()) {
-								Juez miJuez = new Juez(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
-								cbxArea.getSelectedItem().toString(),imagen.getImage());
-								PUCMM.pucmm().getMisPersonas().add(miJuez);
-							}
-							else if(rdbtnParticipante.isSelected()) {
-								Participante miParticipante = new Participante(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
-								,cbxArea.getSelectedItem().toString(), imagen.getImage());
-								
-								PUCMM.pucmm().getMisPersonas().add(miParticipante);
-							}
-							clean();
+						
+						if(txtCedula.getText().isEmpty() || txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty() || cbxArea.getSelectedIndex() == 0) {
+							JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.ERROR_MESSAGE);
+							
+						}
+						else if(!imagenSubida) {
+							JOptionPane.showMessageDialog(null, "Por favor agregue una foto", "ERROR!", JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+
+							int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
+									"Advertencia",JOptionPane.WARNING_MESSAGE);
+							if(option == JOptionPane.OK_OPTION) {
+								if(rdbtnJuez.isSelected()) {
+									Juez miJuez = new Juez(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
+									cbxArea.getSelectedItem().toString(),imagen.getImage());
+									PUCMM.pucmm().getMisPersonas().add(miJuez);
+								}
+								else if(rdbtnParticipante.isSelected()) {
+									Participante miParticipante = new Participante(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
+									,cbxArea.getSelectedItem().toString(), imagen.getImage());
+									
+									PUCMM.pucmm().getMisPersonas().add(miParticipante);
+								}
+								clean();
+						}
+						
+						
 						}
 						
 					}
 				});
+				
+				JLabel lblCamposObligatorios = new JLabel("* Campos Obligatorios");
+				lblCamposObligatorios.setFont(new Font("SansSerif", Font.ITALIC, 12));
+				lblCamposObligatorios.setDisplayedMnemonic('C');
+				buttonPane.add(lblCamposObligatorios);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
