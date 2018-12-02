@@ -91,12 +91,7 @@ public class RegComision extends JDialog {
 		else {
 			btnAgregarParticipante.setEnabled(true);
 		}
-		if(index == -1) {
-			btnQuitarPart.setEnabled(false);
-		}
-		else {
-			btnQuitarPart.setEnabled(true);
-		}
+		
 		
 		
 		
@@ -262,6 +257,12 @@ public class RegComision extends JDialog {
 		});
 		btnQuitarPart.setBounds(390, 372, 132, 28);
 		contentPanel.add(btnQuitarPart);
+		if(index == -1) {
+			btnQuitarPart.setEnabled(false);
+		}
+		else {
+			btnQuitarPart.setEnabled(true);
+		}
 		
 		
 		btnQuitarPrincipal.addActionListener(new ActionListener() {
@@ -271,6 +272,7 @@ public class RegComision extends JDialog {
 		});
 		btnQuitarPrincipal.setBounds(390, 130, 132, 28);
 		contentPanel.add(btnQuitarPrincipal);
+		btnQuitarSecundario.setEnabled(false);
 		
 		btnQuitarSecundario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -336,7 +338,7 @@ public class RegComision extends JDialog {
 			if(juez instanceof Juez) {
 				if(juez.isdisponible()) {
 					if(juez.getArea().equalsIgnoreCase(evento.getArea())){
-						Jfila[0] =Integer.toString(juez.getId()); 
+						Jfila[0] = juez.getId(); 
 						Jfila[1] = juez.getNombre();
 						Jfila[2] = juez.getArea();
 						
@@ -355,7 +357,7 @@ public class RegComision extends JDialog {
 			if(persona instanceof Participante) {
 				if(persona.isdisponible()) {
 					if(persona.getArea().equalsIgnoreCase(evento.getArea())) {
-						Pfila[0] = Integer.toString(persona.getId());
+						Pfila[0] = persona.getId();
 						Pfila[1] = persona.getNombre();
 						Pfila[2] = persona.getArea();
 						

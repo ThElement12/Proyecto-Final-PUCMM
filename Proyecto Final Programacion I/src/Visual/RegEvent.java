@@ -34,6 +34,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.SpinnerNumberModel;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class RegEvent extends JDialog {
 
@@ -62,6 +65,8 @@ public class RegEvent extends JDialog {
 	private final JButton btnSiguiente = new JButton("Siguiente");
 	private final JLabel lblCantComisiones = new JLabel("Cant. Comisiones:");
 	private final JSpinner spnCantComisiones = new JSpinner();
+	private final JLabel label_2 = new JLabel("*");
+	private final JLabel lblCamposObligatorios = new JLabel("* Campos Obligatorios");
 	
 
 	
@@ -173,6 +178,17 @@ public class RegEvent extends JDialog {
 		spnCantComisiones.setBounds(118, 83, 74, 28);
 		
 		panelReg.add(spnCantComisiones);
+		
+		JLabel campoObligatorio = new JLabel("*");
+		campoObligatorio.setBounds(313, 52, 55, 16);
+		panelReg.add(campoObligatorio);
+		
+		JLabel label_1 = new JLabel("*");
+		label_1.setBounds(215, 133, 29, 16);
+		panelReg.add(label_1);
+		label_2.setBounds(456, 133, 55, 16);
+		
+		panelReg.add(label_2);
 		
 		panelVariosDias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelVariosDias.setBackground(new Color(190,209,201));
@@ -325,24 +341,37 @@ public class RegEvent extends JDialog {
 				btnSiguiente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
-						if(rdbtnEventoDeVarios.isSelected()) {
-							evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
-								cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
-									(Date)spnHoraFin.getValue(), (Integer) spnCantComisiones.getValue());
+						
+						if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
+							JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
+						}
+						
+						else {
+							if(rdbtnEventoDeVarios.isSelected()) {
+								evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+									cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
+										(Date)spnHoraFin.getValue(), (Integer) spnCantComisiones.getValue());
+								
+							}
+							else if(rdbtnEventoDeUn.isSelected()) {
+							 evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+									cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
+									(Date)spnHoraFin1.getValue(),(Integer)spnCantComisiones.getValue());
+							 	}
+							RegComision comFrame = new RegComision(evento);
+							comFrame.setModal(true);
+							comFrame.setVisible(true);
 							
 						}
-						else if(rdbtnEventoDeUn.isSelected()) {
-						 evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
-								cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
-								(Date)spnHoraFin1.getValue(),(Integer)spnCantComisiones.getValue());
-						 	}
 						
-						RegComision comFrame = new RegComision(evento);
-						comFrame.setModal(true);
-						comFrame.setVisible(true);
+						
 					}
 				});
+				lblCamposObligatorios.setFont(new Font("SansSerif", Font.ITALIC, 12));
+				lblCamposObligatorios.setDisplayedMnemonic('C');
+				lblCamposObligatorios.setHorizontalAlignment(SwingConstants.CENTER);
 				
+				buttonPane.add(lblCamposObligatorios);
 				buttonPane.add(btnSiguiente);
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);

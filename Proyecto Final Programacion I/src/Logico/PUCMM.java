@@ -135,9 +135,7 @@ public class PUCMM implements Serializable{
 				finded = true;
 			}
 			
-			else {
-				i++;
-			}
+			i++;
 		}
 		
 		return miPersona;
