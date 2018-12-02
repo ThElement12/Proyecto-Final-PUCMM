@@ -239,7 +239,7 @@ public class RegComision extends JDialog {
 		});
 		btnAsignarSecundario.setBounds(390, 177, 136, 28);
 		contentPanel.add(btnAsignarSecundario);
-		
+		//hello
 		
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
