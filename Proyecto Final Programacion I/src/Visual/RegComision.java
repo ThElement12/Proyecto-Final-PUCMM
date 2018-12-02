@@ -40,7 +40,7 @@ public class RegComision extends JDialog {
 	private static Object[] Jfila;
 	private static Object[] Pfila;
 	private JList<String> listSeleccionados = new JList<String>();
-	private ArrayList<Persona> miPersona;
+	private ArrayList<Persona> miPersona = new ArrayList<>();
 	private static DefaultListModel<String> model = new DefaultListModel<>();
 	private int Jindex = 0;
 	private int cant = 0;
@@ -215,9 +215,9 @@ public class RegComision extends JDialog {
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Juez miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
-				miPersona.add(miJuez);
-				miJuez.setdisponible(false);
+				//miJuez.setdisponible(false);
 				txtJuezPrincipal.setText(miJuez.getNombre());
+				miPersona.add(miJuez);
 			}
 		});
 		btnAsignarPrincipal.setBounds(390, 101, 132, 28);
@@ -244,9 +244,9 @@ public class RegComision extends JDialog {
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Participante miPart =(Participante) PUCMM.pucmm().searchById(Pselect);
-				miPersona.add(miPart);
 				miPart.setdisponible(false);
 				model.addElement(miPart.getNombre());
+				miPersona.add(miPart);
 				listSeleccionados.setModel(model);
 			}
 		});
