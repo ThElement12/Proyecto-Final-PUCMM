@@ -39,7 +39,6 @@ public class RegComision extends JDialog {
 	private static DefaultTableModel Pmodel;
 	private static Object[] Jfila;
 	private static Object[] Pfila;
-	private static ArrayList<Persona> misPersonas = PUCMM.pucmm().getMisPersonas();
 	private JList<String> listSeleccionados = new JList<String>();
 	private static DefaultListModel<String> model = new DefaultListModel<>();
 	private int Jindex = 0;
