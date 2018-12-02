@@ -40,6 +40,7 @@ public class RegComision extends JDialog {
 	private static Object[] Jfila;
 	private static Object[] Pfila;
 	private JList<String> listSeleccionados = new JList<String>();
+	private ArrayList<Persona> miPersona;
 	private static DefaultListModel<String> model = new DefaultListModel<>();
 	private int Jindex = 0;
 	private int cant = 0;
@@ -171,7 +172,7 @@ public class RegComision extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = tableJueces.getSelectedRow();
 				if(index >= 0) {
-					Jselect = tableJueces.getValueAt(index, 1).toString();
+					Jselect = tableJueces.getValueAt(index, 0).toString();
 					btnAsignarPrincipal.setEnabled(true);
 				}
 			}
@@ -198,7 +199,7 @@ public class RegComision extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = tableParticipant.getSelectedRow();
 				if(index >= 0) {
-					Pselect = tableParticipant.getValueAt(index, 1).toString();
+					Pselect = tableParticipant.getValueAt(index, 0).toString();
 					btnAgregarParticipante.setEnabled(true);
 				}
 			}
@@ -213,7 +214,10 @@ public class RegComision extends JDialog {
 		
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtJuezPrincipal.setText(Pselect);	
+				Juez miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
+				miPersona.add(miJuez);
+				miJuez.setdisponible(false);
+				txtJuezPrincipal.setText(miJuez.getNombre());
 			}
 		});
 		btnAsignarPrincipal.setBounds(390, 101, 132, 28);
@@ -239,11 +243,11 @@ public class RegComision extends JDialog {
 		
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				model.addElement(Pselect);
+				Participante miPart =(Participante) PUCMM.pucmm().searchById(Pselect);
+				miPersona.add(miPart);
+				miPart.setdisponible(false);
+				model.addElement(miPart.getNombre());
 				listSeleccionados.setModel(model);
-				
-				
 			}
 		});
 		btnAgregarParticipante.setBounds(390, 332, 132, 28);
