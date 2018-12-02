@@ -173,6 +173,7 @@ public class RegComision extends JDialog {
 				int index = tableJueces.getSelectedRow();
 				if(index >= 0) {
 					Jselect = tableJueces.getValueAt(index, 1).toString();
+					btnAsignarPrincipal.setEnabled(true);
 				}
 			}
 		});
@@ -199,6 +200,7 @@ public class RegComision extends JDialog {
 				int index = tableParticipant.getSelectedRow();
 				if(index >= 0) {
 					Pselect = tableParticipant.getValueAt(index, 1).toString();
+					btnAgregarParticipante.setEnabled(true);
 				}
 			}
 		});
@@ -238,6 +240,7 @@ public class RegComision extends JDialog {
 		
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				model.addElement(Pselect);
 				listSeleccionados.setModel(model);
 				

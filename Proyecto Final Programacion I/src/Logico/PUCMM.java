@@ -124,6 +124,25 @@ public class PUCMM implements Serializable{
 		return miEvento;
 	}
 	
+	public Persona searchById(String id) {
+		int i = 0;
+		boolean finded = false;
+		Persona miPersona = null;
+		
+		while(i < misPersonas.size() && !finded) {
+			if(misPersonas.get(i).getCedula().equalsIgnoreCase(id)) {
+				miPersona = misPersonas.get(i);
+				finded = true;
+			}
+			
+			else {
+				i++;
+			}
+		}
+		
+		return miPersona;
+	}
+	
 	public ArrayList<Persona> getMisPersonas() {
 		return misPersonas;
 	}
