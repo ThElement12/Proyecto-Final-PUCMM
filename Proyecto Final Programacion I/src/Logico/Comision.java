@@ -45,4 +45,9 @@ public class Comision implements Serializable{
 	public String getTema() {
 		return tema;
 	}
+
+
+	public void setMisMiembros(ArrayList<Persona> misMiembros) {
+		this.misMiembros = misMiembros;
+	}
 }
