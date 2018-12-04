@@ -120,8 +120,7 @@ public class RegComision extends JDialog {
 			model.setColumnIdentifiers(columnNames);
 			tableseleccionado.setModel(model);
 			scrollPane.setViewportView(tableseleccionado);
-			
-			loadSeleccionados();
+		
 		}
 		
 		JPanel panel = new JPanel();
@@ -205,10 +204,12 @@ public class RegComision extends JDialog {
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Participante miPart =(Participante) PUCMM.pucmm().searchById(Pselect);
-				miPersona.add(miPart);
-				
+				if(!miPersona.contains(miPart)) {
+					miPersona.add(miPart);
+					btnQuitarPart.setEnabled(true);
+				}
+				loadSeleccionados();
 				loadparticipantes();
-				btnQuitarPart.setEnabled(true);
 			}
 		});
 		btnAgregarParticipante.setBounds(274, 244, 132, 28);
@@ -216,7 +217,6 @@ public class RegComision extends JDialog {
 		
 		btnQuitarPart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				
 				
 			}
@@ -275,15 +275,19 @@ public class RegComision extends JDialog {
 			}
 		}
 	}
+	
+	
+	
 	private static void loadSeleccionados() {
 		model.setRowCount(0);
 		Sfila = new Object[model.getColumnCount()];
 		
 		for(Persona elegidos : miPersona) {
 			if(elegidos instanceof Participante) {
-				Jfila[0] = elegidos.getId();
+				Sfila[0] = elegidos.getId();
+				Sfila[1] = elegidos.getNombre();
+				model.addRow(Sfila);
 			}
-			
 		}
 		
 	}

@@ -143,6 +143,18 @@ public class PUCMM implements Serializable{
 		
 		return miPersona;
 	}
+	public int searchIndexById(String id) {
+		int i = 0, aux = -1;
+		boolean finded = false;
+		
+		while(i < misPersonas.size() && !finded) {
+			if(misPersonas.get(i).getId() == Integer.parseInt(id)) {
+				aux = i;
+			}
+			i++;
+		}
+		return aux;
+	}
 	
 	public ArrayList<Persona> getMisPersonas() {
 		return misPersonas;
