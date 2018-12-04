@@ -4,17 +4,15 @@ import java.io.Serializable;
 
 public class Trabajo implements Serializable{
 	private Evento evento;
-	private String nombre;
 	private Participante participante;
 	private String posicion;
 	private Comision comision;
 	private boolean disponible;
 	
-	public Trabajo(String nombre, String posicion, Evento evento, Comision comision) {
+	public Trabajo(String posicion) {
 		super();
-		this.comision = comision;
-		this.evento = evento;
-		this.nombre = nombre;
+		comision = null;
+		evento = null;
 		participante = null;
 		this.posicion = posicion;
 		disponible = true;
@@ -35,14 +33,6 @@ public class Trabajo implements Serializable{
 	
 	public void setEvento(Evento evento) {
 		this.evento = evento;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public Participante getParticipante() {

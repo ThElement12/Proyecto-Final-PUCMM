@@ -75,28 +75,6 @@ public class PUCMM implements Serializable{
 		
 	}
 
-	public ArrayList<Persona> listTrabajadores(Trabajo trabajo, Evento evento){
-		ArrayList<Persona> misTrabajadores = new ArrayList<>();
-		boolean finded =false;
-		int i = 0;
-		while(i < misEventos.size() && !finded) {
-			if(misEventos.get(i).getId().equalsIgnoreCase(evento.getId())) {
-				finded = true;
-			}
-			
-			else {
-				i ++;
-			}
-		}
-		
-		for(int j = 0;j < misEventos.get(i).getMisTrabajos().size(); j ++) {
-			if(misEventos.get(i).getMisTrabajos().get(j).getNombre().equalsIgnoreCase(trabajo.getNombre())) {
-				misTrabajadores.add(misEventos.get(i).getMisTrabajos().get(j).getParticipante());
-			}
-		}
-		
-		return misTrabajadores;
-	}
 	
 	public void insertarPersona(Persona miPersona, String eventId, int comId) {
 		Evento miEvento = searchEventoById(eventId);
