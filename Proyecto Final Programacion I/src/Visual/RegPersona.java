@@ -71,7 +71,7 @@ public class RegPersona extends JDialog {
 		txtId = new JTextField();
 		txtId.setEditable(false);
 		txtId.setBounds(41, 19, 122, 28);
-		txtId.setText(Integer.toString(Persona.getCant()));
+		txtId.setText(Integer.toString(PUCMM.pucmm().getMisPersonas().size() + 1));
 		panel_principal.add(txtId);
 		txtId.setColumns(10);
 		
@@ -214,12 +214,12 @@ public class RegPersona extends JDialog {
 									"Advertencia",JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
 								if(rdbtnJuez.isSelected()) {
-									Juez miJuez = new Juez(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
+									Juez miJuez = new Juez(PUCMM.pucmm().getMisPersonas().size() + 1,txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
 									cbxArea.getSelectedItem().toString(),imagen.getImage());
 									PUCMM.pucmm().getMisPersonas().add(miJuez);
 								}
 								else if(rdbtnParticipante.isSelected()) {
-									Participante miParticipante = new Participante(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
+									Participante miParticipante = new Participante(PUCMM.pucmm().getMisPersonas().size() + 1,txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
 									,cbxArea.getSelectedItem().toString(), imagen.getImage());
 									
 									PUCMM.pucmm().getMisPersonas().add(miParticipante);
@@ -254,7 +254,7 @@ public class RegPersona extends JDialog {
 		}
 	}
 	private void clean() {
-		txtId.setText(Integer.toString(Persona.getCant()));
+		txtId.setText(Integer.toString(PUCMM.pucmm().getMisPersonas().size() + 1));
 		txtCedula.setText("");
 		txtNombre.setText("");
 		txtTelefono.setText("");

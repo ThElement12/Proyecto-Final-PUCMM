@@ -74,7 +74,6 @@ public class Principal extends JFrame {
 				PUCMM.save();
 			}
 		});
-		
 		PUCMM.setInstance();
 		setTitle("Manejador de Eventos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

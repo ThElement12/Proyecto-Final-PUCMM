@@ -8,8 +8,8 @@ public class Participante extends Persona{
 	
 	private ArrayList<Trabajo> misTrabajos;
 
-	public Participante(String cedula, String nombre, String numero, String area, Image foto) {
-		super(cedula, nombre, numero,area,foto);
+	public Participante(int id,String cedula, String nombre, String numero, String area, Image foto) {
+		super(id,cedula, nombre, numero,area,foto);
 		misTrabajos = new ArrayList<>();
 	}
 

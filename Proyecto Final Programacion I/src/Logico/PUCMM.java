@@ -15,7 +15,7 @@ public class PUCMM implements Serializable{
 	private ArrayList<Evento> misEventos;
 	private ArrayList<Persona> misPersonas;
 	private static PUCMM pucmm;
-	private static File Fname = new File("Pucmm Eventos.dat");
+	private static File Fname = new File("Pucmm.dat");
 
 	private PUCMM() {
 		misPersonas = new ArrayList<>();
@@ -39,20 +39,23 @@ public class PUCMM implements Serializable{
 	
 	private static void load() {
 		try {
+			
 			ObjectInputStream input = new ObjectInputStream(new FileInputStream(Fname));
 			pucmm = (PUCMM) input.readObject();
 			input.close();
+			
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static void save() {
-		ObjectOutputStream output = null;
 		try {
-			output = new ObjectOutputStream(new FileOutputStream(Fname));
+			
+			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(Fname));
 			output.writeObject(pucmm);
 			output.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

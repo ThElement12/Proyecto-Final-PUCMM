@@ -6,8 +6,8 @@ import java.io.Serializable;
 public class Juez extends Persona {
 	private boolean representante;
 	
-	public Juez(String cedula, String nombre, String numero, String area, Image foto) {
-		super(cedula, nombre, numero,area, foto);
+	public Juez(int id,String cedula, String nombre, String numero, String area, Image foto) {
+		super(id,cedula, nombre, numero,area, foto);
 		representante = false;
 		this.area = area;	
 		this.foto = foto;
