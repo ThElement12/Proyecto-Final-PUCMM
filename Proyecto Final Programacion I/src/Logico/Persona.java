@@ -12,7 +12,7 @@ public abstract class Persona implements Serializable {
 	protected Evento evento;
 	protected Comision comision;
 	protected String area;
-	protected transient Image foto;
+	protected transient Image foto = null;
 
 	public Persona(int id,String cedula, String nombre, String numero, String area, Image foto) {
 		disponible = true;

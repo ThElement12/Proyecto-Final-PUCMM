@@ -194,6 +194,7 @@ public class RegComision extends JDialog {
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Juez miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
+				miJuez.setRepresentante(true);
 				miPersona.add(miJuez);
 				miJuez.setdisponible(false);
 				txtJuezPrincipal.setText(miJuez.getNombre());
@@ -206,13 +207,20 @@ public class RegComision extends JDialog {
 		
 		btnAsignarSecundario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Juez miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
+				miPersona.add(miJuez);
+				miJuez.setdisponible(false);
+				txtJuezPrincipal.setText(miJuez.getNombre());
+				loadjueces();
+				
 				if(Jindex == 0) {
-					txtJuezSecundario1.setText(Jselect);
+					txtJuezSecundario1.setText(miJuez.getNombre());
 					Jindex = 1;
 					
 				}
 				else if(Jindex == 1) {
-					txtJuezSecundario2.setText(Jselect);
+					txtJuezSecundario2.setText(miJuez.getNombre());
 					Jindex = 0;
 				}
 				btnQuitarSecundario.setEnabled(true);
