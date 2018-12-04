@@ -82,6 +82,9 @@ public class RegTrabajo extends JDialog {
 		pnl_Tabla.setLayout(new BorderLayout(0, 0));
 		
 		table = new JTable();
+		String columNames[] = {"Id","Cédula","Nombre"};
+		model.setColumnIdentifiers(columNames);
+		table.setModel(model);
 		pnl_Tabla.add(table, BorderLayout.CENTER);
 		{
 			JPanel buttonPane = new JPanel();
@@ -101,6 +104,19 @@ public class RegTrabajo extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+	}
+	
+	private static void loadTable() {
+		model.setRowCount(0);
+		fila = new Object[model.getColumnCount()];
+		
+		for(int i = 0; i < RegComision.getMiPersona().size(); i ++) {
+			fila[0] = RegComision.getMiPersona().get(i).getId();
+			fila[1] = RegComision.getMiPersona().get(i).getCedula();
+			fila[2] = RegComision.getMiPersona().get(i).getNombre();
+			
+			model.addRow(fila);
 		}
 	}
 }

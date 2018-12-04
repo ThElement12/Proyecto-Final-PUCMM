@@ -333,4 +333,12 @@ public class RegComision extends JDialog {
 			persona.setdisponible(false);
 		}
 	}
+	public static ArrayList<Persona> getMiPersona() {
+		return miPersona;
+	}
+	public static void setMiPersona(ArrayList<Persona> miPersona) {
+		RegComision.miPersona = miPersona;
+	}
+	
+	
 }
