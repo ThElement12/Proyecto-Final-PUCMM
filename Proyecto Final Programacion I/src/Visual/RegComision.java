@@ -64,36 +64,19 @@ public class RegComision extends JDialog {
 	 
 	public RegComision(Evento miEvento) {
 		evento = miEvento;
+		btnAsignarPrincipal.setEnabled(false);
+		btnAsignarSecundario.setEnabled(false);
+		btnAgregarParticipante.setEnabled(false);
+		
+		btnQuitarPart.setEnabled(false);
+		btnQuitarPrincipal.setEnabled(false);
+		btnQuitarSecundario.setEnabled(false);
+		
 		setBounds(100, 100, 916, 523);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
-		if(Jselect.isEmpty()) {
-			btnAsignarPrincipal.setEnabled(false);
-			btnAsignarSecundario.setEnabled(false);
-		}
-		else {
-			btnAsignarPrincipal.setEnabled(true);
-			btnAsignarSecundario.setEnabled(true);
-		}
-		
-		if(txtJuezPrincipal.getText().isEmpty()) {
-			btnQuitarPrincipal.setEnabled(false);
-		}
-		else {
-			btnQuitarPrincipal.setEnabled(true);
-		}
-		if(Pselect.isEmpty()) {
-			btnAgregarParticipante.setEnabled(false);
-		}
-		else {
-			btnAgregarParticipante.setEnabled(true);
-		}
-		
-		
-		
 		
 		JPanel panelJueces = new JPanel();
 		panelJueces.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -169,6 +152,7 @@ public class RegComision extends JDialog {
 				if(index >= 0) {
 					Jselect = tableJueces.getValueAt(index, 0).toString();
 					btnAsignarPrincipal.setEnabled(true);
+					btnAsignarSecundario.setEnabled(true);
 				}
 			}
 		});
@@ -206,13 +190,15 @@ public class RegComision extends JDialog {
 		scrollPane_1.setViewportView(tableParticipant);
 		loadparticipantes();
 		
-		
+		btnAsignarPrincipal.setEnabled(false);
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Juez miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
-				//miJuez.setdisponible(false);
-				txtJuezPrincipal.setText(miJuez.getNombre());
 				miPersona.add(miJuez);
+				miJuez.setdisponible(false);
+				txtJuezPrincipal.setText(miJuez.getNombre());
+				loadjueces();
+				btnQuitarPrincipal.setEnabled(true);
 			}
 		});
 		btnAsignarPrincipal.setBounds(390, 101, 132, 28);
@@ -229,50 +215,45 @@ public class RegComision extends JDialog {
 					txtJuezSecundario2.setText(Jselect);
 					Jindex = 0;
 				}
+				btnQuitarSecundario.setEnabled(true);
 				
 			}
 		});
 		btnAsignarSecundario.setBounds(390, 177, 136, 28);
 		contentPanel.add(btnAsignarSecundario);
-		//hello
-		
+				
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Participante miPart =(Participante) PUCMM.pucmm().searchById(Pselect);
+				miPersona.add(miPart);
 				miPart.setdisponible(false);
 				model.addElement(miPart.getNombre());
-				miPersona.add(miPart);
 				listSeleccionados.setModel(model);
+				loadparticipantes();
+				index = listSeleccionados.getSelectedIndex();
+				btnQuitarPart.setEnabled(true);
 			}
 		});
-		btnAgregarParticipante.setBounds(390, 332, 132, 28);
+		btnAgregarParticipante.setBounds(390, 325, 132, 28);
 		contentPanel.add(btnAgregarParticipante);
 		
-	
 		btnQuitarPart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				index = listSeleccionados.getSelectedIndex();
+			
 				listSeleccionados.remove(index);
 			}
 		});
 		btnQuitarPart.setBounds(390, 372, 132, 28);
 		contentPanel.add(btnQuitarPart);
-		if(index == -1) {
-			btnQuitarPart.setEnabled(false);
-		}
-		else {
-			btnQuitarPart.setEnabled(true);
-		}
-		
-		
+				
 		btnQuitarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtJuezPrincipal.setText("");
+				
 			}
 		});
 		btnQuitarPrincipal.setBounds(390, 130, 132, 28);
 		contentPanel.add(btnQuitarPrincipal);
-		btnQuitarSecundario.setEnabled(false);
 		
 		btnQuitarSecundario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
