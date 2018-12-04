@@ -57,6 +57,7 @@ public class RegComision extends JDialog {
 	private JButton btnQuitarPart = new JButton("Quitar  Part.");
 	private JButton btnQuitarPrincipal = new JButton("Quitar Juez");
 	private JTextField txtTema;
+	private Juez miJuez;
 
 	 
 	public RegComision(Evento miEvento) {
@@ -180,7 +181,7 @@ public class RegComision extends JDialog {
 			}
 		});
 		Pmodel = new DefaultTableModel();
-		String[] columnNamesPart = {"Id","Nombre","Area"};
+		String[] columnNamesPart = {"Id","Nombre"};
 		Pmodel.setColumnIdentifiers(columnNamesPart);
 		tableParticipant.setModel(Pmodel);
 		scrollPane_1.setViewportView(tableParticipant);
@@ -189,9 +190,7 @@ public class RegComision extends JDialog {
 		btnAsignarPrincipal.setEnabled(false);
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Juez miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
-				miJuez.setRepresentante(true);
-				miPersona.add(miJuez);
+				miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
 				miJuez.setdisponible(false);
 				txtJuezPrincipal.setText(miJuez.getNombre());
 				loadjueces();
@@ -217,8 +216,18 @@ public class RegComision extends JDialog {
 		
 		btnQuitarPart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				int i = 0;
+				boolean encontrado = false;
+				while(i < miPersona.size() && !encontrado) {
+					if(miPersona.get(i).getId() == Integer.parseInt(selecte)) {
+						model.removeRow(i);
+						miPersona.remove(i);
+						encontrado = true;
+					}
+					
+					i++;
+				}
+			
 			}
 		});
 		btnQuitarPart.setBounds(274, 283, 132, 28);
@@ -261,10 +270,12 @@ public class RegComision extends JDialog {
 				});
 				
 				JButton btnRegistrar = new JButton("Registrar");
+				btnRegistrar.setEnabled(false);
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setOcupado();
 						Comision comision = new Comision(miEvento.getArea(), txtTema.getText());
+						
 						miEvento.getMisComisiones().add(comision);
 					}
 				});
@@ -320,8 +331,7 @@ public class RegComision extends JDialog {
 					if(persona.getArea().equalsIgnoreCase(evento.getArea())) {
 						Pfila[0] = persona.getId();
 						Pfila[1] = persona.getNombre();
-						Pfila[2] = persona.getArea();
-						
+					
 						Pmodel.addRow(Pfila);
 					}
 					
