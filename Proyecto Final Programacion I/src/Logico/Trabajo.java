@@ -6,19 +6,29 @@ public class Trabajo implements Serializable{
 	private Evento evento;
 	private String nombre;
 	private Participante participante;
-	private String area;
+	private String posicion;
+	private Comision comision;
 	private boolean disponible;
 	
-	public Trabajo(String nombre, Participante participante, String area, Evento evento) {
+	public Trabajo(String nombre, String posicion, Evento evento, Comision comision) {
 		super();
+		this.comision = comision;
 		this.evento = evento;
 		this.nombre = nombre;
-		this.participante = participante;
-		this.area = area;
+		participante = null;
+		this.posicion = posicion;
 		disponible = true;
 	}
 
 	
+	public Comision getComision() {
+		return comision;
+	}
+
+	public void setComision(Comision comision) {
+		this.comision = comision;
+	}
+
 	public Evento getEvento() {
 		return evento;
 	}
@@ -43,12 +53,12 @@ public class Trabajo implements Serializable{
 		this.participante = participante;
 	}
 
-	public String getArea() {
-		return area;
+	public String getPosicion() {
+		return posicion;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
+	public void setPosicion(String posicion) {
+		this.posicion = posicion;
 	}
 
 	public boolean isDisponible() {

@@ -203,7 +203,7 @@ public class Evento implements Serializable {
 		int aux = 0;
 		
 		for(int i = 0; i < misTrabajos.size(); i++) {
-			if(misTrabajos.get(i).getArea().equalsIgnoreCase(area)) {
+			if(misTrabajos.get(i).getPosicion().equalsIgnoreCase(area)) {
 				if(misTrabajos.get(i).isDisponible()) {
 					aux++;
 				}
