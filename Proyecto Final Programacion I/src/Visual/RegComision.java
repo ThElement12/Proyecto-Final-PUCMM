@@ -39,40 +39,34 @@ public class RegComision extends JDialog {
 	private static DefaultTableModel Pmodel;
 	private static Object[] Jfila;
 	private static Object[] Pfila;
-	private JList<String> listSeleccionados = new JList<String>();
-	private ArrayList<Persona> miPersona = new ArrayList<>();
-	private static DefaultListModel<String> model = new DefaultListModel<>();
+	private static Object[] Sfila;
+	private static ArrayList<Persona> miPersona = new ArrayList<>();
+	private static DefaultTableModel model = new DefaultTableModel();
 	private int Jindex = 0;
-	private int cant = 0;
 	private int index = -1;
 	private String Jselect = "";
 	private String Pselect = "";
+	private String selecte = "";
 	private JTextField txtJuezPrincipal = new JTextField();
-	private JTextField txtJuezSecundario1 = new JTextField();
-	private JTextField txtJuezSecundario2 = new JTextField();
 	private JTable tableJueces;
 	private JTable tableParticipant;
+	private JTable tableseleccionado;
 	private	static Evento evento;
-	private JButton btnAsignarPrincipal = new JButton("Asignar Principal");
-	private JButton btnAsignarSecundario = new JButton("Asignar Secundario");
+	private JButton btnAsignarPrincipal = new JButton("Asignar Juez");
 	private JButton btnAgregarParticipante = new JButton("Agregar Part.");
 	private JButton btnQuitarPart = new JButton("Quitar  Part.");
-	private JButton btnQuitarPrincipal = new JButton("Quitar Principal");
-	private JButton btnQuitarSecundario = new JButton("Quitar Secundario");
+	private JButton btnQuitarPrincipal = new JButton("Quitar Juez");
 	private JTextField txtTema;
-	
+
 	 
 	public RegComision(Evento miEvento) {
 		evento = miEvento;
 		btnAsignarPrincipal.setEnabled(false);
-		btnAsignarSecundario.setEnabled(false);
 		btnAgregarParticipante.setEnabled(false);
-		
 		btnQuitarPart.setEnabled(false);
 		btnQuitarPrincipal.setEnabled(false);
-		btnQuitarSecundario.setEnabled(false);
 		
-		setBounds(100, 100, 916, 523);
+		setBounds(100, 100, 638, 432);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -80,67 +74,69 @@ public class RegComision extends JDialog {
 		
 		JPanel panelJueces = new JPanel();
 		panelJueces.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelJueces.setBounds(562, 47, 332, 147);
+		panelJueces.setBounds(416, 47, 196, 82);
 		contentPanel.add(panelJueces);
 		panelJueces.setLayout(null);
 		
 		JLabel lblJuezPrincipal = new JLabel("Juez Principal");
-		lblJuezPrincipal.setBounds(123, 6, 89, 16);
+		lblJuezPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJuezPrincipal.setBounds(45, 11, 89, 16);
 		panelJueces.add(lblJuezPrincipal);
 		txtJuezPrincipal.setEditable(false);
 		
 	
-		txtJuezPrincipal.setBounds(106, 27, 122, 28);
+		txtJuezPrincipal.setBounds(10, 38, 167, 28);
 		panelJueces.add(txtJuezPrincipal);
 		txtJuezPrincipal.setColumns(10);
-		
-		JLabel lblJuecesSecundarios = new JLabel("Jueces Secundarios");
-		lblJuecesSecundarios.setBounds(106, 60, 122, 16);
-		panelJueces.add(lblJuecesSecundarios);
-		
-	
-		txtJuezSecundario1.setEditable(false);
-		txtJuezSecundario1.setBounds(24, 88, 122, 28);
-		panelJueces.add(txtJuezSecundario1);
-		txtJuezSecundario1.setColumns(10);
-		
-		
-		txtJuezSecundario2.setEditable(false);
-		txtJuezSecundario2.setBounds(177, 88, 122, 28);
-		panelJueces.add(txtJuezSecundario2);
-		txtJuezSecundario2.setColumns(10);
 		{
 			JPanel panelParticipante = new JPanel();
 			panelParticipante.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			panelParticipante.setBounds(562, 206, 332, 230);
+			panelParticipante.setBounds(416, 140, 196, 211);
 			contentPanel.add(panelParticipante);
 			panelParticipante.setLayout(null);
 			
 			JLabel lblParticipantes = new JLabel("Participantes: ");
 			lblParticipantes.setHorizontalAlignment(SwingConstants.CENTER);
-			lblParticipantes.setBounds(113, 6, 97, 23);
+			lblParticipantes.setBounds(48, 4, 97, 23);
 			panelParticipante.add(lblParticipantes);
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 38, 320, 186);
+			scrollPane.setBounds(14, 26, 172, 179);
 			panelParticipante.add(scrollPane);
 			
+			tableseleccionado = new JTable();
+			tableseleccionado.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			tableseleccionado.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int index = tableseleccionado.getSelectedRow();
+					if(index >= 0) {
+						selecte = tableseleccionado.getValueAt(index, 0).toString();
+					}
+				}
+			});
+			model = new DefaultTableModel();
+			String[] columnNames = {"Id","Nombre"};
+			model.setColumnIdentifiers(columnNames);
+			tableseleccionado.setModel(model);
+			scrollPane.setViewportView(tableseleccionado);
 			
-			scrollPane.setViewportView(listSeleccionados);
+			loadSeleccionados();
 		}
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(6, 47, 354, 389);
+		panel.setBounds(6, 47, 241, 296);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblJuecesDisponibles = new JLabel("Jueces Disponibles");
-		lblJuecesDisponibles.setBounds(122, 6, 116, 16);
+		lblJuecesDisponibles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJuecesDisponibles.setBounds(67, 7, 116, 16);
 		panel.add(lblJuecesDisponibles);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 34, 342, 136);
+		scrollPane.setBounds(6, 34, 221, 107);
 		panel.add(scrollPane);
 		
 		tableJueces = new JTable();
@@ -152,7 +148,7 @@ public class RegComision extends JDialog {
 				if(index >= 0) {
 					Jselect = tableJueces.getValueAt(index, 0).toString();
 					btnAsignarPrincipal.setEnabled(true);
-					btnAsignarSecundario.setEnabled(true);
+					
 				}
 			}
 		});
@@ -164,11 +160,12 @@ public class RegComision extends JDialog {
 		loadjueces();
 		
 		JLabel lblParticipanteDisponible = new JLabel("Participantes Disponibles");
-		lblParticipanteDisponible.setBounds(122, 180, 152, 16);
+		lblParticipanteDisponible.setHorizontalAlignment(SwingConstants.CENTER);
+		lblParticipanteDisponible.setBounds(48, 152, 152, 16);
 		panel.add(lblParticipanteDisponible);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(6, 208, 342, 175);
+		scrollPane_1.setBounds(6, 188, 221, 97);
 		panel.add(scrollPane_1);
 		
 		tableParticipant = new JTable();
@@ -202,56 +199,29 @@ public class RegComision extends JDialog {
 				btnQuitarPrincipal.setEnabled(true);
 			}
 		});
-		btnAsignarPrincipal.setBounds(390, 101, 132, 28);
+		btnAsignarPrincipal.setBounds(274, 86, 116, 28);
 		contentPanel.add(btnAsignarPrincipal);
-		
-		btnAsignarSecundario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Juez miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
-				miPersona.add(miJuez);
-				miJuez.setdisponible(false);
-				txtJuezPrincipal.setText(miJuez.getNombre());
-				loadjueces();
-				
-				if(Jindex == 0) {
-					txtJuezSecundario1.setText(miJuez.getNombre());
-					Jindex = 1;
-					
-				}
-				else if(Jindex == 1) {
-					txtJuezSecundario2.setText(miJuez.getNombre());
-					Jindex = 0;
-				}
-				btnQuitarSecundario.setEnabled(true);
-				
-			}
-		});
-		btnAsignarSecundario.setBounds(390, 177, 136, 28);
-		contentPanel.add(btnAsignarSecundario);
 				
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Participante miPart =(Participante) PUCMM.pucmm().searchById(Pselect);
 				miPersona.add(miPart);
-				miPart.setdisponible(false);
-				model.addElement(miPart.getNombre());
-				listSeleccionados.setModel(model);
+				
 				loadparticipantes();
-				index = listSeleccionados.getSelectedIndex();
 				btnQuitarPart.setEnabled(true);
 			}
 		});
-		btnAgregarParticipante.setBounds(390, 325, 132, 28);
+		btnAgregarParticipante.setBounds(274, 244, 132, 28);
 		contentPanel.add(btnAgregarParticipante);
 		
 		btnQuitarPart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
-				listSeleccionados.remove(index);
+				
+				
+				
 			}
 		});
-		btnQuitarPart.setBounds(390, 372, 132, 28);
+		btnQuitarPart.setBounds(274, 283, 132, 28);
 		contentPanel.add(btnQuitarPart);
 				
 		btnQuitarPrincipal.addActionListener(new ActionListener() {
@@ -260,23 +230,8 @@ public class RegComision extends JDialog {
 				
 			}
 		});
-		btnQuitarPrincipal.setBounds(390, 130, 132, 28);
+		btnQuitarPrincipal.setBounds(274, 125, 116, 28);
 		contentPanel.add(btnQuitarPrincipal);
-		
-		btnQuitarSecundario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(Jindex == 0) {
-					txtJuezSecundario2.setText("");
-					
-				}
-				else if(Jindex == 1) {
-					txtJuezSecundario1.setText("");
-				}
-				
-			}
-		});
-		btnQuitarSecundario.setBounds(390, 207, 136, 28);
-		contentPanel.add(btnQuitarSecundario);
 		
 		JLabel lblTemaPrincipal = new JLabel("Tema Principal:");
 		lblTemaPrincipal.setBounds(6, 19, 93, 16);
@@ -308,6 +263,7 @@ public class RegComision extends JDialog {
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						setOcupado();
 						Comision comision = new Comision(miEvento.getArea(), txtTema.getText());
 						miEvento.getMisComisiones().add(comision);
 					}
@@ -318,6 +274,18 @@ public class RegComision extends JDialog {
 				getRootPane().setDefaultButton(btnCancelar);
 			}
 		}
+	}
+	private static void loadSeleccionados() {
+		model.setRowCount(0);
+		Sfila = new Object[model.getColumnCount()];
+		
+		for(Persona elegidos : miPersona) {
+			if(elegidos instanceof Participante) {
+				Jfila[0] = elegidos.getId();
+			}
+			
+		}
+		
 	}
 	private static void loadjueces() {
 		Jmodel.setRowCount(0);
@@ -356,9 +324,13 @@ public class RegComision extends JDialog {
 				}
 			
 			}
-		
-		
+			
 		}
-	
+	}
+	private void setOcupado() {
+		for(Persona persona : miPersona) {
+			
+			persona.setdisponible(false);
+		}
 	}
 }
