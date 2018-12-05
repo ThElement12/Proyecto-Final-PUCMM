@@ -67,6 +67,28 @@ public class RegEvent extends JDialog {
 	private final JSpinner spnCantComisiones = new JSpinner();
 	private final JLabel label_2 = new JLabel("*");
 	private final JLabel lblCamposObligatorios = new JLabel("* Campos Obligatorios");
+	private final JPanel panelComision = new JPanel();
+	private final JLabel label_3 = new JLabel("Comision 1:");
+	private final JTextField textField = new JTextField();
+	private final JButton button = new JButton("Crear Comision");
+	private final JButton button_1 = new JButton("Asignar Trabajos");
+	private final JLabel label_4 = new JLabel("Comision 2:");
+	private final JTextField textField_1 = new JTextField();
+	private final JButton button_2 = new JButton("Crear Comision");
+	private final JButton button_3 = new JButton("Asignar Trabajos");
+	private final JLabel label_5 = new JLabel("Comision 3:");
+	private final JTextField textField_2 = new JTextField();
+	private final JButton button_4 = new JButton("Crear Comision");
+	private final JButton button_5 = new JButton("Asignar Trabajos");
+	private final JLabel label_6 = new JLabel("Representante");
+	private final JRadioButton radioButton = new JRadioButton("");
+	private final JRadioButton radioButton_1 = new JRadioButton("");
+	private final JRadioButton radioButton_2 = new JRadioButton("");
+	private final JLabel label_7 = new JLabel("Comision 4:");
+	private final JTextField textField_3 = new JTextField();
+	private final JButton button_6 = new JButton("Crear Comision");
+	private final JButton button_7 = new JButton("Asignar Trabajos");
+	private final JRadioButton radioButton_3 = new JRadioButton("");
 	
 
 	
@@ -310,7 +332,84 @@ public class RegEvent extends JDialog {
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(RegEvent.class.getResource("/img/RegEVento.jpg")));
-		panelImagen.add(label, BorderLayout.CENTER);
+		panelImagen.add(label, BorderLayout.NORTH);
+		panelComision.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelComision.setVisible(false);
+		panelComision.setBounds(119, 5, 533, 243);
+		contentPanel.add(panelComision);
+		panelComision.setLayout(null);
+		label_3.setBounds(10, 44, 68, 14);
+		
+		panelComision.add(label_3);
+		textField.setEditable(false);
+		textField.setColumns(10);
+		textField.setBounds(88, 41, 102, 20);
+		
+		panelComision.add(textField);
+		button.setBounds(200, 40, 120, 23);
+		
+		panelComision.add(button);
+		button_1.setBounds(330, 40, 120, 23);
+		
+		panelComision.add(button_1);
+		label_4.setBounds(10, 90, 68, 14);
+		
+		panelComision.add(label_4);
+		textField_1.setEditable(false);
+		textField_1.setColumns(10);
+		textField_1.setBounds(88, 87, 102, 20);
+		
+		panelComision.add(textField_1);
+		button_2.setBounds(200, 86, 120, 23);
+		
+		panelComision.add(button_2);
+		button_3.setBounds(330, 86, 120, 23);
+		
+		panelComision.add(button_3);
+		label_5.setBounds(10, 136, 68, 14);
+		
+		panelComision.add(label_5);
+		textField_2.setEditable(false);
+		textField_2.setColumns(10);
+		textField_2.setBounds(88, 133, 102, 20);
+		
+		panelComision.add(textField_2);
+		button_4.setBounds(200, 130, 120, 23);
+		
+		panelComision.add(button_4);
+		button_5.setBounds(330, 130, 120, 23);
+		
+		panelComision.add(button_5);
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setBounds(449, 11, 84, 14);
+		
+		panelComision.add(label_6);
+		radioButton.setBounds(474, 40, 59, 23);
+		
+		panelComision.add(radioButton);
+		radioButton_1.setBounds(474, 86, 59, 23);
+		
+		panelComision.add(radioButton_1);
+		radioButton_2.setBounds(474, 132, 59, 23);
+		
+		panelComision.add(radioButton_2);
+		label_7.setBounds(10, 180, 68, 14);
+		
+		panelComision.add(label_7);
+		textField_3.setEditable(false);
+		textField_3.setColumns(10);
+		textField_3.setBounds(88, 172, 102, 20);
+		
+		panelComision.add(textField_3);
+		button_6.setBounds(200, 169, 120, 23);
+		
+		panelComision.add(button_6);
+		button_7.setBounds(330, 169, 120, 23);
+		
+		panelComision.add(button_7);
+		radioButton_3.setBounds(474, 171, 59, 23);
+		
+		panelComision.add(radioButton_3);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -358,10 +457,16 @@ public class RegEvent extends JDialog {
 									cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
 									(Date)spnHoraFin1.getValue(),(Integer)spnCantComisiones.getValue());
 							 	}
-							RegComision comFrame = new RegComision(evento);
+							
+							panelComision.setVisible(true);
+							panelReg.setVisible(false);
+							panelUnDia.setVisible(false);
+							panelVariosDias.setVisible(false);
+		
+							/**RegComision comFrame = new RegComision(evento);
 							comFrame.setModal(true);
 							comFrame.setVisible(true);
-							
+							*/
 						}
 						
 						
@@ -372,6 +477,10 @@ public class RegEvent extends JDialog {
 				lblCamposObligatorios.setHorizontalAlignment(SwingConstants.CENTER);
 				
 				buttonPane.add(lblCamposObligatorios);
+				
+				JButton btnAtrs = new JButton("Atr\u00E1s");
+				btnAtrs.setEnabled(false);
+				buttonPane.add(btnAtrs);
 				buttonPane.add(btnSiguiente);
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
