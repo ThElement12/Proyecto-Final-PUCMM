@@ -45,12 +45,15 @@ public class RegTrabajo extends JDialog {
 	private JButton cancelButton;
 	private Comision miComision;
 	private Evento miEvento;
+	private JTextField txtNumComision;
 	
 
 	/**
 	 * Create the dialog.
 	 */
-	public RegTrabajo(Comision miComision, Evento miEvento) {
+	public RegTrabajo(Comision miComision, Evento miEvento, int numComision) {
+		setTitle("Asignar Trabajos Comision ");
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.miComision = miComision;
 		this.miEvento = miEvento;
 		setBounds(100, 100, 589, 369);
@@ -98,6 +101,18 @@ public class RegTrabajo extends JDialog {
 		txtEvento.setBounds(52, 19, 86, 25);
 		pnl_info_setter.add(txtEvento);
 		txtEvento.setColumns(10);
+		
+		JLabel lblComisinNum = new JLabel("Comisi\u00F3n num.:");
+		lblComisinNum.setBounds(322, 21, 99, 16);
+		pnl_info_setter.add(lblComisinNum);
+		
+		txtNumComision = new JTextField();
+		txtNumComision.setText(String.valueOf(numComision));
+		txtNumComision.setFont(new Font("Malgun Gothic Semilight", Font.ITALIC, 12));
+		txtNumComision.setEditable(false);
+		txtNumComision.setBounds(415, 15, 122, 29);
+		pnl_info_setter.add(txtNumComision);
+		txtNumComision.setColumns(10);
 		
 		JPanel pnl_Tabla = new JPanel();
 		pnl_Tabla.setBorder(new TitledBorder(null, "Participantes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
