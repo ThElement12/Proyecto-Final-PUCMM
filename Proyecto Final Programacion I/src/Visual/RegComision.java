@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -56,6 +59,7 @@ public class RegComision extends JDialog {
 	private JButton btnAgregarParticipante = new JButton("Agregar Part.");
 	private JButton btnQuitarPart = new JButton("Quitar  Part.");
 	private JButton btnQuitarPrincipal = new JButton("Quitar Juez");
+	private JButton btnRegistrar = new JButton("Registrar");
 	private JTextField txtTema;
 	private Juez miJuez;
 
@@ -113,6 +117,7 @@ public class RegComision extends JDialog {
 					int index = tableseleccionado.getSelectedRow();
 					if(index >= 0) {
 						selecte = tableseleccionado.getValueAt(index, 0).toString();
+						btnQuitarPart.setEnabled(true);
 					}
 				}
 			});
@@ -191,7 +196,6 @@ public class RegComision extends JDialog {
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
-				miJuez.setdisponible(false);
 				txtJuezPrincipal.setText(miJuez.getNombre());
 				loadjueces();
 				btnQuitarPrincipal.setEnabled(true);
@@ -205,7 +209,6 @@ public class RegComision extends JDialog {
 				Participante miPart =(Participante) PUCMM.pucmm().searchById(Pselect);
 				if(!miPersona.contains(miPart)) {
 					miPersona.add(miPart);
-					btnQuitarPart.setEnabled(true);
 				}
 				loadSeleccionados();
 				loadparticipantes();
@@ -236,6 +239,8 @@ public class RegComision extends JDialog {
 		btnQuitarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtJuezPrincipal.setText("");
+				miJuez = null;
+				btnQuitarPrincipal.setEnabled(false);
 				
 			}
 		});
@@ -255,6 +260,8 @@ public class RegComision extends JDialog {
 		Jmodel.setColumnIdentifiers(JCNames);
 		Pmodel = new DefaultTableModel();
 		String [] PMNames = {"Cédula","Nombre"};
+		
+
 		Pmodel.setColumnIdentifiers(PMNames);
 		{
 			JPanel buttonPane = new JPanel();
@@ -269,14 +276,39 @@ public class RegComision extends JDialog {
 					}
 				});
 				
-				JButton btnRegistrar = new JButton("Registrar");
-				btnRegistrar.setEnabled(false);
+				
 				btnRegistrar.addActionListener(new ActionListener() {
+				
+
 					public void actionPerformed(ActionEvent e) {
-						setOcupado();
-						Comision comision = new Comision(miEvento.getArea(), txtTema.getText());
 						
-						miEvento.getMisComisiones().add(comision);
+						if(txtTema.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Por favor complete los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
+						}
+						else if(txtJuezPrincipal.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "No asigno ningun Juez", "ERROR!", JOptionPane.WARNING_MESSAGE);
+						}
+						else if(model.getRowCount() == 0) {
+							JOptionPane.showMessageDialog(null, "No asigno ningun Participante", "ERROR!", JOptionPane.WARNING_MESSAGE);
+						}
+						else {
+							int option = JOptionPane.showConfirmDialog(null, "Desea crear esta comision?", "Confirmar", JOptionPane.WARNING_MESSAGE);
+							if(option == JOptionPane.OK_OPTION) {
+								miPersona.add(0,miJuez);
+								setOcupado();
+								Comision comision = new Comision(miEvento.getArea(), txtTema.getText());
+								comision.setMisMiembros(miPersona);
+								miEvento.getMisComisiones().add(comision);
+								
+								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Realizado", JOptionPane.INFORMATION_MESSAGE);
+								
+								dispose();
+								
+						
+							}
+							
+						}
+						
 					}
 				});
 				buttonPane.add(btnRegistrar);
@@ -286,9 +318,7 @@ public class RegComision extends JDialog {
 			}
 		}
 	}
-	
-	
-	
+
 	private static void loadSeleccionados() {
 		model.setRowCount(0);
 		Sfila = new Object[model.getColumnCount()];
