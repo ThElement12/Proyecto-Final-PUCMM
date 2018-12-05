@@ -18,14 +18,12 @@ public class Evento implements Serializable {
 	private Date fechaFin;
 	private Date HorarioInicio;
 	private Date HorarioFin;
-	private int cantComision;
 	private ArrayList<Comision> misComisiones;
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList <Trabajo> misTrabajos;
 	
-	public Evento(String id,String nombre, String area,String lugar, String campus, Date fechaIni, Date fechaFin, Date HorarioInicio, Date HorarioFin, int cantComision) {
+	public Evento(String id,String nombre, String area,String lugar, String campus, Date fechaIni, Date fechaFin, Date HorarioInicio, Date HorarioFin) {
 		this.id = id;
-		this.cantComision = cantComision;
 		this.campus = campus;
 		this.nombre = nombre;
 		this.area = area;
@@ -37,10 +35,6 @@ public class Evento implements Serializable {
 		misComisiones = new ArrayList<>();
 		misRecursos = new ArrayList<>();
 		misTrabajos = new ArrayList<>();
-	}
-	
-	public int getCantComision() {
-		return cantComision;
 	}
 	
 	public void hacerReporte() {
