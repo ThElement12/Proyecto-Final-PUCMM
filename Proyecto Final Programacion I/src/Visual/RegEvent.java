@@ -88,8 +88,7 @@ public class RegEvent extends JDialog {
 	private final JButton btnCrearComision4 = new JButton("Crear Comision");
 	private final JButton btnAsignarTrabajo4 = new JButton("Asignar Trabajos");
 	private final JRadioButton rdbtnComision4 = new JRadioButton("");
-	
-
+	private JTextField txtCantidadRecursos;
 	
 	public RegEvent() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
@@ -203,6 +202,21 @@ public class RegEvent extends JDialog {
 		label_2.setBounds(216, 135, 55, 16);
 		
 		panelReg.add(label_2);
+		
+		JLabel lblRecursos = new JLabel("Cant. Recursos: ");
+		lblRecursos.setBounds(234, 135, 99, 16);
+		panelReg.add(lblRecursos);
+		
+		JButton btnAgregar = new JButton("Agregar...");
+		btnAgregar.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAgregar.setBounds(393, 129, 89, 28);
+		panelReg.add(btnAgregar);
+		
+		txtCantidadRecursos = new JTextField();
+		txtCantidadRecursos.setEditable(false);
+		txtCantidadRecursos.setBounds(326, 129, 55, 28);
+		panelReg.add(txtCantidadRecursos);
+		txtCantidadRecursos.setColumns(10);
 		
 		panelVariosDias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelVariosDias.setBackground(new Color(190,209,201));
@@ -328,6 +342,27 @@ public class RegEvent extends JDialog {
 		contentPanel.add(panelComision);
 		panelComision.setLayout(null);
 		panelComision.setBackground(new Color(190,209,201));
+		btnAsignarTrabajo2.setEnabled(false);
+		btnAsignarTrabajo2.setBounds(330, 86, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo2);
+		btnAsignarTrabajo1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegTrabajo traFrame = new RegTrabajo(miComision, miEvento, numComision));
+			}
+		});
+		btnAsignarTrabajo1.setEnabled(false);
+		btnAsignarTrabajo1.setBounds(330, 40, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo1);
+		btnAsignarTrabajo3.setEnabled(false);
+		btnAsignarTrabajo3.setBounds(330, 130, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo3);
+		btnAsignarTrabajo4.setEnabled(false);
+		btnAsignarTrabajo4.setBounds(330, 169, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo4);
 		label_3.setBounds(10, 44, 68, 14);
 		
 		panelComision.add(label_3);
@@ -340,16 +375,20 @@ public class RegEvent extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				RegComision comFrame = new RegComision(evento);
 				comFrame.setModal(true);
-				comFrame.setVisible(true);		
-				txtComision1.setText(evento.getMisComisiones().get(0).getTema());
+				comFrame.setVisible(true);
+				if(!evento.getMisComisiones().get(0).equals(null)) {
+					txtComision1.setText(evento.getMisComisiones().get(0).getTema());
+					if(!txtComision1.getText().isEmpty()) {
+						btnAsignarTrabajo1.setEnabled(true);
+					}
+					
+				}
+				
 			}
 		});
 		btnCrearComision1.setBounds(200, 40, 120, 23);
 		
 		panelComision.add(btnCrearComision1);
-		btnAsignarTrabajo1.setBounds(330, 40, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo1);
 		label_4.setBounds(10, 90, 68, 14);
 		
 		panelComision.add(label_4);
@@ -363,15 +402,19 @@ public class RegEvent extends JDialog {
 				RegComision comFrame = new RegComision(evento);
 				comFrame.setModal(true);
 				comFrame.setVisible(true);
-				txtComision2.setText(evento.getMisComisiones().get(1).getTema());
+				if(!evento.getMisComisiones().get(1).equals(null)) {
+					txtComision2.setText(evento.getMisComisiones().get(1).getTema());
+					if(!txtComision2.getText().isEmpty()){
+						btnAsignarTrabajo2.setEnabled(true);
+					}
+					
+				}
+				
 			}
 		});
 		btnCrearComision2.setBounds(200, 86, 120, 23);
 		
 		panelComision.add(btnCrearComision2);
-		btnAsignarTrabajo2.setBounds(330, 86, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo2);
 		label_5.setBounds(10, 136, 68, 14);
 		
 		panelComision.add(label_5);
@@ -384,16 +427,20 @@ public class RegEvent extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				RegComision comFrame = new RegComision(evento);
 				comFrame.setModal(true);
-				comFrame.setVisible(true);	
-				txtComision3.setText(evento.getMisComisiones().get(2).getTema());
+				comFrame.setVisible(true);
+				if(!evento.getMisComisiones().get(2).equals(null)) {
+					txtComision3.setText(evento.getMisComisiones().get(2).getTema());
+					if(!txtComision3.getText().isEmpty()){
+						btnAsignarTrabajo3.setEnabled(true);
+					}
+					
+				}
+			
 			}
 		});
 		btnCrearComision3.setBounds(200, 130, 120, 23);
 		
 		panelComision.add(btnCrearComision3);
-		btnAsignarTrabajo3.setBounds(330, 130, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo3);
 		label_6.setHorizontalAlignment(SwingConstants.CENTER);
 		label_6.setBounds(449, 11, 84, 14);
 		
@@ -464,15 +511,17 @@ public class RegEvent extends JDialog {
 				RegComision comFrame = new RegComision(evento);
 				comFrame.setModal(true);
 				comFrame.setVisible(true);
-				txtComision4.setText(evento.getMisComisiones().get(3).getTema());
+				if(!evento.getMisComisiones().get(3).equals(null)) {
+					txtComision4.setText(evento.getMisComisiones().get(3).getTema());
+					if(!txtComision4.getText().isEmpty()){
+						btnAsignarTrabajo4.setEnabled(true);
+					}
+				}
 			}
 		});
 		btnCrearComision4.setBounds(200, 169, 120, 23);
 		
 		panelComision.add(btnCrearComision4);
-		btnAsignarTrabajo4.setBounds(330, 169, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo4);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -485,55 +534,66 @@ public class RegEvent extends JDialog {
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
-								"Advertencia",JOptionPane.WARNING_MESSAGE);
-						
-						if(option == JOptionPane.OK_OPTION) {
+						if(panelComision.isVisible()) {
+							if(txtComision1.getText().isEmpty() || txtComision2.getText().isEmpty() || txtComision3.getText().isEmpty() || 
+									txtComision4.getText().isEmpty()){
+								JOptionPane.showMessageDialog(null, "Debe registrar por lo menos una comision", "Aviso", JOptionPane.WARNING_MESSAGE);
+								
+								
+							}
+							else if((!txtComision1.getText().isEmpty() && evento.getMisComisiones().get(0).getMisTrabajos().isEmpty()) || (!txtComision2.getText().isEmpty() && evento.getMisComisiones().get(1).getMisTrabajos().isEmpty()) 
+									||(!txtComision3.getText().isEmpty() && evento.getMisComisiones().get(2).getMisTrabajos().isEmpty()) || (!txtComision4.getText().isEmpty() && evento.getMisComisiones().get(3).getMisTrabajos().isEmpty())){
+								
+									JOptionPane.showMessageDialog(null, "Debe asignar los trabajos a las comisiones creadas", "Aviso", JOptionPane.WARNING_MESSAGE);
+								
+							}
+							else {
+								int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
+										"Advertencia",JOptionPane.WARNING_MESSAGE);
+								
+								if(option == JOptionPane.OK_OPTION) {
+									Principal.createLineChart();
+									Principal.createPieChart();	
+									PUCMM.pucmm().crearEvento(evento);
+									JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+									clean();
+								}
+							}
 							
-							Principal.createLineChart();
-							Principal.createPieChart();	
-							PUCMM.pucmm().crearEvento(evento);
-							JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-						
-							clean();
 						}
-					
 					}
 				});
 				btnSiguiente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
 						
-						if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
-							JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
-						}
+							if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
+								JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
+							}
 						
-						else {
-							if(rdbtnEventoDeVarios.isSelected()) {
-								evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+							else {
+								if(rdbtnEventoDeVarios.isSelected()) {
+									evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
 									cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
-										(Date)spnHoraFin.getValue());
+									(Date)spnHoraFin.getValue());
 								
 							}
 							else if(rdbtnEventoDeUn.isSelected()) {
-							 evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+									evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
 									cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
 									(Date)spnHoraFin1.getValue());
 							 	}
-							
 							panelComision.setVisible(true);
 							panelReg.setVisible(false);
 							panelUnDia.setVisible(false);
 							panelVariosDias.setVisible(false);
-							
 							btnAtrs.setEnabled(true);
+							btnSiguiente.setEnabled(false);
 							
-							
-		
-							
-						}
+							}
 						
 						
+				
 					}
 				});
 				lblCamposObligatorios.setFont(new Font("SansSerif", Font.ITALIC, 12));
@@ -585,7 +645,7 @@ public class RegEvent extends JDialog {
 			spnHoraIni.setValue(formatoHora.parse("8:00"));
 			spnHoraIni1.setValue(formatoHora.parse("8:00"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

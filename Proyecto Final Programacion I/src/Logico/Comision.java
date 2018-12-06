@@ -1,7 +1,6 @@
 package Logico;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Comision implements Serializable{
@@ -10,27 +9,16 @@ public class Comision implements Serializable{
 	private ArrayList<Persona> misMiembros;
 	private String area;
 	private static int cant = 1;
-	private Trabajo[] misTrabajos;
+	private ArrayList<Trabajo> misTrabajos;
 	
 	public Comision(String area, String tema) {
 		this.area = area;
 		this.tema = tema;
 		misMiembros = new ArrayList<>();
-		misTrabajos = new Trabajo[6];
+		setMisTrabajos(new ArrayList<>());
 		id = cant;
 		cant++;
 	}
-	
-	
-	public Trabajo[] getMisTrabajos() {
-		return misTrabajos;
-	}
-
-	public void setMisTrabajos(Trabajo[] misTrabajos) {
-		this.misTrabajos = misTrabajos;
-	}
-
-
 	public int getId() {
 		return id;
 	}
@@ -57,7 +45,7 @@ public class Comision implements Serializable{
 		String nombres[] = {"L\u00EDder", "Co-L\u00EDder", "Orador 1", "Orador 2", "Organizador 1", "Organizador 2"};
 		for(int i = 0; i < 6; i ++) {
 			Trabajo unTrabajo = new Trabajo(nombres[i]);
-			misTrabajos[i] = unTrabajo;
+			getMisTrabajos().add(unTrabajo);
 		}
 	}
 	
@@ -68,5 +56,14 @@ public class Comision implements Serializable{
 
 	public void setMisMiembros(ArrayList<Persona> misMiembros) {
 		this.misMiembros = misMiembros;
+	}
+
+
+	public ArrayList<Trabajo> getMisTrabajos() {
+		return misTrabajos;
+	}
+
+	public void setMisTrabajos(ArrayList<Trabajo> misTrabajos) {
+		this.misTrabajos = misTrabajos;
 	}
 }

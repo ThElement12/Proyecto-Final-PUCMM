@@ -46,16 +46,15 @@ public class RegTrabajo extends JDialog {
 	private Comision miComision;
 	private Evento miEvento;
 	private JTextField txtNumComision;
-	
 
 	/**
 	 * Create the dialog.
 	 */
-	public RegTrabajo(Comision miComision, Evento miEvento, int numComision) {
+	public RegTrabajo(Comision comision, Evento evento) {
 		setTitle("Asignar Trabajos Comision ");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.miComision = miComision;
-		this.miEvento = miEvento;
+		this.miComision = comision;
+		this.miEvento = evento;
 		setBounds(100, 100, 589, 369);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,7 +106,7 @@ public class RegTrabajo extends JDialog {
 		pnl_info_setter.add(lblComisinNum);
 		
 		txtNumComision = new JTextField();
-		txtNumComision.setText(String.valueOf(numComision));
+		txtNumComision.setText(String.valueOf(miComision.getId()));
 		txtNumComision.setFont(new Font("Malgun Gothic Semilight", Font.ITALIC, 12));
 		txtNumComision.setEditable(false);
 		txtNumComision.setBounds(415, 15, 122, 29);
@@ -195,8 +194,8 @@ public class RegTrabajo extends JDialog {
 		boolean finded = false;
 		int i = 0;
 		while(i < 6 && !finded) {
-			if(miComision.getMisTrabajos()[i].getPosicion().equalsIgnoreCase(nombre)) {
-				miTrabajo = miComision.getMisTrabajos()[i];
+			if(miComision.getMisTrabajos().get(i).getPosicion().equalsIgnoreCase(nombre)) {
+				miTrabajo = miComision.getMisTrabajos().get(i);
 				finded = true;
 			}
 			
