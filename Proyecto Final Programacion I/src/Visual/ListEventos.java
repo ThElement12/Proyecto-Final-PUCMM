@@ -92,7 +92,7 @@ public class ListEventos extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						RegEvent registrarEvento = new RegEvent();
+						RegEvent registrarEvento = new RegEvent(null);
 						registrarEvento.setModal(true);
 						registrarEvento.setVisible(true);
 						loadEventos();

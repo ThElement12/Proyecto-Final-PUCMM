@@ -91,7 +91,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarEvento = new JMenuItem("Registrar Evento");
 		mntmRegistrarEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegEvent registrarEvento = new RegEvent();
+				RegEvent registrarEvento = new RegEvent(null);
 				registrarEvento.setModal(true);
 				registrarEvento.setVisible(true);
 			}

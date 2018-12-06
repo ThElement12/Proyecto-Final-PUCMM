@@ -94,9 +94,15 @@ public class RegEvent extends JDialog {
 	private final JTextField txtCantRecursos = new JTextField();
 	private final JLabel label_8 = new JLabel("Cant. Recursos: ");
 	
-	public RegEvent() {
+	public RegEvent(Evento miEvento) {
+		if(miEvento == null) {
+			setTitle("Registrar Nuevo Evento");
+		}
+		
+		else {
+			setTitle("Modificar un Evento");
+		}
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
-		setTitle("Registrar Nuevo Evento");
 		setBounds(100, 100, 674, 437);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,7 +122,13 @@ public class RegEvent extends JDialog {
 			
 			txtId = new JTextField();
 			txtId.setEditable(false);
-			txtId.setText(Integer.toString(PUCMM.pucmm().getCantEventos() + 1));
+			if(miEvento == null) {
+				txtId.setText(Integer.toString(PUCMM.pucmm().getCantEventos() + 1));
+			}
+			
+			else {
+				txtId.setText(miEvento.getId());
+			}
 			txtId.setBounds(47, 12, 102, 28);
 			panelReg.add(txtId);
 			txtId.setColumns(10);
@@ -124,7 +136,9 @@ public class RegEvent extends JDialog {
 			JLabel lblNombre = new JLabel("Nombre: ");
 			lblNombre.setBounds(6, 52, 55, 16);
 			panelReg.add(lblNombre);
-			
+			if(miEvento != null) {
+				txtNombre.setText(miEvento.getNombre());
+			}
 			txtNombre = new JTextField();
 			txtNombre.setBounds(57, 46, 244, 28);
 			panelReg.add(txtNombre);
@@ -136,6 +150,9 @@ public class RegEvent extends JDialog {
 			
 			cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"}));
 			cbxArea.setBounds(47, 91, 156, 26);
+			if(miEvento != null) {
+				cbxArea.setSelectedItem(miEvento.getArea());
+			}
 			panelReg.add(cbxArea);
 			rdbtnEventoDeVarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -185,6 +202,7 @@ public class RegEvent extends JDialog {
 		
 		cbxLugar.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Multiuso", "Teatro", "Anfiteatro", "Auditorio I", "Sede Postgrado", "Sala Reuniones (PA)"}));
 		cbxLugar.setBounds(60, 130, 144, 26);
+		cbxLugar.setSelectedItem(miEvento.getLugar());
 		panelReg.add(cbxLugar);
 		
 		JLabel lblCamps = new JLabel("Camp\u00FAs:");
@@ -194,6 +212,7 @@ public class RegEvent extends JDialog {
 		
 		cbxCampus.setModel(new DefaultComboBoxModel<String>(new String[] {"CSTI", "CSTA"}));
 		cbxCampus.setBounds(304, 91, 64, 26);
+		cbxCampus.setSelectedItem(miEvento.getCampus());
 		panelReg.add(cbxCampus);
 		
 		JLabel campoObligatorio = new JLabel("*");
