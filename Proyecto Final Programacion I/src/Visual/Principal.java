@@ -251,9 +251,9 @@ public class Principal extends JFrame {
 	private static void getCantMonth(int []mes) {
 		PUCMM pucmm = PUCMM.pucmm();
 		SimpleDateFormat miMes = new SimpleDateFormat("MM");
-		for(int i = 1;i < 12; i++) {
+		for(int i = 0; i < 12; i++) {
 			for(int j = 0; j < pucmm.getCantEventos() - 1; j ++) {
-				if(Integer.parseInt(miMes.format(pucmm.getMisEventos().get(j).getFechaIni())) == i) {
+				if(Integer.parseInt(miMes.format(pucmm.getMisEventos().get(j).getFechaIni())) == i+1) {
 					mes[i] += 1;
 				}
 			}
