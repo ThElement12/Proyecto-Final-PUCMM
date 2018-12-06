@@ -30,6 +30,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.BevelBorder;
 
 public class RegTrabajo extends JDialog {
 
@@ -55,18 +56,20 @@ public class RegTrabajo extends JDialog {
 		this.miEvento = evento;
 		setBounds(100, 100, 589, 369);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		contentPanel.setBackground(new Color(190,209,201));
 		
 		JPanel pnl_info_setter = new JPanel();
 		pnl_info_setter.setBorder(new TitledBorder(null, "Informaci\u00F3n General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnl_info_setter.setBounds(10, 11, 553, 78);
 		contentPanel.add(pnl_info_setter);
 		pnl_info_setter.setLayout(null);
+		pnl_info_setter.setBackground(new Color(190,209,201));
 		
 		JComboBox<Object> cbxPosicion = new JComboBox<Object>();
-		cbxPosicion.setFont(new Font("Malgun Gothic", Font.ITALIC, 12));
+		cbxPosicion.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		cbxPosicion.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccione>", "L\u00EDder", "Co-L\u00EDder", "Orador 1", "Orador 2", "Organizador 1", "Organizador 2"}));
 		cbxPosicion.setBounds(415, 47, 128, 20);
 		pnl_info_setter.add(cbxPosicion);
@@ -80,7 +83,7 @@ public class RegTrabajo extends JDialog {
 		pnl_info_setter.add(lblJuezDeLa);
 		
 		txtJuez = new JTextField();
-		txtJuez.setFont(new Font("Malgun Gothic", Font.ITALIC, 11));
+		txtJuez.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		txtJuez.setText(miComision.getMisMiembros().get(0).getNombre());
 		txtJuez.setEditable(false);
 		txtJuez.setBounds(130, 47, 86, 25);
@@ -92,7 +95,7 @@ public class RegTrabajo extends JDialog {
 		pnl_info_setter.add(lblEvento);
 		
 		txtEvento = new JTextField();
-		txtEvento.setFont(new Font("Malgun Gothic", Font.ITALIC, 11));
+		txtEvento.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		txtEvento.setText(miEvento.getNombre());
 		txtEvento.setEditable(false);
 		txtEvento.setBounds(52, 19, 86, 25);
@@ -105,7 +108,7 @@ public class RegTrabajo extends JDialog {
 		
 		txtNumComision = new JTextField();
 		txtNumComision.setText(String.valueOf(miComision.getId()));
-		txtNumComision.setFont(new Font("Malgun Gothic Semilight", Font.ITALIC, 12));
+		txtNumComision.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		txtNumComision.setEditable(false);
 		txtNumComision.setBounds(415, 15, 122, 29);
 		pnl_info_setter.add(txtNumComision);
@@ -116,6 +119,7 @@ public class RegTrabajo extends JDialog {
 		pnl_Tabla.setBounds(10, 100, 553, 186);
 		contentPanel.add(pnl_Tabla);
 		pnl_Tabla.setLayout(new BorderLayout(0, 0));
+		pnl_Tabla.setBackground(new Color(190,209,201));
 		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
@@ -136,7 +140,9 @@ public class RegTrabajo extends JDialog {
 		pnl_Tabla.add(table, BorderLayout.CENTER);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(190,209,201));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
 			btnAsignar = new JButton("Asignar Posici\u00F3n");
@@ -158,7 +164,7 @@ public class RegTrabajo extends JDialog {
 				}
 			});
 			btnAsignar.setEnabled(false);
-			btnAsignar.setFont(new Font("Malgun Gothic", Font.ITALIC, 12));
+			btnAsignar.setFont(new Font("SansSerif", Font.PLAIN, 12));
 			
 			buttonPane.add(btnAsignar);
 			{
@@ -168,7 +174,7 @@ public class RegTrabajo extends JDialog {
 						dispose();
 					}
 				});
-				cancelButton.setFont(new Font("Malgun Gothic", Font.ITALIC, 12));
+				cancelButton.setFont(new Font("SansSerif", Font.PLAIN, 12));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

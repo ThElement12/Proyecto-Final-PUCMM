@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.DefaultListModel;
@@ -75,15 +76,17 @@ public class RegComision extends JDialog {
 		
 		setBounds(100, 100, 638, 432);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		contentPanel.setBackground(new Color(190,209,201));
 		
 		JPanel panelJueces = new JPanel();
 		panelJueces.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelJueces.setBounds(416, 47, 196, 82);
 		contentPanel.add(panelJueces);
 		panelJueces.setLayout(null);
+		panelJueces.setBackground(new Color(190,209,201));
 		
 		JLabel lblJuezPrincipal = new JLabel("Juez Principal");
 		lblJuezPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,6 +102,7 @@ public class RegComision extends JDialog {
 			JPanel panelParticipante = new JPanel();
 			panelParticipante.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			panelParticipante.setBounds(416, 140, 196, 211);
+			panelParticipante.setBackground(new Color(190,209,201));
 			contentPanel.add(panelParticipante);
 			panelParticipante.setLayout(null);
 			
@@ -136,6 +140,7 @@ public class RegComision extends JDialog {
 		panel.setBounds(6, 47, 241, 296);
 		contentPanel.add(panel);
 		panel.setLayout(null);
+		panel.setBackground(new Color(190,209,201));
 		
 		JLabel lblJuecesDisponibles = new JLabel("Jueces Disponibles");
 		lblJuecesDisponibles.setHorizontalAlignment(SwingConstants.CENTER);
@@ -269,6 +274,7 @@ public class RegComision extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(190,209,201));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnCancelar = new JButton("Cancelar");

@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -42,11 +43,13 @@ public class ListRecursos extends JDialog {
 		}
 		setBounds(100, 100, 578, 353);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
+		contentPanel.setBackground(new Color(190,209,201));
 		{
 			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBackground(new Color(190,209,201));
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
 				table = new JTable();
@@ -79,8 +82,10 @@ public class ListRecursos extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			buttonPane.setBackground(new Color(190,209,201));
 			{
 				
 				btnRegistrar.addActionListener(new ActionListener() {
