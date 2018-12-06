@@ -56,6 +56,7 @@ public class RegTrabajo extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegTrabajo.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Asignar Trabajos Comision ");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
 		miComision = comision;
 		this.miEvento = evento;
 		setBounds(100, 100, 589, 369);

@@ -35,6 +35,7 @@ public class RegRecursos extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegRecursos.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registrar Recurso");
 		setBounds(100, 100, 477, 243);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

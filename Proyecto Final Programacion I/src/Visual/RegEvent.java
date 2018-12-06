@@ -110,10 +110,12 @@ public class RegEvent extends JDialog {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
 		setBounds(100, 100, 674, 437);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
 		contentPanel.setBackground(new Color(190,209,201));
 		{
 			panelReg.setBounds(119, 6, 533, 192);

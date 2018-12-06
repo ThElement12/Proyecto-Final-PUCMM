@@ -53,6 +53,7 @@ public class RegPersona extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegPersona.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registrar Persona ");
 		setBounds(100, 100, 650, 373);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

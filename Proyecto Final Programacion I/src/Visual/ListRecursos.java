@@ -39,6 +39,7 @@ public class ListRecursos extends JDialog {
 	public ListRecursos(Evento evento) {
 		setTitle("Lista de Recursos");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListRecursos.class.getResource("/img/Icono_pucmm.jpg")));
+		setLocationRelativeTo(null);
 		
 		if(evento != null) {
 			btnRegistrar.setText("Agregar");
