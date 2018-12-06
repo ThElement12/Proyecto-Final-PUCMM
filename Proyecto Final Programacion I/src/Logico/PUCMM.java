@@ -111,7 +111,7 @@ public class PUCMM implements Serializable{
 		Persona miPersona = null;
 		
 		while(i < misPersonas.size() && !finded) {
-			if(misPersonas.get(i).getId() == Integer.parseInt(id)) {
+			if(misPersonas.get(i).getId() ==Integer.parseInt(id)) {
 				miPersona = misPersonas.get(i);
 				finded = true;
 			}
@@ -121,16 +121,31 @@ public class PUCMM implements Serializable{
 		
 		return miPersona;
 	}
-	public int searchIndexById(String id) {
+	public int searchIndexById(int id) {
 		int i = 0, aux = -1;
 		boolean finded = false;
 		
 		while(i < misPersonas.size() && !finded) {
-			if(misPersonas.get(i).getId() == Integer.parseInt(id)) {
+			if(misPersonas.get(i).getId() == id) {
 				aux = i;
 			}
 			i++;
 		}
+		return aux;
+	}
+	public Recurso searchRecursoById(int id) {
+		Recurso aux = null;
+		int i = 0;
+		boolean finded = false;
+		
+		while(i < misRecursos.size() && !finded) {
+			if(misRecursos.get(i).getId() == id){
+				aux = misRecursos.get(i);
+				finded = true;
+			}
+			i++;
+		}
+		
 		return aux;
 	}
 	

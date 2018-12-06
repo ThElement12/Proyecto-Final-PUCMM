@@ -10,6 +10,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Logico.Evento;
 import Logico.PUCMM;
 import Logico.Recurso;
 
@@ -18,6 +19,7 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class ListRecursos extends JDialog {
@@ -26,9 +28,21 @@ public class ListRecursos extends JDialog {
 	private JTable table;
 	private static DefaultTableModel model;
 	private static Object[] fila;
-	public String selecte;
-
-	public ListRecursos() {
+	private String selecte;
+	private ArrayList<Recurso> misRecursos = new ArrayList<>();
+	private JButton btnRegistrar = new JButton("Registrar");
+	private JButton btnGuardar = new JButton("Guardar");
+	
+	public ListRecursos(Evento evento) {
+		
+		if(evento != null) {
+			btnRegistrar.setText("Agregar");
+			btnRegistrar.setEnabled(false);
+		}
+		else {
+			btnGuardar.setVisible(false);
+		}
+		
 		setBounds(100, 100, 578, 353);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -46,11 +60,20 @@ public class ListRecursos extends JDialog {
 						int index = table.getSelectedRow();
 						if(index >= 0) {
 							selecte = table.getValueAt(index, 0).toString();
+							if(evento != null) {
+								if(PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)).isDisponible()) {
+									btnRegistrar.setEnabled(true);
+								}
+								else {
+									btnRegistrar.setEnabled(false);
+								}
+							}
+							
 						}
 					}
 				});
 				model = new DefaultTableModel();
-				String[] columnNames = {"Id","Modelo", "Tipo","Cantidad","Disponibles"};
+				String[] columnNames = {"Id","Modelo", "Tipo","Estado"};
 				model.setColumnIdentifiers(columnNames);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -62,10 +85,31 @@ public class ListRecursos extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				
+				btnRegistrar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(evento == null) {
+							RegRecursos regRecurso = new RegRecursos();
+							regRecurso.setModal(true);
+							regRecurso.setVisible(true);
+						}
+						else {
+							misRecursos.add(PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)));
+							PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)).setDisponible(false);
+							btnGuardar.setEnabled(true);
+							loadRecursos();
+						}
+						
+					}
+				});
+				{
+					
+					btnGuardar.setEnabled(false);
+					buttonPane.add(btnGuardar);
+				}
+				btnRegistrar.setActionCommand("OK");
+				buttonPane.add(btnRegistrar);
+				getRootPane().setDefaultButton(btnRegistrar);
 			}
 			{
 				JButton cancelButton = new JButton("Salir");
@@ -84,10 +128,16 @@ public class ListRecursos extends JDialog {
 		fila = new Object[model.getColumnCount()];
 		
 		for(Recurso recurso: PUCMM.pucmm().getMisRecursos()) {
-			fila[0] = Recurso.getId();
+			
+			fila[0] = recurso.getId();
 			fila[1] = recurso.getModelo();
 			fila[2] = recurso.getModelo();
-			fila[3] = recurso.getCantidad();
+			if(recurso.isDisponible()) {
+				fila[3] = "Disponible";
+			}
+			else {
+				fila[3] = "No Disponible";
+			}
 		
 			model.addRow(fila);
 		}

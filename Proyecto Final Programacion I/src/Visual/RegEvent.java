@@ -43,7 +43,6 @@ public class RegEvent extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtId;
 	private JTextField txtNombre;
-	
 	private JComboBox<String> cbxArea = new JComboBox<>();
 	private JComboBox<String> cbxCampus = new JComboBox<>();
 	private JComboBox<String> cbxLugar = new JComboBox<>();
@@ -64,6 +63,7 @@ public class RegEvent extends JDialog {
 	private SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
 	private final JButton btnSiguiente = new JButton("Siguiente");
 	private final JButton btnAtrs = new JButton("Atr\u00E1s");
+	private final JButton btnRegistrar = new JButton("Registrar");
 	private final JLabel label_2 = new JLabel("*");
 	private final JLabel lblCamposObligatorios = new JLabel("* Campos Obligatorios");
 	private final JPanel panelComision = new JPanel();
@@ -88,7 +88,9 @@ public class RegEvent extends JDialog {
 	private final JButton btnCrearComision4 = new JButton("Crear Comision");
 	private final JButton btnAsignarTrabajo4 = new JButton("Asignar Trabajos");
 	private final JRadioButton rdbtnComision4 = new JRadioButton("");
-	private JTextField txtCantidadRecursos;
+	private final JButton btnAgregarRecurso = new JButton("Agregar...");
+	private final JTextField txtCantRecursos = new JTextField();
+	private final JLabel label_8 = new JLabel("Cant. Recursos: ");
 	
 	public RegEvent() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
@@ -184,12 +186,12 @@ public class RegEvent extends JDialog {
 		panelReg.add(cbxLugar);
 		
 		JLabel lblCamps = new JLabel("Camp\u00FAs:");
-		lblCamps.setBounds(234, 91, 55, 16);
+		lblCamps.setBounds(238, 96, 55, 16);
 		panelReg.add(lblCamps);
 		
 		
 		cbxCampus.setModel(new DefaultComboBoxModel<String>(new String[] {"CSTI", "CSTA"}));
-		cbxCampus.setBounds(304, 86, 64, 26);
+		cbxCampus.setBounds(304, 91, 64, 26);
 		panelReg.add(cbxCampus);
 		
 		JLabel campoObligatorio = new JLabel("*");
@@ -202,21 +204,6 @@ public class RegEvent extends JDialog {
 		label_2.setBounds(216, 135, 55, 16);
 		
 		panelReg.add(label_2);
-		
-		JLabel lblRecursos = new JLabel("Cant. Recursos: ");
-		lblRecursos.setBounds(234, 135, 99, 16);
-		panelReg.add(lblRecursos);
-		
-		JButton btnAgregar = new JButton("Agregar...");
-		btnAgregar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnAgregar.setBounds(393, 129, 89, 28);
-		panelReg.add(btnAgregar);
-		
-		txtCantidadRecursos = new JTextField();
-		txtCantidadRecursos.setEditable(false);
-		txtCantidadRecursos.setBounds(326, 129, 55, 28);
-		panelReg.add(txtCantidadRecursos);
-		txtCantidadRecursos.setColumns(10);
 		
 		panelVariosDias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelVariosDias.setBackground(new Color(190,209,201));
@@ -327,38 +314,53 @@ public class RegEvent extends JDialog {
 		JLabel lblDiaDelEvento = new JLabel("Dia Del Evento:");
 		lblDiaDelEvento.setBounds(6, 70, 91, 16);
 		panelUnDia.add(lblDiaDelEvento);
-		
-		
-		panelImagen.setBounds(6, 6, 104, 335);
-		contentPanel.add(panelImagen);
-		panelImagen.setLayout(new BorderLayout(0, 0));
-		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(RegEvent.class.getResource("/img/RegEVento.jpg")));
-		panelImagen.add(label, BorderLayout.NORTH);
 		panelComision.setVisible(false);
 		panelComision.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelComision.setBounds(119, 5, 533, 243);
 		contentPanel.add(panelComision);
 		panelComision.setLayout(null);
 		panelComision.setBackground(new Color(190,209,201));
+		btnAsignarTrabajo2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(1), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
+				
+			}
+		});
 		btnAsignarTrabajo2.setEnabled(false);
 		btnAsignarTrabajo2.setBounds(330, 86, 120, 23);
 		
 		panelComision.add(btnAsignarTrabajo2);
 		btnAsignarTrabajo1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegTrabajo traFrame = new RegTrabajo(miComision, miEvento, numComision));
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(0), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
 			}
 		});
 		btnAsignarTrabajo1.setEnabled(false);
 		btnAsignarTrabajo1.setBounds(330, 40, 120, 23);
 		
 		panelComision.add(btnAsignarTrabajo1);
+		btnAsignarTrabajo3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(2), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
+			}
+		});
 		btnAsignarTrabajo3.setEnabled(false);
 		btnAsignarTrabajo3.setBounds(330, 130, 120, 23);
 		
 		panelComision.add(btnAsignarTrabajo3);
+		btnAsignarTrabajo4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(3), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
+			}
+		});
 		btnAsignarTrabajo4.setEnabled(false);
 		btnAsignarTrabajo4.setBounds(330, 169, 120, 23);
 		
@@ -376,7 +378,7 @@ public class RegEvent extends JDialog {
 				RegComision comFrame = new RegComision(evento);
 				comFrame.setModal(true);
 				comFrame.setVisible(true);
-				if(!evento.getMisComisiones().get(0).equals(null)) {
+				if(evento.getMisComisiones().size() > 0) {
 					txtComision1.setText(evento.getMisComisiones().get(0).getTema());
 					if(!txtComision1.getText().isEmpty()) {
 						btnAsignarTrabajo1.setEnabled(true);
@@ -442,7 +444,7 @@ public class RegEvent extends JDialog {
 		
 		panelComision.add(btnCrearComision3);
 		label_6.setHorizontalAlignment(SwingConstants.CENTER);
-		label_6.setBounds(449, 11, 84, 14);
+		label_6.setBounds(443, 14, 84, 14);
 		
 		panelComision.add(label_6);
 		rdbtnComision1.addActionListener(new ActionListener() {
@@ -522,6 +524,36 @@ public class RegEvent extends JDialog {
 		btnCrearComision4.setBounds(200, 169, 120, 23);
 		
 		panelComision.add(btnCrearComision4);
+		btnAgregarRecurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListRecursos frameRecurso = new ListRecursos(evento);
+				frameRecurso.setModal(true);
+				frameRecurso.setVisible(true);
+				txtCantRecursos.setText(String.valueOf(evento.getMisRecursos().size()));
+			}
+		});
+		btnAgregarRecurso.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAgregarRecurso.setBounds(200, 202, 89, 28);
+		
+		panelComision.add(btnAgregarRecurso);
+		txtCantRecursos.setText("0");
+		txtCantRecursos.setEditable(false);
+		txtCantRecursos.setColumns(10);
+		txtCantRecursos.setBounds(110, 204, 55, 23);
+		
+		panelComision.add(txtCantRecursos);
+		label_8.setBounds(10, 208, 99, 16);
+		
+		panelComision.add(label_8);
+		
+		
+		panelImagen.setBounds(6, 6, 104, 335);
+		contentPanel.add(panelImagen);
+		panelImagen.setLayout(new BorderLayout(0, 0));
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(RegEvent.class.getResource("/img/RegEVento.jpg")));
+		panelImagen.add(label, BorderLayout.NORTH);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -529,13 +561,13 @@ public class RegEvent extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnRegistrar = new JButton("Registrar");
+				
 				btnRegistrar.setEnabled(false);
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
 						if(panelComision.isVisible()) {
-							if(txtComision1.getText().isEmpty() || txtComision2.getText().isEmpty() || txtComision3.getText().isEmpty() || 
+							if(txtComision1.getText().isEmpty() && txtComision2.getText().isEmpty() &&	 txtComision3.getText().isEmpty() && 
 									txtComision4.getText().isEmpty()){
 								JOptionPane.showMessageDialog(null, "Debe registrar por lo menos una comision", "Aviso", JOptionPane.WARNING_MESSAGE);
 								
@@ -546,6 +578,10 @@ public class RegEvent extends JDialog {
 								
 									JOptionPane.showMessageDialog(null, "Debe asignar los trabajos a las comisiones creadas", "Aviso", JOptionPane.WARNING_MESSAGE);
 								
+							}
+							else if(evento.getMisRecursos().isEmpty()) {
+									JOptionPane.showMessageDialog(null, "No asigno ningun recurso", "Aviso", JOptionPane.WARNING_MESSAGE);
+									
 							}
 							else {
 								int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
@@ -566,29 +602,29 @@ public class RegEvent extends JDialog {
 				btnSiguiente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
-						
 							if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
 								JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
 							}
 						
-							else {
+							else{
 								if(rdbtnEventoDeVarios.isSelected()) {
 									evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
 									cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
 									(Date)spnHoraFin.getValue());
 								
 							}
-							else if(rdbtnEventoDeUn.isSelected()) {
+								else if(rdbtnEventoDeUn.isSelected()) {
 									evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
 									cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
 									(Date)spnHoraFin1.getValue());
 							 	}
-							panelComision.setVisible(true);
-							panelReg.setVisible(false);
-							panelUnDia.setVisible(false);
-							panelVariosDias.setVisible(false);
-							btnAtrs.setEnabled(true);
-							btnSiguiente.setEnabled(false);
+								panelComision.setVisible(true);
+								panelReg.setVisible(false);
+								panelUnDia.setVisible(false);
+								panelVariosDias.setVisible(false);
+								btnAtrs.setEnabled(true);
+								btnSiguiente.setEnabled(false);
+								btnRegistrar.setEnabled(true);
 							
 							}
 						
@@ -609,6 +645,7 @@ public class RegEvent extends JDialog {
 						panelReg.setVisible(true);
 						panelVariosDias.setVisible(true);
 						btnAtrs.setEnabled(false);
+						btnSiguiente.setEnabled(true);
 					}
 				});
 				btnAtrs.setEnabled(false);

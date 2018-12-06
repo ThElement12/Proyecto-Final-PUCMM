@@ -185,8 +185,8 @@ public class Evento implements Serializable {
 		int i = 0;
 		boolean finded = false;
 		while(!finded && i < misRecursos.size()) {
-			misRecursos.get(i);
-			if(Recurso.getId() == id) {
+			
+			if(misRecursos.get(i).getId() == id) {
 				aux = misRecursos.get(i);
 				finded = true;
 			}		

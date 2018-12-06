@@ -47,9 +47,7 @@ public class RegTrabajo extends JDialog {
 	private Evento miEvento;
 	private JTextField txtNumComision;
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public RegTrabajo(Comision comision, Evento evento) {
 		setTitle("Asignar Trabajos Comision ");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -131,6 +129,7 @@ public class RegTrabajo extends JDialog {
 			}
 		});
 		String columNames[] = {"Id","Cédula","Nombre"};
+		model = new DefaultTableModel();
 		model.setColumnIdentifiers(columNames);
 		table.setModel(model);
 		loadTable();
@@ -193,7 +192,7 @@ public class RegTrabajo extends JDialog {
 		Trabajo miTrabajo = null;
 		boolean finded = false;
 		int i = 0;
-		while(i < 6 && !finded) {
+		while(i < miComision.getMisTrabajos().size() && !finded) {
 			if(miComision.getMisTrabajos().get(i).getPosicion().equalsIgnoreCase(nombre)) {
 				miTrabajo = miComision.getMisTrabajos().get(i);
 				finded = true;

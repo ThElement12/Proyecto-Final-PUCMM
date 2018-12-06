@@ -28,12 +28,11 @@ public class RegRecursos extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtID;
 	private JTextField txtModelo;
-	private JSpinner spnCantidad = new JSpinner();
 	private JComboBox<String> cbxTipo = new JComboBox<String>();
 
 	public RegRecursos() {
 		setTitle("Registrar Recurso");
-		setBounds(100, 100, 477, 258);
+		setBounds(100, 100, 477, 243);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -53,7 +52,7 @@ public class RegRecursos extends JDialog {
 			
 			txtID = new JTextField();
 			txtID.setEditable(false);
-			txtID.setText(Integer.toString(Recurso.getId()));
+			txtID.setText(Integer.toString(Recurso.getCant()));
 			txtID.setBounds(34, 13, 122, 28);
 			panel.add(txtID);
 			txtID.setColumns(10);
@@ -75,15 +74,6 @@ public class RegRecursos extends JDialog {
 			cbxTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Audio", "Visual", "Computadora", "Luces", "Pirotecnia"}));
 			cbxTipo.setBounds(48, 91, 122, 26);
 			panel.add(cbxTipo);
-			
-			JLabel lblCantidad = new JLabel("Cantidad: ");
-			lblCantidad.setBounds(6, 130, 67, 16);
-			panel.add(lblCantidad);
-			spnCantidad.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-			
-			
-			spnCantidad.setBounds(73, 124, 67, 28);
-			panel.add(spnCantidad);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -98,7 +88,7 @@ public class RegRecursos extends JDialog {
 						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
 								"Advertencia",JOptionPane.WARNING_MESSAGE);
 						if(option == JOptionPane.OK_OPTION) {
-							Recurso miRecurso = new Recurso(txtModelo.getText(), cbxTipo.getSelectedItem().toString(),(Integer)spnCantidad.getValue());
+							Recurso miRecurso = new Recurso(txtModelo.getText(), cbxTipo.getSelectedItem().toString());
 							PUCMM.pucmm().getMisRecursos().add(miRecurso);
 							clean();
 						}
@@ -121,10 +111,10 @@ public class RegRecursos extends JDialog {
 		}
 	}
 	private void clean(){
-		txtID.setText(Integer.toString(Recurso.getId()));
+		txtID.setText(Integer.toString(Recurso.getCant()));
 		txtModelo.setText("");
 		cbxTipo.setSelectedIndex(0);
-		spnCantidad.setValue(1);
+		
 		
 	}
 }

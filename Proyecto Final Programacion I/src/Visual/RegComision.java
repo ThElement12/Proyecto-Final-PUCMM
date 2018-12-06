@@ -296,7 +296,7 @@ public class RegComision extends JDialog {
 							if(option == JOptionPane.OK_OPTION) {
 								miPersona.add(0,miJuez);
 								setOcupado();
-								Comision comision = new Comision(miEvento.getArea(), txtTema.getText());
+								Comision comision = new Comision(evento.getArea(), txtTema.getText());
 								comision.setMisMiembros(miPersona);
 								miEvento.getMisComisiones().add(comision);
 								

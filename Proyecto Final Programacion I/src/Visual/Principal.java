@@ -136,7 +136,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmListarRecursos = new JMenuItem("Listar Recursos");
 		mntmListarRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListRecursos listarRecurso = new ListRecursos();
+				ListRecursos listarRecurso = new ListRecursos(null);
 				listarRecurso.setModal(true);
 				listarRecurso.setVisible(true);
 			}
