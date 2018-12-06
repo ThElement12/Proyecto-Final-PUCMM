@@ -322,6 +322,7 @@ public class RegEvent extends JDialog {
 		panelComision.setBackground(new Color(190,209,201));
 		btnAsignarTrabajo2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(1).createTrabajo();
 				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(1), evento);
 				traFrame.setModal(true);
 				traFrame.setVisible(true);
@@ -334,6 +335,7 @@ public class RegEvent extends JDialog {
 		panelComision.add(btnAsignarTrabajo2);
 		btnAsignarTrabajo1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(0).createTrabajo();
 				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(0), evento);
 				traFrame.setModal(true);
 				traFrame.setVisible(true);
@@ -345,6 +347,7 @@ public class RegEvent extends JDialog {
 		panelComision.add(btnAsignarTrabajo1);
 		btnAsignarTrabajo3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(2).createTrabajo();
 				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(2), evento);
 				traFrame.setModal(true);
 				traFrame.setVisible(true);
@@ -356,6 +359,7 @@ public class RegEvent extends JDialog {
 		panelComision.add(btnAsignarTrabajo3);
 		btnAsignarTrabajo4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(3).createTrabajo();
 				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(3), evento);
 				traFrame.setModal(true);
 				traFrame.setVisible(true);
