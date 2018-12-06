@@ -65,6 +65,8 @@ public class RegComision extends JDialog {
 
 	 
 	public RegComision(Evento miEvento) {
+		setTitle("Registar Comisi\u00F3n");
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		evento = miEvento;
 		btnAsignarPrincipal.setEnabled(false);
 		btnAgregarParticipante.setEnabled(false);

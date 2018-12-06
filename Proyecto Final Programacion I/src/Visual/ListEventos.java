@@ -33,6 +33,7 @@ public class ListEventos extends JDialog {
 	private JTable table;
 	private static DefaultTableModel model;
 	private static Object[] fila;
+	private JButton btnModificar;
 	public String selecte;
 	
 	public ListEventos() {
@@ -68,6 +69,7 @@ public class ListEventos extends JDialog {
 						int index = table.getSelectedRow();
 						if(index >= 0) {
 							selecte = table.getValueAt(index, 0).toString();
+							btnModificar.setEnabled(true);
 						}
 					}
 				});
@@ -98,6 +100,21 @@ public class ListEventos extends JDialog {
 						loadEventos();
 					}
 				});
+				{
+					btnModificar = new JButton("Modificar");
+					btnModificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							Evento miEvento = null;
+							miEvento = PUCMM.pucmm().searchEventoById(selecte);
+							RegEvent unEvento = new RegEvent(miEvento);
+							unEvento.setModal(true);
+							unEvento.setVisible(true);
+						}
+					});
+					btnModificar.setEnabled(false);
+					
+					buttonPane.add(btnModificar);
+				}
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

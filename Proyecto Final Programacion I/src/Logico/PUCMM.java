@@ -88,7 +88,7 @@ public class PUCMM implements Serializable{
 		}
 	}
 	
-	private Evento searchEventoById(String Id) {
+	public Evento searchEventoById(String Id) {
 		Evento miEvento = null;
 		boolean finded = false;
 		int i = 0;
