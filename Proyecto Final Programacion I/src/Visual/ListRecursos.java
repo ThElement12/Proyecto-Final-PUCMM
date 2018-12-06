@@ -31,8 +31,8 @@ public class ListRecursos extends JDialog {
 	private static Object[] fila;
 	private String selecte;
 	private ArrayList<Recurso> misRecursos = new ArrayList<>();
+	private Recurso miRecurso = null;
 	private JButton btnRegistrar = new JButton("Registrar");
-	private JButton btnGuardar = new JButton("Guardar");
 	
 	public ListRecursos(Evento evento) {
 		
@@ -40,10 +40,6 @@ public class ListRecursos extends JDialog {
 			btnRegistrar.setText("Agregar");
 			btnRegistrar.setEnabled(false);
 		}
-		else {
-			btnGuardar.setVisible(false);
-		}
-		
 		setBounds(100, 100, 578, 353);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,29 +91,13 @@ public class ListRecursos extends JDialog {
 							regRecurso.setVisible(true);
 						}
 						else {
-							misRecursos.add(PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)));
+							miRecurso = PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte));
 							PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)).setDisponible(false);
-							btnGuardar.setEnabled(true);
+							evento.setMisRecursos(miRecurso);
 							loadRecursos();
 						}
-						
 					}
 				});
-				{
-					btnGuardar.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							int option = JOptionPane.showConfirmDialog(null, "Desea guardar los cambios?", "Guardar", JOptionPane.QUESTION_MESSAGE);
-							
-							if(option == JOptionPane.OK_OPTION) {
-								evento.setMisRecursos(misRecursos);
-								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Completado", JOptionPane.INFORMATION_MESSAGE);
-							}
-						}
-					});
-					
-					btnGuardar.setEnabled(false);
-					buttonPane.add(btnGuardar);
-				}
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
 				getRootPane().setDefaultButton(btnRegistrar);
@@ -125,13 +105,7 @@ public class ListRecursos extends JDialog {
 			{
 				JButton cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(btnGuardar.isVisible()) {
-							for(Recurso recurso: misRecursos) {
-								recurso.setDisponible(true);
-							}
-						}
-						
+					public void actionPerformed(ActionEvent e) {						
 						dispose();
 					}
 				});
@@ -148,7 +122,7 @@ public class ListRecursos extends JDialog {
 			
 			fila[0] = recurso.getId();
 			fila[1] = recurso.getModelo();
-			fila[2] = recurso.getModelo();
+			fila[2] = recurso.getTipo();
 			if(recurso.isDisponible()) {
 				fila[3] = "Disponible";
 			}

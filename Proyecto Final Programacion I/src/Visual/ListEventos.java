@@ -34,7 +34,9 @@ public class ListEventos extends JDialog {
 	private static DefaultTableModel model;
 	private static Object[] fila;
 	private JButton btnModificar;
-	public String selecte;
+	private String select;
+	private int index;
+
 	
 	public ListEventos() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListEventos.class.getResource("/img/Icono_pucmm.jpg")));
@@ -66,9 +68,9 @@ public class ListEventos extends JDialog {
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						int index = table.getSelectedRow();
+						index = table.getSelectedRow();
 						if(index >= 0) {
-							selecte = table.getValueAt(index, 0).toString();
+							select = table.getValueAt(index, 0).toString();
 							btnModificar.setEnabled(true);
 						}
 					}
@@ -104,8 +106,7 @@ public class ListEventos extends JDialog {
 					btnModificar = new JButton("Modificar");
 					btnModificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							Evento miEvento = null;
-							miEvento = PUCMM.pucmm().searchEventoById(selecte);
+							Evento miEvento = PUCMM.pucmm().searchEventoById(select);
 							RegEvent unEvento = new RegEvent(miEvento);
 							unEvento.setModal(true);
 							unEvento.setVisible(true);

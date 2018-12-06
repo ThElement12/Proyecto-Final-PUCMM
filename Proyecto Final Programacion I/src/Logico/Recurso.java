@@ -3,20 +3,18 @@ package Logico;
 import java.io.Serializable;
 
 public class Recurso implements Serializable {
-	private static int cant = 1;
 	private int id;
 	private String tipo;
 	private String modelo;
 	private boolean disponible;
 	private Evento miEvento;
 	
-	public Recurso(String modelo, String tipo) {
+	public Recurso(int id,String modelo, String tipo) {
 		super();
 		this.tipo = tipo;
 		this.modelo = modelo;
 		disponible = true;
-		id = cant;
-		cant++;
+		this.id = id;
 		
 	}
 	public int getId() {
@@ -47,10 +45,6 @@ public class Recurso implements Serializable {
 	
 	public String getModelo() {
 		return modelo;
-	}
-	public static int getCant() {
-		return cant;
-	}
-	
+	}	
 
 }

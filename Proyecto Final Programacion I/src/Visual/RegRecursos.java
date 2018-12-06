@@ -52,7 +52,7 @@ public class RegRecursos extends JDialog {
 			
 			txtID = new JTextField();
 			txtID.setEditable(false);
-			txtID.setText(Integer.toString(Recurso.getCant()));
+			txtID.setText(Integer.toString(PUCMM.pucmm().getMisRecursos().size()+1));
 			txtID.setBounds(34, 13, 122, 28);
 			panel.add(txtID);
 			txtID.setColumns(10);
@@ -88,7 +88,7 @@ public class RegRecursos extends JDialog {
 						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
 								"Advertencia",JOptionPane.WARNING_MESSAGE);
 						if(option == JOptionPane.OK_OPTION) {
-							Recurso miRecurso = new Recurso(txtModelo.getText(), cbxTipo.getSelectedItem().toString());
+							Recurso miRecurso = new Recurso(PUCMM.pucmm().getMisRecursos().size()+1,txtModelo.getText(), cbxTipo.getSelectedItem().toString());
 							PUCMM.pucmm().getMisRecursos().add(miRecurso);
 							clean();
 						}
@@ -111,7 +111,7 @@ public class RegRecursos extends JDialog {
 		}
 	}
 	private void clean(){
-		txtID.setText(Integer.toString(Recurso.getCant()));
+		txtID.setText(Integer.toString(PUCMM.pucmm().getMisRecursos().size()+1));
 		txtModelo.setText("");
 		cbxTipo.setSelectedIndex(0);
 		

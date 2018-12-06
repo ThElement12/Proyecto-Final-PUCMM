@@ -142,9 +142,6 @@ public class RegTrabajo extends JDialog {
 			btnAsignar = new JButton("Asignar Posici\u00F3n");
 			btnAsignar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					
-					
-					
 					Participante miParticipante =(Participante) PUCMM.pucmm().searchById(select);
 					Trabajo miTrabajo = searchTrabajoByPosition(cbxPosicion.getSelectedItem().toString());
 					if(miTrabajo.isDisponible()) {
