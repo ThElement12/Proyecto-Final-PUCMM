@@ -86,11 +86,11 @@ public class RegEvent extends JDialog {
 	private final JRadioButton rdbtnComision1 = new JRadioButton("");
 	private final JRadioButton rdbtnComision2 = new JRadioButton("");
 	private final JRadioButton rdbtnComision3 = new JRadioButton("");
+	private final JRadioButton rdbtnComision4 = new JRadioButton("");
 	private final JLabel label_7 = new JLabel("Comision 4:");
 	private final JTextField txtComision4 = new JTextField();
 	private final JButton btnCrearComision4 = new JButton("Crear Comision");
 	private final JButton btnAsignarTrabajo4 = new JButton("Asignar Trabajos");
-	private final JRadioButton rdbtnComision4 = new JRadioButton("");
 	private final JButton btnAgregarRecurso = new JButton("Agregar...");
 	private final JTextField txtCantRecursos = new JTextField();
 	private final JLabel label_8 = new JLabel("Cant. Recursos: ");
@@ -627,7 +627,7 @@ public class RegEvent extends JDialog {
 										
 								}
 								else if((!txtComision1.getText().isEmpty() || !txtComision2.getText().isEmpty() || !txtComision3.getText().isEmpty() || !txtComision4.getText().isEmpty()) &&
-										(!rdbtnComision1.isSelected() || !rdbtnComision2.isSelected() || !rdbtnComision3.isSelected() || !rdbtnComision4.isSelected())) {
+										(!rdbtnComision1.isSelected() && !rdbtnComision2.isSelected() && !rdbtnComision3.isSelected() && !rdbtnComision4.isSelected())) {
 										JOptionPane.showMessageDialog(null, "Seleccione a una comision como representante", "Aviso", JOptionPane.WARNING_MESSAGE);
 									
 								}
@@ -651,7 +651,7 @@ public class RegEvent extends JDialog {
 											Juez juez = (Juez)evento.getMisComisiones().get(2).getMisMiembros().get(0);
 											juez.setRepresentante(true);
 										}
-										else{
+										if(rdbtnComision4.isSelected()){
 											Juez juez = (Juez)evento.getMisComisiones().get(3).getMisMiembros().get(0);
 											juez.setRepresentante(true);
 										}
@@ -659,6 +659,7 @@ public class RegEvent extends JDialog {
 									
 										JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 										clean();
+										dispose();
 									}
 								}
 								
