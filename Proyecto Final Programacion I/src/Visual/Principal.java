@@ -43,6 +43,9 @@ import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ColorModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Principal extends JFrame {
 	private Dimension dim;
@@ -228,7 +231,7 @@ public class Principal extends JFrame {
 	}
 	
 	public static void createPieChart() {
-		String [] area = {"Ciencias/Tecnología","Medicina","Mercadeo/Administracion","Deportivo"};
+		String [] area = {"Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"};
 		int []cantArea = new int[4];
 		getCantArea(area, cantArea);
 		DefaultPieDataset dataPie = new DefaultPieDataset();
@@ -247,9 +250,10 @@ public class Principal extends JFrame {
 	@SuppressWarnings("deprecation")
 	private static void getCantMonth(int []mes) {
 		PUCMM pucmm = PUCMM.pucmm();
-		for(int i = 0;i < 13; i++) {
+		SimpleDateFormat miMes = new SimpleDateFormat("MM");
+		for(int i = 1;i < 12; i++) {
 			for(int j = 0; j < pucmm.getCantEventos() - 1; j ++) {
-				if(pucmm.getMisEventos().get(j).getFechaIni().getMonth() == i) {
+				if(Integer.parseInt(miMes.format(pucmm.getMisEventos().get(j).getFechaIni())) == i) {
 					mes[i] += 1;
 				}
 			}
