@@ -168,8 +168,8 @@ public class RegTrabajo extends JDialog {
 						miTrabajo.setParticipante(miParticipante);
 						miParticipante.agregarTrabajo(miTrabajo);
 						miComision.getMisTrabajos().add(miTrabajo);
-						
-						JOptionPane.showMessageDialog(null, "OperacionCompletada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Operacion completada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
+						btnAsignar.setEnabled(false);
 					}
 					
 					else {

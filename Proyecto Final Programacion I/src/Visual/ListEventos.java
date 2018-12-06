@@ -16,6 +16,7 @@ import Logico.PUCMM;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
@@ -37,6 +38,7 @@ public class ListEventos extends JDialog {
 	private String select;
 	private JButton btnEliminar;
 	private int index;
+	private JButton btnReporte;
 
 	
 	public ListEventos() {
@@ -76,6 +78,7 @@ public class ListEventos extends JDialog {
 							select = table.getValueAt(index, 0).toString();
 							btnModificar.setEnabled(true);
 							btnEliminar.setEnabled(true);
+							btnReporte.setEnabled(true);
 						}
 					}
 				});
@@ -132,6 +135,17 @@ public class ListEventos extends JDialog {
 					
 					buttonPane.add(btnModificar);
 				}
+				
+				btnReporte = new JButton("Hacer Reporte");
+				btnReporte.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Evento miEvento = PUCMM.pucmm().searchEventoById(select);
+						miEvento.hacerReporte();
+						JOptionPane.showMessageDialog(null, "El Reporte se ha realizado con éxito", "información", JOptionPane.INFORMATION_MESSAGE);
+					}
+				});
+				btnReporte.setEnabled(false);
+				buttonPane.add(btnReporte);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -168,5 +182,4 @@ public class ListEventos extends JDialog {
 		}
 		
 	}
-	
 }

@@ -100,6 +100,9 @@ public class Principal extends JFrame {
 				RegEvent registrarEvento = new RegEvent(null);
 				registrarEvento.setModal(true);
 				registrarEvento.setVisible(true);
+				createBarGraph();
+				createLineChart();
+				createPieChart();
 			}
 		});
 		
