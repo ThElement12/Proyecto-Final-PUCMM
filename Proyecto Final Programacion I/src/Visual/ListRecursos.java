@@ -46,7 +46,7 @@ public class ListRecursos extends JDialog {
 		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		contentPanel.setBackground(new Color(190,209,201));
+		contentPanel.setBackground(new Color(190,209,201));//lol klk
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setBackground(new Color(190,209,201));
