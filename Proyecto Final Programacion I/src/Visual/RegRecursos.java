@@ -22,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
 import javax.swing.border.BevelBorder;
 import javax.swing.SpinnerNumberModel;
+import java.awt.Toolkit;
 
 public class RegRecursos extends JDialog {
 
@@ -31,6 +32,7 @@ public class RegRecursos extends JDialog {
 	private JComboBox<String> cbxTipo = new JComboBox<String>();
 
 	public RegRecursos() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegRecursos.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registrar Recurso");
 		setBounds(100, 100, 477, 243);
 		getContentPane().setLayout(new BorderLayout());

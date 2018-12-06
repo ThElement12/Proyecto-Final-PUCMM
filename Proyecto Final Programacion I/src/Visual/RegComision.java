@@ -35,6 +35,7 @@ import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
+import java.awt.Toolkit;
 
 public class RegComision extends JDialog {
 
@@ -66,6 +67,7 @@ public class RegComision extends JDialog {
 
 	 
 	public RegComision(Evento miEvento) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegComision.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registar Comisi\u00F3n");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		evento = miEvento;

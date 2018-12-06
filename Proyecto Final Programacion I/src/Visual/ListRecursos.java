@@ -23,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class ListRecursos extends JDialog {
 
@@ -36,6 +37,8 @@ public class ListRecursos extends JDialog {
 	private JButton btnRegistrar = new JButton("Registrar");
 	
 	public ListRecursos(Evento evento) {
+		setTitle("Lista de Recursos");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListRecursos.class.getResource("/img/Icono_pucmm.jpg")));
 		
 		if(evento != null) {
 			btnRegistrar.setText("Agregar");

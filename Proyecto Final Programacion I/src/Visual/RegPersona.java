@@ -32,6 +32,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class RegPersona extends JDialog {
 
@@ -49,6 +50,7 @@ public class RegPersona extends JDialog {
 
 	
 	public RegPersona() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegPersona.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registrar Persona ");
 		setBounds(100, 100, 650, 373);
 		getContentPane().setLayout(new BorderLayout());
@@ -263,5 +265,4 @@ public class RegPersona extends JDialog {
 		
 		
 	}
-	
 }
