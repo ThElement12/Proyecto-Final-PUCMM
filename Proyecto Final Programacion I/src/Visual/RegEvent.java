@@ -15,6 +15,7 @@ import javax.swing.border.MatteBorder;
 
 import Logico.Comision;
 import Logico.Evento;
+import Logico.Juez;
 import Logico.PUCMM;
 import Logico.Persona;
 
@@ -625,6 +626,12 @@ public class RegEvent extends JDialog {
 										JOptionPane.showMessageDialog(null, "No asigno ningun recurso", "Aviso", JOptionPane.WARNING_MESSAGE);
 										
 								}
+								else if((!txtComision1.getText().isEmpty() || !txtComision2.getText().isEmpty() || !txtComision3.getText().isEmpty() || !txtComision4.getText().isEmpty()) &&
+										(!rdbtnComision1.isSelected() || !rdbtnComision2.isSelected() || !rdbtnComision3.isSelected() || !rdbtnComision4.isSelected())) {
+										JOptionPane.showMessageDialog(null, "Seleccione a una comision como representante", "Aviso", JOptionPane.WARNING_MESSAGE);
+									
+								}
+								
 								else {
 									int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
 											"Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -632,7 +639,24 @@ public class RegEvent extends JDialog {
 									if(option == JOptionPane.OK_OPTION) {
 										Principal.createLineChart();
 										Principal.createPieChart();	
+										if(rdbtnComision1.isSelected()) {
+											Juez juez = (Juez)evento.getMisComisiones().get(0).getMisMiembros().get(0);
+											juez.setRepresentante(true);
+										}
+										if(rdbtnComision2.isSelected()) {
+											Juez juez = (Juez)evento.getMisComisiones().get(1).getMisMiembros().get(0);
+											juez.setRepresentante(true);
+										}
+										if(rdbtnComision3.isSelected()) {
+											Juez juez = (Juez)evento.getMisComisiones().get(2).getMisMiembros().get(0);
+											juez.setRepresentante(true);
+										}
+										else{
+											Juez juez = (Juez)evento.getMisComisiones().get(3).getMisMiembros().get(0);
+											juez.setRepresentante(true);
+										}
 										PUCMM.pucmm().crearEvento(evento);
+									
 										JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 										clean();
 									}
