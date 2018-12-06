@@ -166,9 +166,9 @@ public class Principal extends JFrame {
 		pnl_EventosPorMes.setBorder(new LineBorder(new Color(0, 0, 0)));
 		pnl_EventosPorMes.setBounds(6, 422, 1578, 366);
 		contentPane.add(pnl_EventosPorMes);
-		Principal.createLineChart();
-		Principal.createPieChart();
-		Principal.createBarGraph();
+		createLineChart();
+		createPieChart();
+		createBarGraph();
 	}
 	public static void createBarGraph() {
 		
@@ -212,12 +212,12 @@ public class Principal extends JFrame {
 	}
 	
 	public static void createLineChart() {
-		int [] meses = new int[12];
-		getCantMonth(meses);
+		int [] cantActmeses = new int[12];
+		getCantMonth(cantActmeses);
 		DefaultCategoryDataset dataLine = new DefaultCategoryDataset();
 		String[] mes = {"Ene","Feb", "Mar", "Abr","May", "Jun","Jul","Ago","Sep","Oct","Nov","Dic"};
 		for(int i= 0; i < 12; i ++) {
-			dataLine.addValue(meses[i], "Eventos", mes[i]);
+			dataLine.addValue(cantActmeses[i], "Eventos", mes[i]);
 		}
 		
 		JFreeChart lineChart = ChartFactory.createLineChart("Eventos por Mes", "Meses","Cantidad de Eventos",dataLine, 
@@ -230,12 +230,27 @@ public class Principal extends JFrame {
 		linePanel.setLayout(new BorderLayout(0, 0));
 	}
 	
+	private static void getCantMonth(int []mes) {
+		PUCMM pucmm = PUCMM.pucmm();
+		int cont;
+		SimpleDateFormat miMes = new SimpleDateFormat("MM");
+		for(int i = 0; i < 12; i++) {
+			cont = 0;
+			for(int j = 0; j < pucmm.getCantEventos() - 1; j ++) {
+				if(Integer.parseInt(miMes.format(pucmm.getMisEventos().get(j).getFechaIni().toString())) == i+1) {
+					cont ++;
+				}
+			}
+			mes[i] = cont;
+		}
+	}
+	
 	public static void createPieChart() {
 		String [] area = {"Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"};
-		int []cantArea = new int[4];
+		int []cantArea = new int[5];
 		getCantArea(area, cantArea);
 		DefaultPieDataset dataPie = new DefaultPieDataset();
-		for(int i = 0; i < 4; i ++) {
+		for(int i = 0; i < 5; i ++) {
 			dataPie.setValue(area[i], cantArea[i]);
 		}
 		JFreeChart pieChart = ChartFactory.createPieChart("Cantidad de Eventos por Area", dataPie);
@@ -247,25 +262,13 @@ public class Principal extends JFrame {
 		piePanel.setLayout(new BorderLayout(0, 0));
 	}
 	
-	@SuppressWarnings("deprecation")
-	private static void getCantMonth(int []mes) {
-		PUCMM pucmm = PUCMM.pucmm();
-		SimpleDateFormat miMes = new SimpleDateFormat("MM");
-		for(int i = 0; i < 12; i++) {
-			for(int j = 0; j < pucmm.getCantEventos() - 1; j ++) {
-				if(Integer.parseInt(miMes.format(pucmm.getMisEventos().get(j).getFechaIni())) == i+1) {
-					mes[i] += 1;
-				}
-			}
-		}
-	}
 	
 	private static void getCantArea(String area[],int cantArea[]) {
 		PUCMM pucmm = PUCMM.pucmm();
-		for(int i = 0; i < 4; i ++) {
-			for(int j = 0; j < pucmm.getCantEventos() - 1 ; j++) {
+		for(int i = 0; i < 5; i ++) {
+			for(int j = 0; j < pucmm.getMisEventos().size() ; j++) {
 				if(area[i].equalsIgnoreCase(pucmm.getMisEventos().get(j).getArea())) {
-					cantArea[i] += 1;
+					cantArea[i] ++;
 				}
 			}
 		}
