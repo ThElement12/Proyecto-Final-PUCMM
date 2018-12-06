@@ -191,7 +191,7 @@ public class RegTrabajo extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
-		}
+		} 	
 	}
 	
 	private static void loadTable() {
@@ -202,8 +202,9 @@ public class RegTrabajo extends JDialog {
 				fila[0] = persona.getId();
 				fila[1] = persona.getCedula();
 				fila[2] = persona.getNombre();
+				model.addRow(fila);
 			}
-			model.addRow(fila);
+			
 			
 		}	
 	}
