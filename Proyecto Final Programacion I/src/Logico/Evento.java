@@ -247,4 +247,8 @@ public class Evento implements Serializable {
 		
 		return i;
 	}
+
+	public void setMisRecursos(ArrayList<Recurso> misRecursos) {
+		this.misRecursos = misRecursos;
+	}
 }

@@ -43,7 +43,7 @@ public class RegTrabajo extends JDialog {
 	private String select = "";
 	private JButton btnAsignar;
 	private JButton cancelButton;
-	private Comision miComision;
+	private Comision miComision = new Comision(null, null);
 	private Evento miEvento;
 	private JTextField txtNumComision;
 
@@ -142,11 +142,16 @@ public class RegTrabajo extends JDialog {
 			btnAsignar = new JButton("Asignar Posici\u00F3n");
 			btnAsignar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					
+					
+					
 					Participante miParticipante =(Participante) PUCMM.pucmm().searchById(select);
 					Trabajo miTrabajo = searchTrabajoByPosition(cbxPosicion.getSelectedItem().toString());
 					if(miTrabajo.isDisponible()) {
 						miTrabajo.setParticipante(miParticipante);
 						miParticipante.agregarTrabajo(miTrabajo);
+						miComision.getMisTrabajos().add(miTrabajo);
+						
 						JOptionPane.showMessageDialog(null, "OperacionCompletada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
@@ -173,19 +178,19 @@ public class RegTrabajo extends JDialog {
 		}
 	}
 	
-	private static void loadTable() {
+	private void loadTable() {
 		model.setRowCount(0);
 		fila = new Object[model.getColumnCount()];
 		
-		for(int i = 0; i < RegComision.getMiPersona().size(); i ++) {
-			if(RegComision.getMiPersona().get(i) instanceof Participante) {
-				fila[0] = RegComision.getMiPersona().get(i).getId();
-				fila[1] = RegComision.getMiPersona().get(i).getCedula();
-				fila[2] = RegComision.getMiPersona().get(i).getNombre();
-			
-				model.addRow(fila);
+		for(Persona persona : miComision.getMisMiembros()) {
+			if(persona instanceof Participante) {
+				fila[0] = persona.getId();
+				fila[1] = persona.getCedula();
+				fila[2] = persona.getNombre();
 			}
-		}
+			model.addRow(fila);
+			
+		}	
 	}
 	
 	private Trabajo searchTrabajoByPosition(String nombre) {

@@ -43,7 +43,7 @@ public class RegComision extends JDialog {
 	private static Object[] Jfila;
 	private static Object[] Pfila;
 	private static Object[] Sfila;
-	private static ArrayList<Persona> miPersona = new ArrayList<>();
+	private ArrayList<Persona> miPersona = new ArrayList<>();
 	private static DefaultTableModel model = new DefaultTableModel();
 	private int Jindex = 0;
 	private int index = -1;
@@ -319,7 +319,7 @@ public class RegComision extends JDialog {
 		}
 	}
 
-	private static void loadSeleccionados() {
+	private void loadSeleccionados() {
 		model.setRowCount(0);
 		Sfila = new Object[model.getColumnCount()];
 		
@@ -373,16 +373,10 @@ public class RegComision extends JDialog {
 	}
 	private void setOcupado() {
 		for(Persona persona : miPersona) {
-			
 			persona.setdisponible(false);
 		}
 	}
-	public static ArrayList<Persona> getMiPersona() {
-		return miPersona;
-	}
-	public static void setMiPersona(ArrayList<Persona> miPersona) {
-		RegComision.miPersona = miPersona;
-	}
+	
 	
 	
 }

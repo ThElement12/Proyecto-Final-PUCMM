@@ -13,8 +13,10 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
 
+import Logico.Comision;
 import Logico.Evento;
 import Logico.PUCMM;
+import Logico.Persona;
 
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -59,7 +61,7 @@ public class RegEvent extends JDialog {
 	private JSpinner spnDiaDelEvento = new JSpinner();
 	private JPanel panelImagen = new JPanel();
 	private JPanel panelReg = new JPanel();
-	private Evento evento;
+	private Evento evento = new Evento(null, null, null, null, null, null, null, null, null);
 	private SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
 	private final JButton btnSiguiente = new JButton("Siguiente");
 	private final JButton btnAtrs = new JButton("Atr\u00E1s");
@@ -386,6 +388,7 @@ public class RegEvent extends JDialog {
 					txtComision1.setText(evento.getMisComisiones().get(0).getTema());
 					if(!txtComision1.getText().isEmpty()) {
 						btnAsignarTrabajo1.setEnabled(true);
+						rdbtnComision1.setEnabled(true);
 					}
 					
 				}
@@ -412,6 +415,7 @@ public class RegEvent extends JDialog {
 					txtComision2.setText(evento.getMisComisiones().get(1).getTema());
 					if(!txtComision2.getText().isEmpty()){
 						btnAsignarTrabajo2.setEnabled(true);
+						rdbtnComision2.setEnabled(true);
 					}
 					
 				}
@@ -438,6 +442,7 @@ public class RegEvent extends JDialog {
 					txtComision3.setText(evento.getMisComisiones().get(2).getTema());
 					if(!txtComision3.getText().isEmpty()){
 						btnAsignarTrabajo3.setEnabled(true);
+						rdbtnComision3.setEnabled(true);
 					}
 					
 				}
@@ -451,6 +456,7 @@ public class RegEvent extends JDialog {
 		label_6.setBounds(443, 14, 84, 14);
 		
 		panelComision.add(label_6);
+		rdbtnComision1.setEnabled(false);
 		rdbtnComision1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnComision1.isSelected()) {
@@ -465,6 +471,7 @@ public class RegEvent extends JDialog {
 		
 		
 		panelComision.add(rdbtnComision1);
+		rdbtnComision2.setEnabled(false);
 		rdbtnComision2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnComision2.isSelected()) {
@@ -478,6 +485,7 @@ public class RegEvent extends JDialog {
 		rdbtnComision2.setBackground(new Color(190,209,201));
 		
 		panelComision.add(rdbtnComision2);
+		rdbtnComision3.setEnabled(false);
 		rdbtnComision3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnComision3.isSelected()) {
@@ -491,6 +499,7 @@ public class RegEvent extends JDialog {
 		rdbtnComision3.setBackground(new Color(190,209,201));
 		
 		panelComision.add(rdbtnComision3);
+		rdbtnComision4.setEnabled(false);
 		rdbtnComision4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnComision4.isSelected()) {
@@ -521,6 +530,7 @@ public class RegEvent extends JDialog {
 					txtComision4.setText(evento.getMisComisiones().get(3).getTema());
 					if(!txtComision4.getText().isEmpty()){
 						btnAsignarTrabajo4.setEnabled(true);
+						rdbtnComision4.setEnabled(true);
 					}
 				}
 			}
@@ -578,7 +588,7 @@ public class RegEvent extends JDialog {
 								
 							}
 							else if((!txtComision1.getText().isEmpty() && evento.getMisComisiones().get(0).getMisTrabajos().isEmpty()) || (!txtComision2.getText().isEmpty() && evento.getMisComisiones().get(1).getMisTrabajos().isEmpty()) 
-									||(!txtComision3.getText().isEmpty() && evento.getMisComisiones().get(2).getMisTrabajos().isEmpty()) || (!txtComision4.getText().isEmpty() && evento.getMisComisiones().get(3).getMisTrabajos().isEmpty())){
+									|| (!txtComision3.getText().isEmpty() && evento.getMisComisiones().get(2).getMisTrabajos().isEmpty()) || (!txtComision4.getText().isEmpty() && evento.getMisComisiones().get(3).getMisTrabajos().isEmpty())){
 								
 									JOptionPane.showMessageDialog(null, "Debe asignar los trabajos a las comisiones creadas", "Aviso", JOptionPane.WARNING_MESSAGE);
 								
@@ -665,6 +675,16 @@ public class RegEvent extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						
 						dispose();
+						
+						if(evento != null) {
+							for(Comision comision : evento.getMisComisiones()) {
+								for(Persona persona : comision.getMisMiembros()) {
+									persona.setdisponible(true);
+								}
+							}	
+						}
+						
+						
 					}
 				});
 				btnCancelar.setActionCommand("Cancel");

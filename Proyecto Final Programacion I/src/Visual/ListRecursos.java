@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -103,6 +104,16 @@ public class ListRecursos extends JDialog {
 					}
 				});
 				{
+					btnGuardar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int option = JOptionPane.showConfirmDialog(null, "Desea guardar los cambios?", "Guardar", JOptionPane.QUESTION_MESSAGE);
+							
+							if(option == JOptionPane.OK_OPTION) {
+								evento.setMisRecursos(misRecursos);
+								JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Completado", JOptionPane.INFORMATION_MESSAGE);
+							}
+						}
+					});
 					
 					btnGuardar.setEnabled(false);
 					buttonPane.add(btnGuardar);
@@ -115,6 +126,12 @@ public class ListRecursos extends JDialog {
 				JButton cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(btnGuardar.isVisible()) {
+							for(Recurso recurso: misRecursos) {
+								recurso.setDisponible(true);
+							}
+						}
+						
 						dispose();
 					}
 				});
