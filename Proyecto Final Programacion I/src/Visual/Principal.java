@@ -45,6 +45,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ColorModel;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Principal extends JFrame {
@@ -230,19 +231,18 @@ public class Principal extends JFrame {
 		linePanel.setLayout(new BorderLayout(0, 0));
 	}
 	
-	private static void getCantMonth(int []mes) {
+	private static void getCantMonth(int[] mes) {
 		PUCMM pucmm = PUCMM.pucmm();
-		int cont;
-		SimpleDateFormat miMes = new SimpleDateFormat("MM");
-		for(int i = 0; i < 12; i++) {
-			cont = 0;
-			for(int j = 0; j < pucmm.getCantEventos() - 1; j ++) {
-				if(Integer.parseInt(miMes.format(pucmm.getMisEventos().get(j).getFechaIni().toString())) == i+1) {
-					cont ++;
+		Calendar date = Calendar.getInstance();
+		for(int i = 0; i < 12 ; i ++) {
+			for(int j = 0; j < pucmm.getMisEventos().size(); j ++) {
+				date.setTime(pucmm.getMisEventos().get(j).getFechaIni());
+				if(date.get(Calendar.MONTH) == i) {
+					mes[i] += 1;
 				}
 			}
-			mes[i] = cont;
 		}
+		
 	}
 	
 	public static void createPieChart() {
