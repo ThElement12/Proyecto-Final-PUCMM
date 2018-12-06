@@ -35,6 +35,7 @@ public class ListEventos extends JDialog {
 	private static Object[] fila;
 	private JButton btnModificar;
 	private String select;
+	private JButton btnEliminar;
 	private int index;
 
 	
@@ -72,6 +73,7 @@ public class ListEventos extends JDialog {
 						if(index >= 0) {
 							select = table.getValueAt(index, 0).toString();
 							btnModificar.setEnabled(true);
+							btnEliminar.setEnabled(true);
 						}
 					}
 				});
@@ -110,8 +112,20 @@ public class ListEventos extends JDialog {
 							RegEvent unEvento = new RegEvent(miEvento);
 							unEvento.setModal(true);
 							unEvento.setVisible(true);
+							loadEventos();
 						}
 					});
+					{
+						btnEliminar = new JButton("Eliminar");
+						btnEliminar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								PUCMM.pucmm().removeEventoById(select);
+								loadEventos();
+							}
+						});
+						btnEliminar.setEnabled(false);
+						buttonPane.add(btnEliminar);
+					}
 					btnModificar.setEnabled(false);
 					
 					buttonPane.add(btnModificar);

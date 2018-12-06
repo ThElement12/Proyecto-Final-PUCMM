@@ -244,9 +244,10 @@ public class Principal extends JFrame {
 		piePanel.setLayout(new BorderLayout(0, 0));
 	}
 	
+	@SuppressWarnings("deprecation")
 	private static void getCantMonth(int []mes) {
 		PUCMM pucmm = PUCMM.pucmm();
-		for(int i = 0;i < 12; i++) {
+		for(int i = 0;i < 13; i++) {
 			for(int j = 0; j < pucmm.getCantEventos() - 1; j ++) {
 				if(pucmm.getMisEventos().get(j).getFechaIni().getMonth() == i) {
 					mes[i] += 1;

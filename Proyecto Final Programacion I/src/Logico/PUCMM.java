@@ -88,6 +88,21 @@ public class PUCMM implements Serializable{
 		}
 	}
 	
+	public void removeEventoById(String Id) {
+		boolean finded = false;
+		int i = 0;
+		while(!finded && i < misEventos.size()) {
+			if(misEventos.get(i).getId().equalsIgnoreCase(Id)) {
+				misEventos.remove(i);
+				finded = true;
+			}
+			
+			else {
+				i++;
+			}
+		}
+	}
+	
 	public Evento searchEventoById(String Id) {
 		Evento miEvento = null;
 		boolean finded = false;

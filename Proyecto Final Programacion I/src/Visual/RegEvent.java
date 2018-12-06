@@ -97,11 +97,16 @@ public class RegEvent extends JDialog {
 	public RegEvent(Evento miEvento) {
 		if(miEvento == null) {
 			setTitle("Registrar Nuevo Evento");
+			btnRegistrar.setEnabled(false);
 		}
 		
 		else {
 			setTitle("Modificar un Evento");
+			btnSiguiente.setVisible(false);
+			btnAtrs.setVisible(false);
+			btnRegistrar.setEnabled(true);
 		}
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
 		setBounds(100, 100, 674, 437);
 		getContentPane().setLayout(new BorderLayout());
@@ -599,45 +604,47 @@ public class RegEvent extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				
-				btnRegistrar.setEnabled(false);
-				btnRegistrar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						if(panelComision.isVisible()) {
-							if(txtComision1.getText().isEmpty() && txtComision2.getText().isEmpty() &&	 txtComision3.getText().isEmpty() && 
-									txtComision4.getText().isEmpty()){
-								JOptionPane.showMessageDialog(null, "Debe registrar por lo menos una comision", "Aviso", JOptionPane.WARNING_MESSAGE);
-								
-								
-							}
-							else if((!txtComision1.getText().isEmpty() && evento.getMisComisiones().get(0).getMisTrabajos().isEmpty()) || (!txtComision2.getText().isEmpty() && evento.getMisComisiones().get(1).getMisTrabajos().isEmpty()) 
-									|| (!txtComision3.getText().isEmpty() && evento.getMisComisiones().get(2).getMisTrabajos().isEmpty()) || (!txtComision4.getText().isEmpty() && evento.getMisComisiones().get(3).getMisTrabajos().isEmpty())){
-								
-									JOptionPane.showMessageDialog(null, "Debe asignar los trabajos a las comisiones creadas", "Aviso", JOptionPane.WARNING_MESSAGE);
-								
-							}
-							else if(evento.getMisRecursos().isEmpty()) {
-									JOptionPane.showMessageDialog(null, "No asigno ningun recurso", "Aviso", JOptionPane.WARNING_MESSAGE);
-									
-							}
-							else {
-								int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
-										"Advertencia",JOptionPane.WARNING_MESSAGE);
-								
-								if(option == JOptionPane.OK_OPTION) {
-									Principal.createLineChart();
-									Principal.createPieChart();	
-									PUCMM.pucmm().crearEvento(evento);
-									JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-									clean();
-								}
-							}
+				if(miEvento == null) {
+					btnRegistrar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
 							
+							if(panelComision.isVisible()) {
+								if(txtComision1.getText().isEmpty() && txtComision2.getText().isEmpty() &&	 txtComision3.getText().isEmpty() && 
+										txtComision4.getText().isEmpty()){
+									JOptionPane.showMessageDialog(null, "Debe registrar por lo menos una comision", "Aviso", JOptionPane.WARNING_MESSAGE);
+									
+									
+								}
+								else if((!txtComision1.getText().isEmpty() && evento.getMisComisiones().get(0).getMisTrabajos().isEmpty()) || (!txtComision2.getText().isEmpty() && evento.getMisComisiones().get(1).getMisTrabajos().isEmpty()) 
+										|| (!txtComision3.getText().isEmpty() && evento.getMisComisiones().get(2).getMisTrabajos().isEmpty()) || (!txtComision4.getText().isEmpty() && evento.getMisComisiones().get(3).getMisTrabajos().isEmpty())){
+									
+										JOptionPane.showMessageDialog(null, "Debe asignar los trabajos a las comisiones creadas", "Aviso", JOptionPane.WARNING_MESSAGE);
+									
+								}
+								else if(evento.getMisRecursos().isEmpty()) {
+										JOptionPane.showMessageDialog(null, "No asigno ningun recurso", "Aviso", JOptionPane.WARNING_MESSAGE);
+										
+								}
+								else {
+									int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
+											"Advertencia",JOptionPane.WARNING_MESSAGE);
+									
+									if(option == JOptionPane.OK_OPTION) {
+										Principal.createLineChart();
+										Principal.createPieChart();	
+										PUCMM.pucmm().crearEvento(evento);
+										JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+										clean();
+									}
+								}
+								
+							}
 						}
-					}
-				});
+					});
+				}
 				btnSiguiente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+							
 						
 							if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
 								JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
@@ -662,7 +669,6 @@ public class RegEvent extends JDialog {
 								btnAtrs.setEnabled(true);
 								btnSiguiente.setEnabled(false);
 								btnRegistrar.setEnabled(true);
-							
 							}
 						
 						
@@ -674,8 +680,33 @@ public class RegEvent extends JDialog {
 				lblCamposObligatorios.setHorizontalAlignment(SwingConstants.CENTER);
 				
 				buttonPane.add(lblCamposObligatorios);
-				
-				
+				if(miEvento != null) {
+					btnRegistrar.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							Evento modEvento = PUCMM.pucmm().searchEventoById(miEvento.getId());
+							modEvento.setNombre(txtNombre.getText());
+							modEvento.setArea( cbxArea.getSelectedItem().toString());
+							modEvento.setLugar(cbxLugar.getSelectedItem().toString());
+							modEvento.setCampus(cbxCampus.getSelectedItem().toString());
+							
+							if(rdbtnEventoDeVarios.isSelected()) {
+								modEvento.setFechaIni((Date)spnFechaInicio.getValue());
+								modEvento.setFechaFin((Date)spnFechaFin.getValue());
+								modEvento.setHorarioInicio((Date)spnHoraIni.getValue());
+								modEvento.setHorarioFin((Date)spnHoraFin.getValue());
+							}
+							
+							else if(rdbtnEventoDeUn.isSelected()) {
+								modEvento.setFechaIni((Date)spnDiaDelEvento.getValue());
+								modEvento.setFechaFin((Date)spnDiaDelEvento.getValue());
+								modEvento.setHorarioInicio((Date)spnHoraIni1.getValue());
+								modEvento.setHorarioFin((Date)spnHoraFin1.getValue());
+							}
+							dispose();
+						}
+					});
+				}
 				btnAtrs.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						panelComision.setVisible(false);
