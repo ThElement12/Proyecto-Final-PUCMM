@@ -31,11 +31,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
+import java.awt.Toolkit;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 
 public class RegTrabajo extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
 	private JTextField txtJuez;
 	private JTextField txtEvento;
 	private static DefaultTableModel model;
@@ -44,15 +46,17 @@ public class RegTrabajo extends JDialog {
 	private String select = "";
 	private JButton btnAsignar;
 	private JButton cancelButton;
-	private Comision miComision = new Comision(null, null);
+	private static Comision miComision = new Comision(null, null);
 	private Evento miEvento;
 	private JTextField txtNumComision;
+	private JTable table;
 
 
 	public RegTrabajo(Comision comision, Evento evento) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegTrabajo.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Asignar Trabajos Comision ");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.miComision = comision;
+		miComision = comision;
 		this.miEvento = evento;
 		setBounds(100, 100, 589, 369);
 		getContentPane().setLayout(new BorderLayout());
@@ -114,30 +118,39 @@ public class RegTrabajo extends JDialog {
 		pnl_info_setter.add(txtNumComision);
 		txtNumComision.setColumns(10);
 		
-		JPanel pnl_Tabla = new JPanel();
-		pnl_Tabla.setBorder(new TitledBorder(null, "Participantes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
-		pnl_Tabla.setBounds(10, 100, 553, 186);
-		contentPanel.add(pnl_Tabla);
-		pnl_Tabla.setLayout(new BorderLayout(0, 0));
-		pnl_Tabla.setBackground(new Color(190,209,201));
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(190,209,201));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Participantes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(10, 100, 553, 180);
+		contentPanel.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				index = table.getSelectedRow();
-				if(index >= 0 && !cbxPosicion.getSelectedItem().toString().equalsIgnoreCase("<Seleccione>")) {
-					select = table.getValueAt(index, 0).toString();
-					btnAsignar.setEnabled(true);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground(new Color(190,209,201));
+		panel.add(scrollPane);
+		{
+			table = new JTable();
+			table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					index = table.getSelectedRow();
+					if(index >= 0) {
+						select = table.getValueAt(index, 0).toString();
+						btnAsignar.setEnabled(true);
+					}
 				}
-			}
-		});
-		String columNames[] = {"Id","Cédula","Nombre"};
-		model = new DefaultTableModel();
-		model.setColumnIdentifiers(columNames);
-		table.setModel(model);
-		loadTable();
-		pnl_Tabla.add(table, BorderLayout.CENTER);
+			});
+			model = new DefaultTableModel();
+			String columNames[] = {"Id","Cédula","Nombre"};
+			model.setColumnIdentifiers(columNames);
+			table.setModel(model);
+			scrollPane.setViewportView(table);
+			loadTable();
+		}
+		
+	
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -181,10 +194,9 @@ public class RegTrabajo extends JDialog {
 		}
 	}
 	
-	private void loadTable() {
+	private static void loadTable() {
 		model.setRowCount(0);
 		fila = new Object[model.getColumnCount()];
-		
 		for(Persona persona : miComision.getMisMiembros()) {
 			if(persona instanceof Participante) {
 				fila[0] = persona.getId();
