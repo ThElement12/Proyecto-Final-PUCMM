@@ -72,6 +72,7 @@ public class Evento implements Serializable {
 				bw.write("  "+misComisiones.get(i).getArea());
 				bw.newLine();
 			}
+			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

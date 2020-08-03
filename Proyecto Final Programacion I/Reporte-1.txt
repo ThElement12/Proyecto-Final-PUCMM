@@ -1,0 +1,11 @@
+Nombre de evento: la para
+Id: 1
+Campus: CSTI
+Area: Fisica
+Lugar: Multiuso
+Fecha de Inicio: Mon Aug 10 00:00:00 BOT 2020
+Fecha de finalización: Mon Aug 10 00:00:00 BOT 2020
+
+Comisiones
+Id  Nombre
+  Fisica
