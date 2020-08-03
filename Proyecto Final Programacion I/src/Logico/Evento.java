@@ -38,7 +38,7 @@ public class Evento implements Serializable {
 	}
 	
 	public void hacerReporte() {
-		File Fname = new File("Reporte-"+id);
+		File Fname = new File("Reporte-"+id+".txt");
 		FileWriter fw;
 		BufferedWriter bw;
 		try {

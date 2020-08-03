@@ -154,24 +154,21 @@ public class Principal extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		pnl_Eventos = new JPanel();
 		pnl_Eventos.setBorder(new LineBorder(Color.BLACK));
-		pnl_Eventos.setBounds(6, 6, 759, 418);
 		contentPane.add(pnl_Eventos);
 		
 		pnl_AFavorit = new JPanel();
 		pnl_AFavorit.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnl_AFavorit.setBounds(764, 6, 824, 418);
 		pnl_AFavorit.setLayout(new BorderLayout(0, 0));
-		contentPane.add(pnl_AFavorit);
+		contentPane.add(pnl_AFavorit, BorderLayout.EAST);
 		
 		
 		pnl_EventosPorMes = new JPanel();
 		pnl_EventosPorMes.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnl_EventosPorMes.setBounds(6, 422, 1578, 366);
-		contentPane.add(pnl_EventosPorMes);
+		contentPane.add(pnl_EventosPorMes, BorderLayout.NORTH);
 		createLineChart();
 		createPieChart();
 		createBarGraph();
@@ -263,7 +260,7 @@ public class Principal extends JFrame {
 		pieChart.getPlot().setBackgroundPaint(Color.DARK_GRAY);
 		pieChart.setBackgroundPaint(Color.lightGray);
 		pieChart.getTitle().setPaint(Color.BLACK);
-		pnl_AFavorit.add(piePanel);
+		pnl_AFavorit.add(piePanel, BorderLayout.WEST);
 		piePanel.setLayout(new BorderLayout(0, 0));
 	}
 	
