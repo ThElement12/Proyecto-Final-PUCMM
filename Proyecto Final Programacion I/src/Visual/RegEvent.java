@@ -49,17 +49,11 @@ public class RegEvent extends JDialog {
 	private JComboBox<String> cbxArea = new JComboBox<>();
 	private JComboBox<String> cbxCampus = new JComboBox<>();
 	private JComboBox<String> cbxLugar = new JComboBox<>();
-	private JRadioButton rdbtnEventoDeVarios = new JRadioButton();
-	private JRadioButton rdbtnEventoDeUn = new JRadioButton();
 	private JPanel panelVariosDias = new JPanel();
-	private JPanel panelUnDia = new JPanel();
 	private JSpinner spnFechaFin = new JSpinner();
 	private JSpinner spnFechaInicio = new JSpinner();
-	private JSpinner spnHoraIni1 = new JSpinner();
 	private JSpinner spnHoraIni = new JSpinner();
 	private JSpinner spnHoraFin = new JSpinner();
-	private JSpinner spnHoraFin1 = new JSpinner();
-	private JSpinner spnDiaDelEvento = new JSpinner();
 	private JPanel panelImagen = new JPanel();
 	private JPanel panelReg = new JPanel();
 	private Evento evento = new Evento(null, null, null, null, null, null, null, null, null);
@@ -82,11 +76,6 @@ public class RegEvent extends JDialog {
 	private final JTextField txtComision3 = new JTextField();
 	private final JButton btnCrearComision3 = new JButton("Crear Comision");
 	private final JButton btnAsignarTrabajo3 = new JButton("Asignar Trabajos");
-	private final JLabel label_6 = new JLabel("Representante");
-	private final JRadioButton rdbtnComision1 = new JRadioButton("");
-	private final JRadioButton rdbtnComision2 = new JRadioButton("");
-	private final JRadioButton rdbtnComision3 = new JRadioButton("");
-	private final JRadioButton rdbtnComision4 = new JRadioButton("");
 	private final JLabel label_7 = new JLabel("Comision 4:");
 	private final JTextField txtComision4 = new JTextField();
 	private final JButton btnCrearComision4 = new JButton("Crear Comision");
@@ -117,6 +106,184 @@ public class RegEvent extends JDialog {
 		contentPanel.setLayout(null);
 		
 		contentPanel.setBackground(new Color(190,209,201));
+		panelComision.setBounds(0, 0, 658, 1);
+		contentPanel.add(panelComision);
+		panelComision.setVisible(false);
+		panelComision.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelComision.setLayout(null);
+		panelComision.setBackground(new Color(190,209,201));
+		btnAsignarTrabajo2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(1).createTrabajo();
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(1), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
+				
+			}
+		});
+		btnAsignarTrabajo2.setEnabled(false);
+		btnAsignarTrabajo2.setBounds(330, 86, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo2);
+		btnAsignarTrabajo1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(0).createTrabajo();
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(0), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
+			}
+		});
+		btnAsignarTrabajo1.setEnabled(false);
+		btnAsignarTrabajo1.setBounds(330, 40, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo1);
+		btnAsignarTrabajo3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(2).createTrabajo();
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(2), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
+			}
+		});
+		btnAsignarTrabajo3.setEnabled(false);
+		btnAsignarTrabajo3.setBounds(330, 130, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo3);
+		btnAsignarTrabajo4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				evento.getMisComisiones().get(3).createTrabajo();
+				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(3), evento);
+				traFrame.setModal(true);
+				traFrame.setVisible(true);
+			}
+		});
+		btnAsignarTrabajo4.setEnabled(false);
+		btnAsignarTrabajo4.setBounds(330, 169, 120, 23);
+		
+		panelComision.add(btnAsignarTrabajo4);
+		label_3.setBounds(10, 44, 68, 14);
+		
+		panelComision.add(label_3);
+		txtComision1.setEditable(false);
+		txtComision1.setColumns(10);
+		txtComision1.setBounds(88, 41, 102, 20);
+		
+		panelComision.add(txtComision1);
+		btnCrearComision1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegComision comFrame = new RegComision(evento);
+				comFrame.setModal(true);
+				comFrame.setVisible(true);
+				if(evento.getMisComisiones().size() > 0) {
+					txtComision1.setText(evento.getMisComisiones().get(0).getTema());
+					if(!txtComision1.getText().isEmpty()) {
+						btnAsignarTrabajo1.setEnabled(true);
+					}
+					
+				}
+				
+			}
+		});
+		btnCrearComision1.setBounds(200, 40, 120, 23);
+		
+		panelComision.add(btnCrearComision1);
+		label_4.setBounds(10, 90, 68, 14);
+		
+		panelComision.add(label_4);
+		txtComision2.setEditable(false);
+		txtComision2.setColumns(10);
+		txtComision2.setBounds(88, 87, 102, 20);
+		
+		panelComision.add(txtComision2);
+		btnCrearComision2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegComision comFrame = new RegComision(evento);
+				comFrame.setModal(true);
+				comFrame.setVisible(true);
+				if(!evento.getMisComisiones().get(1).equals(null)) {
+					txtComision2.setText(evento.getMisComisiones().get(1).getTema());
+					if(!txtComision2.getText().isEmpty()){
+						btnAsignarTrabajo2.setEnabled(true);
+					}
+					
+				}
+				
+			}
+		});
+		btnCrearComision2.setBounds(200, 86, 120, 23);
+		
+		panelComision.add(btnCrearComision2);
+		label_5.setBounds(10, 136, 68, 14);
+		
+		panelComision.add(label_5);
+		txtComision3.setEditable(false);
+		txtComision3.setColumns(10);
+		txtComision3.setBounds(88, 133, 102, 20);
+		
+		panelComision.add(txtComision3);
+		btnCrearComision3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegComision comFrame = new RegComision(evento);
+				comFrame.setModal(true);
+				comFrame.setVisible(true);
+				if(!evento.getMisComisiones().get(2).equals(null)) {
+					txtComision3.setText(evento.getMisComisiones().get(2).getTema());
+					if(!txtComision3.getText().isEmpty()){
+						btnAsignarTrabajo3.setEnabled(true);
+					}
+					
+				}
+			
+			}
+		});
+		btnCrearComision3.setBounds(200, 130, 120, 23);
+		
+		panelComision.add(btnCrearComision3);
+		label_7.setBounds(10, 180, 68, 14);
+		
+		panelComision.add(label_7);
+		txtComision4.setEditable(false);
+		txtComision4.setColumns(10);
+		txtComision4.setBounds(88, 172, 102, 20);
+		
+		panelComision.add(txtComision4);
+		btnCrearComision4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegComision comFrame = new RegComision(evento);
+				comFrame.setModal(true);
+				comFrame.setVisible(true);
+				if(!evento.getMisComisiones().get(3).equals(null)) {
+					txtComision4.setText(evento.getMisComisiones().get(3).getTema());
+					if(!txtComision4.getText().isEmpty()){
+						btnAsignarTrabajo4.setEnabled(true);
+					}
+				}
+			}
+		});
+		btnCrearComision4.setBounds(200, 169, 120, 23);
+		
+		panelComision.add(btnCrearComision4);
+		btnAgregarRecurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListRecursos frameRecurso = new ListRecursos(evento);
+				frameRecurso.setModal(true);
+				frameRecurso.setVisible(true);
+				txtCantRecursos.setText(String.valueOf(evento.getMisRecursos().size()));
+			}
+		});
+		btnAgregarRecurso.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAgregarRecurso.setBounds(200, 202, 89, 28);
+		
+		panelComision.add(btnAgregarRecurso);
+		txtCantRecursos.setText("0");
+		txtCantRecursos.setEditable(false);
+		txtCantRecursos.setColumns(10);
+		txtCantRecursos.setBounds(110, 204, 55, 23);
+		
+		panelComision.add(txtCantRecursos);
+		label_8.setBounds(10, 208, 99, 16);
+		
+		panelComision.add(label_8);
 		{
 			panelReg.setBounds(119, 6, 533, 192);
 			panelReg.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -162,45 +329,6 @@ public class RegEvent extends JDialog {
 				cbxArea.setSelectedItem(miEvento.getArea());
 			}
 			panelReg.add(cbxArea);
-			rdbtnEventoDeVarios.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(rdbtnEventoDeVarios.isSelected()) {
-						rdbtnEventoDeUn.setSelected(false);
-						panelVariosDias.setVisible(true);
-						panelUnDia.setVisible(false);
-					}
-					else {
-						panelVariosDias.setVisible(false);
-					}
-				}
-			});
-			
-			
-			rdbtnEventoDeVarios.setSelected(true);
-			rdbtnEventoDeVarios.setText("Evento de Varios D\u00EDas");
-			rdbtnEventoDeVarios.setBackground(new Color(190,209,201));
-			rdbtnEventoDeVarios.setBounds(45, 158, 168, 18);
-			panelReg.add(rdbtnEventoDeVarios);
-			rdbtnEventoDeUn.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(rdbtnEventoDeUn.isSelected()) {
-						rdbtnEventoDeVarios.setSelected(false);
-						panelUnDia.setVisible(true);
-						panelVariosDias.setVisible(false);
-					}
-					else {
-						panelUnDia.setVisible(false);
-					}
-					
-					
-				}
-			});
-			
-			
-			rdbtnEventoDeUn.setBounds(256, 158, 156, 18);
-			rdbtnEventoDeUn.setText("Evento de Un Solo D\u00EDa");
-			rdbtnEventoDeUn.setBackground(new Color(190,209,201));
-			panelReg.add(rdbtnEventoDeUn);
 		}
 		
 		JLabel lblLugar = new JLabel("Lugar:");
@@ -298,300 +426,6 @@ public class RegEvent extends JDialog {
 			e2.printStackTrace();
 		}
 		panelVariosDias.add(spnHoraFin);
-		
-		panelUnDia.setVisible(false);
-		panelUnDia.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelUnDia.setBounds(119, 211, 533, 130);
-		panelUnDia.setBackground(new Color(190,209,201));
-		contentPanel.add(panelUnDia);
-		panelUnDia.setLayout(null);
-		
-		
-		spnHoraIni1.setModel(new SpinnerDateModel());
-		JSpinner.DateEditor horaini1 = new JSpinner.DateEditor(spnHoraIni1, "HH:mm:ss");
-		spnHoraIni1.setEditor(horaini1);
-		spnHoraIni1.setBounds(92, 15, 148, 28);
-		try {
-			spnHoraIni1.setValue(formatoHora.parse("8:00"));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		panelUnDia.add(spnHoraIni1);
-		
-		JLabel lblHoraInicio = new JLabel("Hora De Inicio:");
-		lblHoraInicio.setBounds(6, 21, 84, 16);
-		panelUnDia.add(lblHoraInicio);
-		
-		JLabel lblHoraFin = new JLabel("Hora de Finalizaci\u00F3n:");
-		lblHoraFin.setBounds(252, 21, 115, 16);
-		panelUnDia.add(lblHoraFin);
-		
-		
-		spnHoraFin1.setModel(new SpinnerDateModel());
-		JSpinner.DateEditor horaFin1 = new JSpinner.DateEditor(spnHoraFin1, "HH:mm:ss");
-		spnHoraFin1.setEditor(horaFin1);	
-		spnHoraFin1.setBounds(379, 15, 148, 28);
-		try {
-			spnHoraFin1.setValue(formatoHora.parse("8:00"));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		panelUnDia.add(spnHoraFin1);
-		
-		spnDiaDelEvento.setModel(new SpinnerDateModel());
-		JSpinner.DateEditor diaEvento = new JSpinner.DateEditor(spnDiaDelEvento, "dd/MM/yyy");
-		spnDiaDelEvento.setEditor(diaEvento);
-		spnDiaDelEvento.setBounds(94, 64, 148, 28);
-		panelUnDia.add(spnDiaDelEvento);
-		
-		JLabel lblDiaDelEvento = new JLabel("Dia Del Evento:");
-		lblDiaDelEvento.setBounds(6, 70, 91, 16);
-		panelUnDia.add(lblDiaDelEvento);
-		panelComision.setVisible(false);
-		panelComision.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelComision.setBounds(119, 5, 533, 243);
-		contentPanel.add(panelComision);
-		panelComision.setLayout(null);
-		panelComision.setBackground(new Color(190,209,201));
-		btnAsignarTrabajo2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				evento.getMisComisiones().get(1).createTrabajo();
-				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(1), evento);
-				traFrame.setModal(true);
-				traFrame.setVisible(true);
-				
-			}
-		});
-		btnAsignarTrabajo2.setEnabled(false);
-		btnAsignarTrabajo2.setBounds(330, 86, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo2);
-		btnAsignarTrabajo1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				evento.getMisComisiones().get(0).createTrabajo();
-				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(0), evento);
-				traFrame.setModal(true);
-				traFrame.setVisible(true);
-			}
-		});
-		btnAsignarTrabajo1.setEnabled(false);
-		btnAsignarTrabajo1.setBounds(330, 40, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo1);
-		btnAsignarTrabajo3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				evento.getMisComisiones().get(2).createTrabajo();
-				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(2), evento);
-				traFrame.setModal(true);
-				traFrame.setVisible(true);
-			}
-		});
-		btnAsignarTrabajo3.setEnabled(false);
-		btnAsignarTrabajo3.setBounds(330, 130, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo3);
-		btnAsignarTrabajo4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				evento.getMisComisiones().get(3).createTrabajo();
-				RegTrabajo traFrame = new RegTrabajo(evento.getMisComisiones().get(3), evento);
-				traFrame.setModal(true);
-				traFrame.setVisible(true);
-			}
-		});
-		btnAsignarTrabajo4.setEnabled(false);
-		btnAsignarTrabajo4.setBounds(330, 169, 120, 23);
-		
-		panelComision.add(btnAsignarTrabajo4);
-		label_3.setBounds(10, 44, 68, 14);
-		
-		panelComision.add(label_3);
-		txtComision1.setEditable(false);
-		txtComision1.setColumns(10);
-		txtComision1.setBounds(88, 41, 102, 20);
-		
-		panelComision.add(txtComision1);
-		btnCrearComision1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegComision comFrame = new RegComision(evento);
-				comFrame.setModal(true);
-				comFrame.setVisible(true);
-				if(evento.getMisComisiones().size() > 0) {
-					txtComision1.setText(evento.getMisComisiones().get(0).getTema());
-					if(!txtComision1.getText().isEmpty()) {
-						btnAsignarTrabajo1.setEnabled(true);
-						rdbtnComision1.setEnabled(true);
-					}
-					
-				}
-				
-			}
-		});
-		btnCrearComision1.setBounds(200, 40, 120, 23);
-		
-		panelComision.add(btnCrearComision1);
-		label_4.setBounds(10, 90, 68, 14);
-		
-		panelComision.add(label_4);
-		txtComision2.setEditable(false);
-		txtComision2.setColumns(10);
-		txtComision2.setBounds(88, 87, 102, 20);
-		
-		panelComision.add(txtComision2);
-		btnCrearComision2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegComision comFrame = new RegComision(evento);
-				comFrame.setModal(true);
-				comFrame.setVisible(true);
-				if(!evento.getMisComisiones().get(1).equals(null)) {
-					txtComision2.setText(evento.getMisComisiones().get(1).getTema());
-					if(!txtComision2.getText().isEmpty()){
-						btnAsignarTrabajo2.setEnabled(true);
-						rdbtnComision2.setEnabled(true);
-					}
-					
-				}
-				
-			}
-		});
-		btnCrearComision2.setBounds(200, 86, 120, 23);
-		
-		panelComision.add(btnCrearComision2);
-		label_5.setBounds(10, 136, 68, 14);
-		
-		panelComision.add(label_5);
-		txtComision3.setEditable(false);
-		txtComision3.setColumns(10);
-		txtComision3.setBounds(88, 133, 102, 20);
-		
-		panelComision.add(txtComision3);
-		btnCrearComision3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegComision comFrame = new RegComision(evento);
-				comFrame.setModal(true);
-				comFrame.setVisible(true);
-				if(!evento.getMisComisiones().get(2).equals(null)) {
-					txtComision3.setText(evento.getMisComisiones().get(2).getTema());
-					if(!txtComision3.getText().isEmpty()){
-						btnAsignarTrabajo3.setEnabled(true);
-						rdbtnComision3.setEnabled(true);
-					}
-					
-				}
-			
-			}
-		});
-		btnCrearComision3.setBounds(200, 130, 120, 23);
-		
-		panelComision.add(btnCrearComision3);
-		label_6.setHorizontalAlignment(SwingConstants.CENTER);
-		label_6.setBounds(443, 14, 84, 14);
-		
-		panelComision.add(label_6);
-		rdbtnComision1.setEnabled(false);
-		rdbtnComision1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnComision1.isSelected()) {
-					rdbtnComision2.setSelected(false);
-					rdbtnComision3.setSelected(false);
-					rdbtnComision4.setSelected(false);
-				}
-			}
-		});
-		rdbtnComision1.setBounds(474, 40, 53, 23);
-		rdbtnComision1.setBackground(new Color(190,209,201));
-		
-		
-		panelComision.add(rdbtnComision1);
-		rdbtnComision2.setEnabled(false);
-		rdbtnComision2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnComision2.isSelected()) {
-					rdbtnComision1.setSelected(false);
-					rdbtnComision3.setSelected(false);
-					rdbtnComision4.setSelected(false);
-				}
-			}
-		});
-		rdbtnComision2.setBounds(474, 86, 53, 23);
-		rdbtnComision2.setBackground(new Color(190,209,201));
-		
-		panelComision.add(rdbtnComision2);
-		rdbtnComision3.setEnabled(false);
-		rdbtnComision3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnComision3.isSelected()) {
-					rdbtnComision1.setSelected(false);
-					rdbtnComision2.setSelected(false);
-					rdbtnComision4.setSelected(false);
-				}
-			}
-		});
-		rdbtnComision3.setBounds(474, 132, 53, 23);
-		rdbtnComision3.setBackground(new Color(190,209,201));
-		
-		panelComision.add(rdbtnComision3);
-		rdbtnComision4.setEnabled(false);
-		rdbtnComision4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnComision4.isSelected()) {
-					rdbtnComision1.setSelected(false);
-					rdbtnComision2.setSelected(false);
-					rdbtnComision3.setSelected(false);
-				}
-			}
-		});
-		rdbtnComision4.setBounds(474, 171, 53, 23);
-		rdbtnComision4.setBackground(new Color(190,209,201));
-		
-		panelComision.add(rdbtnComision4);
-		label_7.setBounds(10, 180, 68, 14);
-		
-		panelComision.add(label_7);
-		txtComision4.setEditable(false);
-		txtComision4.setColumns(10);
-		txtComision4.setBounds(88, 172, 102, 20);
-		
-		panelComision.add(txtComision4);
-		btnCrearComision4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegComision comFrame = new RegComision(evento);
-				comFrame.setModal(true);
-				comFrame.setVisible(true);
-				if(!evento.getMisComisiones().get(3).equals(null)) {
-					txtComision4.setText(evento.getMisComisiones().get(3).getTema());
-					if(!txtComision4.getText().isEmpty()){
-						btnAsignarTrabajo4.setEnabled(true);
-						rdbtnComision4.setEnabled(true);
-					}
-				}
-			}
-		});
-		btnCrearComision4.setBounds(200, 169, 120, 23);
-		
-		panelComision.add(btnCrearComision4);
-		btnAgregarRecurso.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ListRecursos frameRecurso = new ListRecursos(evento);
-				frameRecurso.setModal(true);
-				frameRecurso.setVisible(true);
-				txtCantRecursos.setText(String.valueOf(evento.getMisRecursos().size()));
-			}
-		});
-		btnAgregarRecurso.setHorizontalAlignment(SwingConstants.LEFT);
-		btnAgregarRecurso.setBounds(200, 202, 89, 28);
-		
-		panelComision.add(btnAgregarRecurso);
-		txtCantRecursos.setText("0");
-		txtCantRecursos.setEditable(false);
-		txtCantRecursos.setColumns(10);
-		txtCantRecursos.setBounds(110, 204, 55, 23);
-		
-		panelComision.add(txtCantRecursos);
-		label_8.setBounds(10, 208, 99, 16);
-		
-		panelComision.add(label_8);
-		
-		
 		panelImagen.setBounds(6, 6, 104, 335);
 		contentPanel.add(panelImagen);
 		panelImagen.setLayout(new BorderLayout(0, 0));
@@ -600,11 +434,6 @@ public class RegEvent extends JDialog {
 		label.setIcon(new ImageIcon(RegEvent.class.getResource("/img/RegEVento.jpg")));
 		panelImagen.add(label, BorderLayout.NORTH);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			buttonPane.setBackground(new Color(190,209,201));
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				
 				if(miEvento == null) {
@@ -628,11 +457,6 @@ public class RegEvent extends JDialog {
 										JOptionPane.showMessageDialog(null, "No asigno ningun recurso", "Aviso", JOptionPane.WARNING_MESSAGE);
 										
 								}
-								else if((!txtComision1.getText().isEmpty() || !txtComision2.getText().isEmpty() || !txtComision3.getText().isEmpty() || !txtComision4.getText().isEmpty()) &&
-										(!rdbtnComision1.isSelected() && !rdbtnComision2.isSelected() && !rdbtnComision3.isSelected() && !rdbtnComision4.isSelected())) {
-										JOptionPane.showMessageDialog(null, "Seleccione a una comision como representante", "Aviso", JOptionPane.WARNING_MESSAGE);
-									
-								}
 								
 								else {
 									int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
@@ -641,24 +465,7 @@ public class RegEvent extends JDialog {
 									if(option == JOptionPane.OK_OPTION) {
 										Principal.createLineChart();
 										Principal.createPieChart();	
-										if(rdbtnComision1.isSelected()) {
-											Juez juez = (Juez)evento.getMisComisiones().get(0).getMisMiembros().get(0);
-											juez.setRepresentante(true);
-										}
-										if(rdbtnComision2.isSelected()) {
-											Juez juez = (Juez)evento.getMisComisiones().get(1).getMisMiembros().get(0);
-											juez.setRepresentante(true);
-										}
-										if(rdbtnComision3.isSelected()) {
-											Juez juez = (Juez)evento.getMisComisiones().get(2).getMisMiembros().get(0);
-											juez.setRepresentante(true);
-										}
-										if(rdbtnComision4.isSelected()){
-											Juez juez = (Juez)evento.getMisComisiones().get(3).getMisMiembros().get(0);
-											juez.setRepresentante(true);
-										}
 										PUCMM.pucmm().crearEvento(evento);
-									
 										JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 										clean();
 										dispose();
@@ -669,44 +476,6 @@ public class RegEvent extends JDialog {
 						}
 					});
 				}
-				btnSiguiente.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-							
-						
-							if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
-								JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
-							}
-						
-							else{
-								if(rdbtnEventoDeVarios.isSelected()) {
-									evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
-									cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
-									(Date)spnHoraFin.getValue());
-								
-							}
-								else if(rdbtnEventoDeUn.isSelected()) {
-									evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
-									cbxCampus.getSelectedItem().toString(),(Date)spnDiaDelEvento.getValue(),(Date)spnDiaDelEvento.getValue(),(Date)spnHoraIni1.getValue(),
-									(Date)spnHoraFin1.getValue());
-							 	}
-								panelComision.setVisible(true);
-								panelReg.setVisible(false);
-								panelUnDia.setVisible(false);
-								panelVariosDias.setVisible(false);
-								btnAtrs.setEnabled(true);
-								btnSiguiente.setEnabled(false);
-								btnRegistrar.setEnabled(true);
-							}
-						
-						
-				
-					}
-				});
-				lblCamposObligatorios.setFont(new Font("SansSerif", Font.ITALIC, 12));
-				lblCamposObligatorios.setDisplayedMnemonic('C');
-				lblCamposObligatorios.setHorizontalAlignment(SwingConstants.CENTER);
-				
-				buttonPane.add(lblCamposObligatorios);
 				if(miEvento != null) {
 					btnRegistrar.addActionListener(new ActionListener() {
 						@Override
@@ -716,61 +485,79 @@ public class RegEvent extends JDialog {
 							modEvento.setArea( cbxArea.getSelectedItem().toString());
 							modEvento.setLugar(cbxLugar.getSelectedItem().toString());
 							modEvento.setCampus(cbxCampus.getSelectedItem().toString());
-							
-							if(rdbtnEventoDeVarios.isSelected()) {
-								modEvento.setFechaIni((Date)spnFechaInicio.getValue());
-								modEvento.setFechaFin((Date)spnFechaFin.getValue());
-								modEvento.setHorarioInicio((Date)spnHoraIni.getValue());
-								modEvento.setHorarioFin((Date)spnHoraFin.getValue());
-							}
-							
-							else if(rdbtnEventoDeUn.isSelected()) {
-								modEvento.setFechaIni((Date)spnDiaDelEvento.getValue());
-								modEvento.setFechaFin((Date)spnDiaDelEvento.getValue());
-								modEvento.setHorarioInicio((Date)spnHoraIni1.getValue());
-								modEvento.setHorarioFin((Date)spnHoraFin1.getValue());
-							}
+							modEvento.setFechaIni((Date)spnFechaInicio.getValue());
+							modEvento.setFechaFin((Date)spnFechaFin.getValue());
+							modEvento.setHorarioInicio((Date)spnHoraIni.getValue());
+							modEvento.setHorarioFin((Date)spnHoraFin.getValue());
 							dispose();
 						}
 					});
 				}
-				btnAtrs.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						panelComision.setVisible(false);
-						panelReg.setVisible(true);
-						panelVariosDias.setVisible(true);
-						btnAtrs.setEnabled(false);
-						btnSiguiente.setEnabled(true);
+			}
+		}
+		JPanel buttonPane = new JPanel();
+		buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		buttonPane.setBackground(new Color(190,209,201));
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		btnSiguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
+					JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
 					}
-				});
+
+				else{
+					evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
+					cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
+					(Date)spnHoraFin.getValue());
+					panelComision.setVisible(true);
+					panelReg.setVisible(false);
+					panelVariosDias.setVisible(false);
+					btnAtrs.setEnabled(true);
+					btnSiguiente.setEnabled(false);
+					btnRegistrar.setEnabled(true);
+					}
+			}
+		});
+		lblCamposObligatorios.setFont(new Font("SansSerif", Font.ITALIC, 12));
+		lblCamposObligatorios.setDisplayedMnemonic('C');
+		lblCamposObligatorios.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		buttonPane.add(lblCamposObligatorios);
+		btnAtrs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelComision.setVisible(false);
+				panelReg.setVisible(true);
+				panelVariosDias.setVisible(true);
 				btnAtrs.setEnabled(false);
-				buttonPane.add(btnAtrs);
-				buttonPane.add(btnSiguiente);
-				btnRegistrar.setActionCommand("OK");
-				buttonPane.add(btnRegistrar);
-				getRootPane().setDefaultButton(btnRegistrar);
+				btnSiguiente.setEnabled(true);
 			}
-			{
-				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						dispose();
-						
-						if(evento != null) {
-							for(Comision comision : evento.getMisComisiones()) {
-								for(Persona persona : comision.getMisMiembros()) {
-									persona.setdisponible(true);
-								}
-							}	
-						}
-						
-						
+		});
+		btnAtrs.setEnabled(false);
+		buttonPane.add(btnAtrs);
+		buttonPane.add(btnSiguiente);
+		btnRegistrar.setActionCommand("OK");
+		buttonPane.add(btnRegistrar);
+		getRootPane().setDefaultButton(btnRegistrar);
+		{
+			JButton btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					dispose();
+					
+					if(evento != null) {
+						for(Comision comision : evento.getMisComisiones()) {
+							for(Persona persona : comision.getMisMiembros()) {
+								persona.setdisponible(true);
+							}
+						}	
 					}
-				});
-				btnCancelar.setActionCommand("Cancel");
-				buttonPane.add(btnCancelar);
-			}
+					
+				}
+			});
+			btnCancelar.setActionCommand("Cancel");
+			buttonPane.add(btnCancelar);
 		}
 	}
 	void clean() {
@@ -783,17 +570,11 @@ public class RegEvent extends JDialog {
 		spnFechaInicio.setValue(new Date());
 		try {
 			spnHoraFin.setValue(formatoHora.parse("8:00"));
-			spnHoraFin1.setValue(formatoHora.parse("8:00"));
 			spnHoraIni.setValue(formatoHora.parse("8:00"));
-			spnHoraIni1.setValue(formatoHora.parse("8:00"));
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
 		}
-		
-		spnDiaDelEvento.setValue(new Date());
-		
-		
 		
 	}
 }
