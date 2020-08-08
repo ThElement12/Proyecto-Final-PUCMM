@@ -6,10 +6,8 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Logico.Evento;
@@ -35,13 +33,14 @@ public class ListRecursos extends JDialog {
 	private ArrayList<Recurso> misRecursos = new ArrayList<>();
 	private Recurso miRecurso = null;
 	private JButton btnRegistrar = new JButton("Registrar");
+	private static Evento miEvento;
 	
 	public ListRecursos(Evento evento) {
 		setTitle("Lista de Recursos");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListRecursos.class.getResource("/img/Icono_pucmm.jpg")));
 		setLocationRelativeTo(null);
-		
-		if(evento != null) {
+		miEvento = evento;
+		if(miEvento != null) {
 			btnRegistrar.setText("Agregar");
 			btnRegistrar.setEnabled(false);
 		}
@@ -50,7 +49,7 @@ public class ListRecursos extends JDialog {
 		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		contentPanel.setBackground(new Color(190,209,201));//lol klk
+		contentPanel.setBackground(new Color(190,209,201));
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setBackground(new Color(190,209,201));
@@ -94,15 +93,16 @@ public class ListRecursos extends JDialog {
 				
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(evento == null) {
-							RegRecursos regRecurso = new RegRecursos();
+						if(miEvento == null) {
+							RegRecursos regRecurso = new RegRecursos(true);
 							regRecurso.setModal(true);
 							regRecurso.setVisible(true);
 						}
-						else {
+						else if(miEvento != null && PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)).isDisponible()){
 							miRecurso = PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte));
 							PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)).setDisponible(false);
 							evento.setMisRecursos(miRecurso);
+							RegEvent.loadText();
 							loadRecursos();
 						}
 					}
@@ -110,6 +110,23 @@ public class ListRecursos extends JDialog {
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
 				getRootPane().setDefaultButton(btnRegistrar);
+				{
+					JButton btnQuitar = new JButton("Quitar");
+					btnQuitar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							miRecurso = PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte));
+							if(evento.quitarRecurso(miRecurso)) {
+								PUCMM.pucmm().searchRecursoById(Integer.parseInt(selecte)).setDisponible(true);
+								RegEvent.loadText();
+								loadRecursos();
+							}
+							
+						}
+					});
+					if(evento != null) {
+						buttonPane.add(btnQuitar);
+					}
+				}
 			}
 			{
 				JButton cancelButton = new JButton("Salir");
@@ -123,7 +140,8 @@ public class ListRecursos extends JDialog {
 			}
 		}
 	}
-	private static void loadRecursos() {
+
+	public static void loadRecursos() {
 		model.setRowCount(0);
 		fila = new Object[model.getColumnCount()];
 		

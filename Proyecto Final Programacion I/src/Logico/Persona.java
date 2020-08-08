@@ -5,23 +5,21 @@ import java.io.Serializable;
 
 public abstract class Persona implements Serializable {
 	protected boolean disponible;
-	protected int id;
 	protected String cedula;
 	protected String nombre;
 	protected String numero;
-	protected Evento evento;
-	protected Comision comision;
+	protected Evento evento = null;
+	protected Comision comision = null;
 	protected String area;
 	protected transient Image foto = null;
 
-	public Persona(int id,String cedula, String nombre, String numero, String area, Image foto) {
+	public Persona(String cedula, String nombre, String numero, String area, Image foto) {
 		disponible = true;
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.numero = numero;
 		this.area = area;
 		this.foto = foto;
-		this.id = id;
 	}
 
 	public boolean isdisponible() {
@@ -70,9 +68,6 @@ public abstract class Persona implements Serializable {
 	public Image getFoto() {
 		return foto;
 	}
-	public int getId() {
-		return id;
-	}
-	
+
 
 }

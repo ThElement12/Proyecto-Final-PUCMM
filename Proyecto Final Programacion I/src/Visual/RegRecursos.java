@@ -31,7 +31,7 @@ public class RegRecursos extends JDialog {
 	private JTextField txtModelo;
 	private JComboBox<String> cbxTipo = new JComboBox<String>();
 
-	public RegRecursos() {
+	public RegRecursos(boolean listrecursos) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegRecursos.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registrar Recurso");
 		setBounds(100, 100, 477, 243);
@@ -88,13 +88,23 @@ public class RegRecursos extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
-								"Advertencia",JOptionPane.WARNING_MESSAGE);
-						if(option == JOptionPane.OK_OPTION) {
-							Recurso miRecurso = new Recurso(PUCMM.pucmm().getMisRecursos().size()+1,txtModelo.getText(), cbxTipo.getSelectedItem().toString());
-							PUCMM.pucmm().getMisRecursos().add(miRecurso);
-							clean();
+						if(txtModelo.getText().isEmpty() || cbxTipo.getSelectedIndex() == 0) {
+							JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
 						}
+						else {
+							int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
+									"Advertencia",JOptionPane.WARNING_MESSAGE);
+							if(option == JOptionPane.OK_OPTION) {
+								Recurso miRecurso = new Recurso(PUCMM.pucmm().getMisRecursos().size()+1,txtModelo.getText(), cbxTipo.getSelectedItem().toString());
+								PUCMM.pucmm().getMisRecursos().add(miRecurso);
+								if(listrecursos) {
+									ListRecursos.loadRecursos();
+
+								}
+								clean();
+							}
+						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");

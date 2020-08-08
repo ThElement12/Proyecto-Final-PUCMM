@@ -37,6 +37,16 @@ public class Comision implements Serializable{
 	public void insertarJuez(Juez miJuez) {
 		misMiembros.add(miJuez);
 	}
+	public Juez getJuez() {
+		Juez miJuez = null;
+		for(Persona persona : misMiembros) {
+			if(persona instanceof Juez) {
+				miJuez = (Juez) persona;
+				break;
+			}
+		}
+		return miJuez;
+	}
 	public void insertarPrincipante(Participante miParticipante) {
 		misMiembros.add(miParticipante);
 	}

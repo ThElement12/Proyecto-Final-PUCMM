@@ -123,19 +123,29 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Personas");
 		mntmRegistrarPersonas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegPersona registrarPersona = new RegPersona();
+				RegPersona registrarPersona = new RegPersona(false);
 				registrarPersona.setModal(true);
 				registrarPersona.setVisible(true);
 			}
 		});
 		mnPersonas.add(mntmRegistrarPersonas);
+		
+		JMenuItem mntmListarPersonas = new JMenuItem("Listar Personas");
+		mntmListarPersonas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListPersonas listarPersonas = new ListPersonas();
+				listarPersonas.setModal(true);
+				listarPersonas.setVisible(true);
+			}
+;		});
+		mnPersonas.add(mntmListarPersonas);
 	
 		JMenu mnRecurso = new JMenu("Recurso");
 		menuBar.add(mnRecurso);
 		JMenuItem mntmAgregarRecurso = new JMenuItem("Agregar Recurso");
 		mntmAgregarRecurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegRecursos registrarRecurso = new RegRecursos();
+				RegRecursos registrarRecurso = new RegRecursos(false);
 				registrarRecurso.setModal(true);
 				registrarRecurso.setVisible(true);
 			}

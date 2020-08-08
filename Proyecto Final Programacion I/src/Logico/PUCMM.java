@@ -93,6 +93,7 @@ public class PUCMM implements Serializable{
 		int i = 0;
 		while(!finded && i < misEventos.size()) {
 			if(misEventos.get(i).getId().equalsIgnoreCase(Id)) {
+				misEventos.get(i).quitarTodasComision();
 				misEventos.remove(i);
 				finded = true;
 			}
@@ -120,13 +121,13 @@ public class PUCMM implements Serializable{
 		return miEvento;
 	}
 	
-	public Persona searchById(String id) {
+	public Persona searchByCedula(String cedula) {
 		int i = 0;
 		boolean finded = false;
 		Persona miPersona = null;
 		
 		while(i < misPersonas.size() && !finded) {
-			if(misPersonas.get(i).getId() ==Integer.parseInt(id)) {
+			if(misPersonas.get(i).getCedula().equalsIgnoreCase(cedula)) {
 				miPersona = misPersonas.get(i);
 				finded = true;
 			}
@@ -136,12 +137,12 @@ public class PUCMM implements Serializable{
 		
 		return miPersona;
 	}
-	public int searchIndexById(int id) {
+	public int searchIndexById(String cedula) {
 		int i = 0, aux = -1;
 		boolean finded = false;
 		
 		while(i < misPersonas.size() && !finded) {
-			if(misPersonas.get(i).getId() == id) {
+			if(misPersonas.get(i).getCedula().equalsIgnoreCase(cedula) ) {
 				aux = i;
 			}
 			i++;

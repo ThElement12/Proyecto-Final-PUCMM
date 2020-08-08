@@ -83,7 +83,7 @@ public class ListEventos extends JDialog {
 					}
 				});
 				model = new DefaultTableModel();
-				String[] columnNames = {"Id","Nombre del Evento","Area","Campus","Lugar","Fecha Inicio", "Fecha Fin", "Horario"};
+				String[] columnNames = {"Id","Nombre del Evento","Area","Campus","Lugar","Fecha Inicio", "Fecha Fin", "Horario", "Cant. Comisiones"};
 				model.setColumnIdentifiers(columnNames);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -125,6 +125,7 @@ public class ListEventos extends JDialog {
 						btnEliminar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								PUCMM.pucmm().removeEventoById(select);
+								JOptionPane.showMessageDialog(null, "Operacion completada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
 								loadEventos();
 							}
 						});
@@ -177,6 +178,7 @@ public class ListEventos extends JDialog {
 			fila[5] = dateformat.format(evento.getFechaIni()).toString();
 			fila[6] = dateformat.format(evento.getFechaFin()).toString();
 			fila[7] = horaformat.format(evento.getHorarioInicio()).toString() + "-" + horaformat.format(evento.getHorarioFin()).toString();
+			fila[8] = evento.getMisComisiones().size();
 			
 			model.addRow(fila);
 		}

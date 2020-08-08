@@ -123,12 +123,23 @@ public class Evento implements Serializable {
 	public void agregarRecurso(Recurso recurso) {
 		misRecursos.add(recurso);
 	}
+	public boolean quitarRecurso(Recurso recurso) {
+		return misRecursos.remove(recurso);
+	}
 	public void agregarTrabajoEvento(Trabajo trabajo) {
 		misTrabajos.add(trabajo);
 	}
 	
 	public ArrayList<Comision> getMisComisiones() {
 		return misComisiones;
+	}
+
+	public void setMisComisiones(ArrayList<Comision> misComisiones) {
+		this.misComisiones = misComisiones;
+	}
+
+	public void setMisRecursos(ArrayList<Recurso> misRecursos) {
+		this.misRecursos = misRecursos;
 	}
 
 	public ArrayList<Trabajo> getMisTrabajos() {
@@ -222,7 +233,20 @@ public class Evento implements Serializable {
 	public void setHorarioFin(Date horarioFin) {
 		HorarioFin = horarioFin;
 	}
-	
+	public void quitarTodasComision() {
+		for(int i = 0; i < misComisiones.size(); i++) {
+			quitarComision(i);
+		}
+	}
+	public void quitarComision(int index) {
+		
+		for (Persona participante : misComisiones.get(index).getMisMiembros()) {
+			participante.setdisponible(true);
+			participante.setEvento(null);
+			participante.setComision(null);
+		}
+		misComisiones.remove(index);	
+	}
 	public int cantParticipantes() {
 		int cant = 0;
 		for(int i = 0; i < misComisiones.size(); i ++) {
@@ -239,14 +263,12 @@ public class Evento implements Serializable {
 		while(!finded && i < misComisiones.size()) {
 			if(misComisiones.get(i).getId() == comId) {
 				finded = true;
+				return i;
 			}
-			
-			else {
-				i ++;
-			}
+			i++;
 		}
 		
-		return i;
+		return -1;
 	}
 
 	public void setMisRecursos(Recurso Recursos) {

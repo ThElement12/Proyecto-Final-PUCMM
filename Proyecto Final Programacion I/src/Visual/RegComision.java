@@ -56,7 +56,6 @@ public class RegComision extends JDialog {
 	private JTable tableJueces;
 	private JTable tableParticipant;
 	private JTable tableseleccionado;
-	private	static Evento evento;
 	private JButton btnAsignarPrincipal = new JButton("Asignar Juez");
 	private JButton btnAgregarParticipante = new JButton("Agregar Part.");
 	private JButton btnQuitarPart = new JButton("Quitar  Part.");
@@ -66,13 +65,12 @@ public class RegComision extends JDialog {
 	private Juez miJuez;
 
 	 
-	public RegComision(Evento miEvento) {
+	public RegComision(Evento miEvento, String area) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegComision.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registar Comisi\u00F3n");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
-		evento = miEvento;
 		btnAsignarPrincipal.setEnabled(false);
 		btnAgregarParticipante.setEnabled(false);
 		btnQuitarPart.setEnabled(false);
@@ -173,7 +171,7 @@ public class RegComision extends JDialog {
 		Jmodel.setColumnIdentifiers(columnNamesJuez);
 		tableJueces.setModel(Jmodel);
 		scrollPane.setViewportView(tableJueces);
-		loadjueces();
+		loadjueces(area);
 		
 		JLabel lblParticipanteDisponible = new JLabel("Participantes Disponibles");
 		lblParticipanteDisponible.setHorizontalAlignment(SwingConstants.CENTER);
@@ -201,14 +199,14 @@ public class RegComision extends JDialog {
 		Pmodel.setColumnIdentifiers(columnNamesPart);
 		tableParticipant.setModel(Pmodel);
 		scrollPane_1.setViewportView(tableParticipant);
-		loadparticipantes();
+		loadparticipantes(area);
 		
 		btnAsignarPrincipal.setEnabled(false);
 		btnAsignarPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miJuez = (Juez)PUCMM.pucmm().searchById(Jselect);
+				miJuez = (Juez)PUCMM.pucmm().searchByCedula(Jselect);
 				txtJuezPrincipal.setText(miJuez.getNombre());
-				loadjueces();
+				loadjueces(area);
 				btnQuitarPrincipal.setEnabled(true);
 			}
 		});
@@ -217,12 +215,12 @@ public class RegComision extends JDialog {
 				
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Participante miPart =(Participante) PUCMM.pucmm().searchById(Pselect);
+				Participante miPart =(Participante) PUCMM.pucmm().searchByCedula(Pselect);
 				if(!miPersona.contains(miPart)) {
 					miPersona.add(miPart);
 				}
 				loadSeleccionados();
-				loadparticipantes();
+				loadparticipantes(area);
 			}
 		});
 		btnAgregarParticipante.setBounds(274, 244, 132, 28);
@@ -233,7 +231,7 @@ public class RegComision extends JDialog {
 				int i = 0;
 				boolean encontrado = false;
 				while(i < miPersona.size() && !encontrado) {
-					if(miPersona.get(i).getId() == Integer.parseInt(selecte)) {
+					if(miPersona.get(i).getCedula().equalsIgnoreCase(selecte)) {
 						model.removeRow(i);
 						miPersona.remove(i);
 						encontrado = true;
@@ -308,7 +306,7 @@ public class RegComision extends JDialog {
 							if(option == JOptionPane.OK_OPTION) {
 								miPersona.add(0,miJuez);
 								setOcupado();
-								Comision comision = new Comision(evento.getArea(), txtTema.getText());
+								Comision comision = new Comision(area, txtTema.getText());
 								comision.setMisMiembros(miPersona);
 								miEvento.getMisComisiones().add(comision);
 								
@@ -337,22 +335,22 @@ public class RegComision extends JDialog {
 		
 		for(Persona elegidos : miPersona) {
 			if(elegidos instanceof Participante) {
-				Sfila[0] = elegidos.getId();
+				Sfila[0] = elegidos.getCedula();
 				Sfila[1] = elegidos.getNombre();
 				model.addRow(Sfila);
 			}
 		}
 		
 	}
-	private static void loadjueces() {
+	private static void loadjueces(String area) {
 		Jmodel.setRowCount(0);
 		Jfila = new Object[Jmodel.getColumnCount()];
 		
 		for (Persona juez : PUCMM.pucmm().getMisPersonas()) {
 			if(juez instanceof Juez) {
 				if(juez.isdisponible()) {
-					if(juez.getArea().equalsIgnoreCase(evento.getArea())){
-						Jfila[0] = juez.getId(); 
+					if(juez.getArea().equalsIgnoreCase(area)){
+						Jfila[0] = juez.getCedula(); 
 						Jfila[1] = juez.getNombre();
 						Jfila[2] = juez.getArea();
 						
@@ -363,15 +361,15 @@ public class RegComision extends JDialog {
 		}
 		
 	}
-	private static void loadparticipantes() {
+	private static void loadparticipantes(String area) {
 		Pmodel.setRowCount(0);
 		Pfila = new Object[Pmodel.getColumnCount()];
 		
 		for (Persona persona : PUCMM.pucmm().getMisPersonas()) {
 			if(persona instanceof Participante) {
 				if(persona.isdisponible()) {
-					if(persona.getArea().equalsIgnoreCase(evento.getArea())) {
-						Pfila[0] = persona.getId();
+					if(persona.getArea().equalsIgnoreCase(area)) {
+						Pfila[0] = persona.getCedula();
 						Pfila[1] = persona.getNombre();
 					
 						Pmodel.addRow(Pfila);

@@ -47,18 +47,16 @@ public class RegTrabajo extends JDialog {
 	private JButton btnAsignar;
 	private JButton cancelButton;
 	private static Comision miComision = new Comision(null, null);
-	private Evento miEvento;
 	private JTextField txtNumComision;
 	private JTable table;
 
 
-	public RegTrabajo(Comision comision, Evento evento) {
+	public RegTrabajo(Evento evento, Comision comision) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegTrabajo.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Asignar Trabajos Comision ");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		miComision = comision;
-		this.miEvento = evento;
 		setBounds(100, 100, 589, 369);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -101,7 +99,7 @@ public class RegTrabajo extends JDialog {
 		
 		txtEvento = new JTextField();
 		txtEvento.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		txtEvento.setText(miEvento.getNombre());
+		txtEvento.setText(evento.getNombre());
 		txtEvento.setEditable(false);
 		txtEvento.setBounds(52, 19, 86, 25);
 		pnl_info_setter.add(txtEvento);
@@ -162,12 +160,14 @@ public class RegTrabajo extends JDialog {
 			btnAsignar = new JButton("Asignar Posici\u00F3n");
 			btnAsignar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Participante miParticipante =(Participante) PUCMM.pucmm().searchById(select);
+					Participante miParticipante =(Participante) PUCMM.pucmm().searchByCedula(select);
+					miComision.createTrabajo();
 					Trabajo miTrabajo = searchTrabajoByPosition(cbxPosicion.getSelectedItem().toString());
 					if(miTrabajo.isDisponible()) {
 						miTrabajo.setParticipante(miParticipante);
 						miParticipante.agregarTrabajo(miTrabajo);
 						miComision.getMisTrabajos().add(miTrabajo);
+						evento.getMisTrabajos().add(miTrabajo);
 						JOptionPane.showMessageDialog(null, "Operacion completada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
 						btnAsignar.setEnabled(false);
 					}
@@ -200,7 +200,7 @@ public class RegTrabajo extends JDialog {
 		fila = new Object[model.getColumnCount()];
 		for(Persona persona : miComision.getMisMiembros()) {
 			if(persona instanceof Participante) {
-				fila[0] = persona.getId();
+				fila[0] = persona.getCedula();
 				fila[1] = persona.getCedula();
 				fila[2] = persona.getNombre();
 				model.addRow(fila);

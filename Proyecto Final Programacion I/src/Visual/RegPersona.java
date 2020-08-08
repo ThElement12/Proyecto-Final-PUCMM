@@ -37,7 +37,6 @@ import java.awt.Toolkit;
 public class RegPersona extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtId;
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JLabel lblImagenPerfil = new JLabel("");
@@ -49,10 +48,10 @@ public class RegPersona extends JDialog {
 	private boolean imagenSubida = false;
 
 	
-	public RegPersona() {
+	public RegPersona(boolean listPersonas) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegPersona.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Registrar Persona ");
-		setBounds(100, 100, 650, 373);
+		setBounds(100, 100, 650, 329);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,37 +61,26 @@ public class RegPersona extends JDialog {
 		
 		JPanel panel_principal = new JPanel();
 		panel_principal.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_principal.setBounds(6, 6, 434, 264);
+		panel_principal.setBounds(6, 6, 434, 215);
 		contentPanel.add(panel_principal);
 		panel_principal.setLayout(null);
 		panel_principal.setBackground(new Color(190,209,201));
 		
-		JLabel lblId = new JLabel("ID:");
-		lblId.setBounds(6, 25, 35, 16);
-		panel_principal.add(lblId);
-		
-		txtId = new JTextField();
-		txtId.setEditable(false);
-		txtId.setBounds(41, 19, 122, 28);
-		txtId.setText(Integer.toString(PUCMM.pucmm().getMisPersonas().size() + 1));
-		panel_principal.add(txtId);
-		txtId.setColumns(10);
-		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(6, 96, 55, 16);
+		lblNombre.setBounds(6, 67, 55, 16);
 		panel_principal.add(lblNombre);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(57, 90, 301, 28);
+		txtNombre.setBounds(57, 61, 301, 28);
 		panel_principal.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
-		lblTelfono.setBounds(6, 130, 55, 16);
+		lblTelfono.setBounds(6, 101, 55, 16);
 		panel_principal.add(lblTelfono);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(63, 126, 320, 28);
+		txtTelefono.setBounds(63, 97, 320, 28);
 		panel_principal.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
@@ -108,7 +96,7 @@ public class RegPersona extends JDialog {
 				}
 			}
 		});
-		rdbtnJuez.setBounds(6, 202, 115, 18);
+		rdbtnJuez.setBounds(6, 173, 115, 18);
 		panel_principal.add(rdbtnJuez);
 		rdbtnJuez.setBackground(new Color(190,209,201));
 		
@@ -125,42 +113,42 @@ public class RegPersona extends JDialog {
 			}
 		});
 		rdbtnParticipante.setSelected(true);
-		rdbtnParticipante.setBounds(145, 202, 115, 18);
+		rdbtnParticipante.setBounds(145, 173, 115, 18);
 		rdbtnParticipante.setBackground(new Color(190,209,201));
 		panel_principal.add(rdbtnParticipante);
 		
 		JLabel lblAreaEspecializado = new JLabel("Area Especializado:");
-		lblAreaEspecializado.setBounds(6, 174, 108, 16);
+		lblAreaEspecializado.setBounds(6, 145, 108, 16);
 		panel_principal.add(lblAreaEspecializado);
 		
 		
 		cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"}));
-		cbxArea.setBounds(126, 169, 134, 26);
+		cbxArea.setBounds(126, 140, 134, 26);
 		panel_principal.add(cbxArea);
 		
 		JLabel lblCedula = new JLabel("C\u00E9dula: ");
-		lblCedula.setBounds(6, 59, 55, 16);
+		lblCedula.setBounds(6, 30, 55, 16);
 		panel_principal.add(lblCedula);
 		
 		txtCedula = new JTextField();
-		txtCedula.setBounds(51, 53, 248, 28);
+		txtCedula.setBounds(51, 24, 248, 28);
 		panel_principal.add(txtCedula);
 		txtCedula.setColumns(10);
 		
 		JLabel lbll = new JLabel("*");
-		lbll.setBounds(311, 59, 55, 16);
+		lbll.setBounds(311, 30, 55, 16);
 		panel_principal.add(lbll);
 		
 		JLabel label = new JLabel("*");
-		label.setBounds(370, 96, 55, 16);
+		label.setBounds(370, 67, 55, 16);
 		panel_principal.add(label);
 		
 		JLabel label_1 = new JLabel("*");
-		label_1.setBounds(395, 130, 33, 16);
+		label_1.setBounds(395, 101, 33, 16);
 		panel_principal.add(label_1);
 		
 		JLabel label_2 = new JLabel("*");
-		label_2.setBounds(272, 174, 55, 16);
+		label_2.setBounds(272, 145, 55, 16);
 		panel_principal.add(label_2);
 		
 		JPanel panel_fotoPerfil = new JPanel();
@@ -217,15 +205,19 @@ public class RegPersona extends JDialog {
 									"Advertencia",JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
 								if(rdbtnJuez.isSelected()) {
-									Juez miJuez = new Juez(PUCMM.pucmm().getMisPersonas().size() + 1,txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
+									Juez miJuez = new Juez(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
 									cbxArea.getSelectedItem().toString(),imagen.getImage());
 									PUCMM.pucmm().getMisPersonas().add(miJuez);
 								}
 								else if(rdbtnParticipante.isSelected()) {
-									Participante miParticipante = new Participante(PUCMM.pucmm().getMisPersonas().size() + 1,txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
+									Participante miParticipante = new Participante(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText()
 									,cbxArea.getSelectedItem().toString(), imagen.getImage());
 									
 									PUCMM.pucmm().getMisPersonas().add(miParticipante);
+									
+								}
+								if(listPersonas) {
+									ListPersonas.loadPersonas();
 								}
 								clean();
 						}
@@ -257,7 +249,6 @@ public class RegPersona extends JDialog {
 		}
 	}
 	private void clean() {
-		txtId.setText(Integer.toString(PUCMM.pucmm().getMisPersonas().size() + 1));
 		txtCedula.setText("");
 		txtNombre.setText("");
 		txtTelefono.setText("");
