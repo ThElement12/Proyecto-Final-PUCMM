@@ -8,14 +8,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import org.jfree.chart.*;
+import java.util.Date;
+
 
 public class PUCMM implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4176944916332368203L;
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList<Evento> misEventos;
 	private ArrayList<Persona> misPersonas;
 	private static PUCMM pucmm;
 	private static File Fname = new File("Pucmm.dat");
+	
+	
 
 	private PUCMM() {
 		misPersonas = new ArrayList<>();
@@ -174,5 +181,17 @@ public class PUCMM implements Serializable{
 	}
 	public ArrayList<Evento> getMisEventos() {
 		return misEventos;
+	}
+
+	public ArrayList<Evento> getEventosByFecha(Date fechaMinima, Date fechaMaxima, String tipo) {
+		ArrayList<Evento> eventos = new ArrayList<>();
+		///Consulta SQL SERVER
+		for(Evento evento : misEventos) {
+			if((fechaMinima.compareTo(evento.getFechaIni()) * evento.getFechaIni().compareTo(fechaMaxima) >=0) && (evento.getArea().equalsIgnoreCase(tipo) || tipo.equalsIgnoreCase("Todos"))) {
+				eventos.add(evento);
+			}
+		}
+		
+		return eventos;
 	}
 }

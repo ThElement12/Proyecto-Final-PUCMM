@@ -27,6 +27,12 @@ import javax.swing.border.BevelBorder;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
 
 public class ListEventos extends JDialog {
 
@@ -39,12 +45,16 @@ public class ListEventos extends JDialog {
 	private JButton btnEliminar;
 	private int index;
 	private JButton btnReporte;
+	private JComboBox cbxTipo = new JComboBox();
+	private JSpinner spnFechaMaxima = new JSpinner();
+	private JSpinner spnFechaMinima = new JSpinner();
+
 
 	
 	public ListEventos() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListEventos.class.getResource("/img/Icono_pucmm.jpg")));
 		setTitle("Eventos ");
-		setBounds(100, 100, 735, 425);
+		setBounds(100, 100, 735, 476);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -59,13 +69,13 @@ public class ListEventos extends JDialog {
 			
 			JLabel label = new JLabel("");
 			label.setIcon(new ImageIcon(ListEventos.class.getResource("/img/RegEVento.jpg")));
-			label.setBounds(0, 0, 102, 328);
+			label.setBounds(6, 51, 102, 328);
 			panel.add(label);
 			
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setBackground(new Color(190,209,201));
-			scrollPane.setBounds(114, 0, 595, 328);
+			scrollPane.setBounds(114, 51, 595, 328);
 			panel.add(scrollPane);
 			{
 				table = new JTable();
@@ -83,12 +93,50 @@ public class ListEventos extends JDialog {
 					}
 				});
 				model = new DefaultTableModel();
-				String[] columnNames = {"Id","Nombre del Evento","Area","Campus","Lugar","Fecha Inicio", "Fecha Fin", "Horario", "Cant. Comisiones"};
+				String[] columnNames = {"Id","Nombre del Evento","Area","Campus","Lugar","Fecha Inicio", "Fecha Fin", "Horario", "Cant. Comisiones", "Cant. Recursos"};
 				model.setColumnIdentifiers(columnNames);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
 				
-				loadEventos();
+				JLabel lblDesde = new JLabel("Desde:");
+				lblDesde.setBounds(6, 18, 55, 16);
+				panel.add(lblDesde);
+				
+				JLabel lblHasta = new JLabel("Hasta:");
+				lblHasta.setBounds(200, 18, 55, 16);
+				panel.add(lblHasta);
+				
+				JLabel lblTipo = new JLabel("Tipo:");
+				lblTipo.setBounds(394, 18, 55, 16);
+				panel.add(lblTipo);
+				spnFechaMinima.setModel(new SpinnerDateModel());
+				JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spnFechaMinima, "dd/MM/yyy");
+				spnFechaMinima.setEditor(timeEditor);
+				spnFechaMinima.setValue(new Date());
+
+				spnFechaMinima.setBounds(73, 12, 115, 28);
+				panel.add(spnFechaMinima);
+				spnFechaMaxima.setModel(new SpinnerDateModel());
+				JSpinner.DateEditor te = new JSpinner.DateEditor(spnFechaMaxima, "dd/MM/yyy");
+				spnFechaMaxima.setEditor(te);
+				spnFechaMaxima.setValue(new Date());
+				
+				spnFechaMaxima.setBounds(267, 12, 115, 28);
+				panel.add(spnFechaMaxima);
+				
+				cbxTipo.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"}));
+				cbxTipo.setBounds(433, 13, 140, 26);
+				panel.add(cbxTipo);
+				
+				JButton btnBuscar = new JButton("Buscar");
+				btnBuscar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						loadEventos((Date)spnFechaMinima.getValue(),(Date)spnFechaMaxima.getValue(),cbxTipo.getSelectedItem().toString());
+
+					}
+				});
+				btnBuscar.setBounds(596, 12, 90, 28);
+				panel.add(btnBuscar);
 			}
 			
 			
@@ -106,7 +154,7 @@ public class ListEventos extends JDialog {
 						RegEvent registrarEvento = new RegEvent(null);
 						registrarEvento.setModal(true);
 						registrarEvento.setVisible(true);
-						loadEventos();
+						loadEventos((Date)spnFechaMinima.getValue(),(Date)spnFechaMaxima.getValue(),cbxTipo.getSelectedItem().toString());
 					}
 				});
 				{
@@ -117,7 +165,7 @@ public class ListEventos extends JDialog {
 							RegEvent unEvento = new RegEvent(miEvento);
 							unEvento.setModal(true);
 							unEvento.setVisible(true);
-							loadEventos();
+							loadEventos((Date)spnFechaMinima.getValue(),(Date)spnFechaMaxima.getValue(),cbxTipo.getSelectedItem().toString());
 						}
 					});
 					{
@@ -126,7 +174,7 @@ public class ListEventos extends JDialog {
 							public void actionPerformed(ActionEvent e) {
 								PUCMM.pucmm().removeEventoById(select);
 								JOptionPane.showMessageDialog(null, "Operacion completada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
-								loadEventos();
+								loadEventos((Date)spnFechaMinima.getValue(),(Date)spnFechaMaxima.getValue(),cbxTipo.getSelectedItem().toString());
 							}
 						});
 						btnEliminar.setEnabled(false);
@@ -163,13 +211,13 @@ public class ListEventos extends JDialog {
 			}
 		}
 	}
-	private static void loadEventos() {
+	private static void loadEventos(Date min, Date max, String area) {
 		model.setRowCount(0);
 		DateFormat horaformat = new SimpleDateFormat("HH");
 		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyy");
 		fila = new Object[model.getColumnCount()];
 		
-		for (Evento evento : PUCMM.pucmm().getMisEventos()) {
+		for (Evento evento : PUCMM.pucmm().getEventosByFecha(min, max, area)) {
 			fila[0] = evento.getId();
 			fila[1] = evento.getNombre();
 			fila[2] = evento.getArea();
@@ -179,6 +227,7 @@ public class ListEventos extends JDialog {
 			fila[6] = dateformat.format(evento.getFechaFin()).toString();
 			fila[7] = horaformat.format(evento.getHorarioInicio()).toString() + "-" + horaformat.format(evento.getHorarioFin()).toString();
 			fila[8] = evento.getMisComisiones().size();
+			fila[9] = evento.getMisRecursos().size();
 			
 			model.addRow(fila);
 		}

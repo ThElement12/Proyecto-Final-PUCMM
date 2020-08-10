@@ -20,6 +20,8 @@ import Logico.Recurso;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -314,33 +316,36 @@ public class RegEvent extends JDialog {
 		
 		buttonPane.add(lblCamposObligatorios);
 		btnRegistrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(miEvento == null) {
+			public void actionPerformed(ActionEvent e) {				
+				if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
+					JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
+				}
+				if(evento.getMisComisiones().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Debe registrar por lo menos una comision", "Aviso", JOptionPane.WARNING_MESSAGE);
 					
-					if(txtNombre.getText().isEmpty() || cbxArea.getSelectedIndex() == 0 || cbxLugar.getSelectedIndex() == 0) {
-						JOptionPane.showMessageDialog(null, "Por favor rellene los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
-					}
-					if(evento.getMisComisiones().isEmpty()){
-						JOptionPane.showMessageDialog(null, "Debe registrar por lo menos una comision", "Aviso", JOptionPane.WARNING_MESSAGE);
+				}
+				else if(!checkWork()){
+					
+						JOptionPane.showMessageDialog(null, "Debe asignar los trabajos a las comisiones creadas", "Aviso", JOptionPane.WARNING_MESSAGE);
+					
+				}
+				else if(evento.getMisRecursos().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "No asigno ningun recurso", "Aviso", JOptionPane.WARNING_MESSAGE);
 						
-					}
-					else if(!checkWork()){
-						
-							JOptionPane.showMessageDialog(null, "Debe asignar los trabajos a las comisiones creadas", "Aviso", JOptionPane.WARNING_MESSAGE);
-						
-					}
-					else if(evento.getMisRecursos().isEmpty()) {
-							JOptionPane.showMessageDialog(null, "No asigno ningun recurso", "Aviso", JOptionPane.WARNING_MESSAGE);
-							
-					}
-					else {
-						int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
-								"Advertencia",JOptionPane.WARNING_MESSAGE);
-						
-						if(option == JOptionPane.OK_OPTION) {
+				}
+				else {
+					int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
+							"Advertencia",JOptionPane.WARNING_MESSAGE);
+					
+					if(option == JOptionPane.OK_OPTION) {
+						if(miEvento == null) {
+							ArrayList<Comision> comisiones = evento.getMisComisiones();
+							ArrayList<Recurso> recursos = evento.getMisRecursos();
 							evento = new Evento(txtId.getText(),txtNombre.getText(), cbxArea.getSelectedItem().toString(),cbxLugar.getSelectedItem().toString(),
 									cbxCampus.getSelectedItem().toString(),(Date)spnFechaInicio.getValue(),(Date)spnFechaFin.getValue(),(Date)spnHoraIni.getValue(),
 									(Date)spnHoraFin.getValue());
+							evento.setMisComisiones(comisiones);
+							evento.setMisRecursos(recursos);
 							Principal.createLineChart();
 							Principal.createPieChart();	
 							PUCMM.pucmm().crearEvento(evento);
@@ -348,24 +353,28 @@ public class RegEvent extends JDialog {
 							clean();
 							dispose();
 						}
-					}
-				
-					
-				}
-				else {
-					Evento modEvento = PUCMM.pucmm().searchEventoById(miEvento.getId());
-					modEvento.setNombre(txtNombre.getText());
-					modEvento.setArea( cbxArea.getSelectedItem().toString());
-					modEvento.setLugar(cbxLugar.getSelectedItem().toString());
-					modEvento.setCampus(cbxCampus.getSelectedItem().toString());
-					modEvento.setFechaIni((Date)spnFechaInicio.getValue());
-					modEvento.setFechaFin((Date)spnFechaFin.getValue());
-					modEvento.setHorarioInicio((Date)spnHoraIni.getValue());
-					modEvento.setHorarioFin((Date)spnHoraFin.getValue());
-					dispose();
+						else {
+							ArrayList<Comision> comisiones = evento.getMisComisiones();
+							ArrayList<Recurso> recursos = evento.getMisRecursos();
+							Evento modEvento = PUCMM.pucmm().searchEventoById(miEvento.getId());
+							modEvento.setNombre(txtNombre.getText());
+							modEvento.setArea( cbxArea.getSelectedItem().toString());
+							modEvento.setLugar(cbxLugar.getSelectedItem().toString());
+							modEvento.setCampus(cbxCampus.getSelectedItem().toString());
+							modEvento.setFechaIni((Date)spnFechaInicio.getValue());
+							modEvento.setFechaFin((Date)spnFechaFin.getValue());
+							modEvento.setHorarioInicio((Date)spnHoraIni.getValue());
+							modEvento.setHorarioFin((Date)spnHoraFin.getValue());
+							modEvento.setMisComisiones(comisiones);
+							modEvento.setMisRecursos(recursos);
+							JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 
+							dispose();
+						}
+						
+					}
 				}
-				
+					
 			}
 		});
 		btnRegistrar.setActionCommand("OK");

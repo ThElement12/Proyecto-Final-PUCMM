@@ -33,6 +33,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import Logico.PUCMM;
+import SQLConnections.Conexion;
 
 import java.awt.Color;
 import javax.swing.JMenuItem;
@@ -60,6 +61,8 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
+					System.out.println(Conexion.getConnection());
 					Principal frame = new Principal();
 					frame.setVisible(true);
 				} catch (Exception e) {
