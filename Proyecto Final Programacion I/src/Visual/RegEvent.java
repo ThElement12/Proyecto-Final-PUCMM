@@ -171,7 +171,7 @@ public class RegEvent extends JDialog {
 		label_2.setBounds(216, 90, 55, 16);
 		
 		panelReg.add(label_2);
-		if(evento != null) {
+		if(miEvento != null) {
 			txtCantidadComisiones.setText(String.valueOf(evento.getMisComisiones().size()));
 			txtCantidadRecursos.setText(String.valueOf(evento.getMisRecursos().size()));
 
@@ -269,7 +269,7 @@ public class RegEvent extends JDialog {
 		txtCantidadComisiones.setEditable(false);
 		txtCantidadComisiones.setColumns(10);
 		
-		if(evento == null) {
+		if(miEvento == null) {
 			btnGestionarCom.setEnabled(false);
 
 		}
@@ -298,7 +298,7 @@ public class RegEvent extends JDialog {
 		});
 		btnGestionarCom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				evento.setNombre(txtNombre.getText());
 				ListComisiones listcomisiones = new ListComisiones(evento, cbxArea.getSelectedItem().toString());
 				listcomisiones.setModal(true);
 				listcomisiones.setVisible(true);

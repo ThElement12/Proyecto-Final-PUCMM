@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Comision implements Serializable{
+	private static final long serialVersionUID =  1170472791066105891L;
 	private int id;
 	private String tema;
 	private ArrayList<Persona> misMiembros;
@@ -11,10 +12,15 @@ public class Comision implements Serializable{
 	private static int cant = 1;
 	private ArrayList<Trabajo> misTrabajos;
 	
-	public Comision(String area, String tema) {
+	public Comision(String area, String tema, ArrayList<Persona> misMiembros) {
 		this.area = area;
 		this.tema = tema;
-		misMiembros = new ArrayList<>();
+		if (misMiembros == null){
+			this.misMiembros = new ArrayList<>();
+		}
+		else{
+			this.misMiembros = misMiembros;
+		}
 		setMisTrabajos(new ArrayList<>());
 		id = cant;
 		cant++;

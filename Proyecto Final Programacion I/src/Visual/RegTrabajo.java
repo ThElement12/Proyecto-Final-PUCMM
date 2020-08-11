@@ -46,7 +46,7 @@ public class RegTrabajo extends JDialog {
 	private String select = "";
 	private JButton btnAsignar;
 	private JButton cancelButton;
-	private static Comision miComision = new Comision(null, null);
+	private static Comision miComision = new Comision(null, null, null);
 	private JTextField txtNumComision;
 	private JTable table;
 
@@ -141,7 +141,7 @@ public class RegTrabajo extends JDialog {
 				}
 			});
 			model = new DefaultTableModel();
-			String columNames[] = {"Id","Cédula","Nombre"};
+			String columNames[] = {"Cedula","Nombre"};
 			model.setColumnIdentifiers(columNames);
 			table.setModel(model);
 			scrollPane.setViewportView(table);
@@ -168,12 +168,12 @@ public class RegTrabajo extends JDialog {
 						miParticipante.agregarTrabajo(miTrabajo);
 						miComision.getMisTrabajos().add(miTrabajo);
 						evento.getMisTrabajos().add(miTrabajo);
-						JOptionPane.showMessageDialog(null, "Operacion completada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Operacion completada con exito", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						btnAsignar.setEnabled(false);
 					}
 					
 					else {
-						JOptionPane.showMessageDialog(null, "La posición ya está ocupada", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "La posicionn ya esta ocupada", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			});
@@ -201,8 +201,7 @@ public class RegTrabajo extends JDialog {
 		for(Persona persona : miComision.getMisMiembros()) {
 			if(persona instanceof Participante) {
 				fila[0] = persona.getCedula();
-				fila[1] = persona.getCedula();
-				fila[2] = persona.getNombre();
+				fila[1] = persona.getNombre();
 				model.addRow(fila);
 			}
 			

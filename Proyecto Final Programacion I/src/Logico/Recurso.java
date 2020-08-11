@@ -3,17 +3,25 @@ package Logico;
 import java.io.Serializable;
 
 public class Recurso implements Serializable {
+	private static final long serialVersionUID =  5156264519276269302L;
+
 	private int id;
 	private String tipo;
 	private String modelo;
 	private boolean disponible;
 	private Evento miEvento;
 	
-	public Recurso(int id,String modelo, String tipo) {
+	public Recurso(int id,String modelo, String tipo, String Estado) {
 		super();
+
 		this.tipo = tipo;
 		this.modelo = modelo;
-		disponible = true;
+		if(Estado.equalsIgnoreCase("Disponible")){
+			disponible = true;
+		}
+		else{
+			disponible = false;
+		}
 		this.id = id;
 		
 	}

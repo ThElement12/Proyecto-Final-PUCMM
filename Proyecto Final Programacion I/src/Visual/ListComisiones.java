@@ -32,7 +32,7 @@ public class ListComisiones extends JDialog {
 	private JTable table;
 	private JButton btnQuitar = new JButton("Quitar");
 	private JButton btnAgregar = new JButton("Agregar");
-	private final JButton btnAsignarTrabajo = new JButton("Asignar Trabajo");
+	private JButton btnAsignarTrabajo = new JButton("Asignar Trabajo");
 
 	public ListComisiones(Evento evento,String area) {
 		setTitle("Lista de Comisiones");

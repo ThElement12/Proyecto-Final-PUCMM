@@ -10,15 +10,7 @@ public class Conexion {
 	private final static String user = "sa";
 	private final static String password = "1234";
 	public static Connection getConnection() throws SQLException{
-		
-		try {
-			Connection myConnection = DriverManager.getConnection(url,user,password);
-			return myConnection;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-		
+		Connection myConnection = DriverManager.getConnection(url,user,password);
+		return myConnection;	
 	}
 }

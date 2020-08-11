@@ -95,7 +95,7 @@ public class RegRecursos extends JDialog {
 							int option = JOptionPane.showConfirmDialog(null,"Esta seguro que desea efectuar la operacion?",
 									"Advertencia",JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
-								Recurso miRecurso = new Recurso(PUCMM.pucmm().getMisRecursos().size()+1,txtModelo.getText(), cbxTipo.getSelectedItem().toString());
+								Recurso miRecurso = new Recurso(PUCMM.pucmm().getMisRecursos().size()+1,txtModelo.getText(), cbxTipo.getSelectedItem().toString(), "Disponible");
 								PUCMM.pucmm().getMisRecursos().add(miRecurso);
 								if(listrecursos) {
 									ListRecursos.loadRecursos();

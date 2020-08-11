@@ -19,6 +19,7 @@ public class PUCMM implements Serializable{
 	private ArrayList<Recurso> misRecursos;
 	private ArrayList<Evento> misEventos;
 	private ArrayList<Persona> misPersonas;
+
 	private static PUCMM pucmm;
 	private static File Fname = new File("Pucmm.dat");
 	
@@ -67,9 +68,9 @@ public class PUCMM implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+
+
 	public void crearEvento(Evento evento) {
 		misEventos.add(evento);
 	}
@@ -87,9 +88,9 @@ public class PUCMM implements Serializable{
 		Evento miEvento = searchEventoById(eventId);
 		int comPos = miEvento.searchPosComByComId(comId);
 		if(miPersona instanceof Juez) {
-			miEvento.getMisComisiones().get(comPos).getMisMiembros().add(miPersona);
+			miEvento.getMisComisiones().get(comPos).insertarJuez((Juez) miPersona);
 		}
-		
+
 		if(miPersona instanceof Participante) {
 			miEvento.getMisComisiones().get(comPos).getMisMiembros().add(miPersona);
 		}
@@ -171,7 +172,15 @@ public class PUCMM implements Serializable{
 		
 		return aux;
 	}
-	
+	public Evento buscarEventoPorNombre(String nombre){
+		for (Evento evento:
+			 misEventos) {
+			if(evento.getNombre().equalsIgnoreCase(nombre)){
+				return evento;
+			}
+		}
+		return null;
+	}
 	public ArrayList<Persona> getMisPersonas() {
 		return misPersonas;
 	}
@@ -182,7 +191,15 @@ public class PUCMM implements Serializable{
 	public ArrayList<Evento> getMisEventos() {
 		return misEventos;
 	}
-
+	public Persona getPersonaByCedula(String cedula){
+		for (Persona persona:
+			 misPersonas) {
+			if(persona.getCedula().equalsIgnoreCase(cedula)){
+				return persona;
+			}
+		}
+		return null;
+	}
 	public ArrayList<Evento> getEventosByFecha(Date fechaMinima, Date fechaMaxima, String tipo) {
 		ArrayList<Evento> eventos = new ArrayList<>();
 		///Consulta SQL SERVER
@@ -194,4 +211,18 @@ public class PUCMM implements Serializable{
 		
 		return eventos;
 	}
+	public void setMisRecursos(ArrayList<Recurso> misRecursos) {
+		this.misRecursos = misRecursos;
+	}
+
+	public void setMisEventos(ArrayList<Evento> misEventos) {
+		this.misEventos = misEventos;
+	}
+
+	public void setMisPersonas(ArrayList<Persona> misPersonas) {
+		this.misPersonas = misPersonas;
+	}
+
+
+
 }

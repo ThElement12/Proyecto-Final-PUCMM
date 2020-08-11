@@ -265,10 +265,10 @@ public class RegComision extends JDialog {
 		contentPanel.add(txtTema);
 		txtTema.setColumns(10);
 		Jmodel = new DefaultTableModel();
-		String [] JCNames = {"Cédula", "Nombre","Area"};
+		String [] JCNames = {"Cï¿½dula", "Nombre","Area"};
 		Jmodel.setColumnIdentifiers(JCNames);
 		Pmodel = new DefaultTableModel();
-		String [] PMNames = {"Cédula","Nombre"};
+		String [] PMNames = {"Cï¿½dula","Nombre"};
 		
 
 		Pmodel.setColumnIdentifiers(PMNames);
@@ -306,7 +306,7 @@ public class RegComision extends JDialog {
 							if(option == JOptionPane.OK_OPTION) {
 								miPersona.add(0,miJuez);
 								setOcupado();
-								Comision comision = new Comision(area, txtTema.getText());
+								Comision comision = new Comision(area, txtTema.getText(), new ArrayList<Persona>());
 								comision.setMisMiembros(miPersona);
 								miEvento.getMisComisiones().add(comision);
 								
