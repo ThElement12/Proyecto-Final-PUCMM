@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Logico.Evento;
+import Logico.PUCMM;
 import Logico.Recurso;
 import org.javatuples.Pair;
 
@@ -29,8 +30,8 @@ public class EventosServices {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 
-		String inicio = new SimpleDateFormat("dd-MM-yyy").format(evento.getFechaIni()) + new SimpleDateFormat("HH:mm:ss").format(evento.getHorarioInicio());
-		String finalito = new SimpleDateFormat("dd-MM-yyy").format(evento.getFechaFin()) + new SimpleDateFormat("HH:mm:ss").format(evento.getHorarioFin());
+		String inicio = new SimpleDateFormat("dd-MM-yyy").format(evento.getFechaIni()) + " " + new SimpleDateFormat("HH:mm:ss").format(evento.getHorarioInicio());
+		String finalito = new SimpleDateFormat("dd-MM-yyy").format(evento.getFechaFin()) + " " +new SimpleDateFormat("HH:mm:ss").format(evento.getHorarioFin());
 		
 		Date ini = null;
 		Date fin = null;
@@ -40,12 +41,11 @@ public class EventosServices {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		 
-		
-		cstmt = myConnection.prepareCall("{call RegistrarEvento(?, ?, ?, ?, ?)}");
+		cstmt = myConnection.prepareCall("{call RegistrarEvento(?, ?, ?, ?, ?, ?)}");
 		cstmt.setInt("IdArea", idArea);
 		cstmt.setString("Nombre", evento.getNombre());
-		cstmt.setInt("IdCampus", idCampus);
+		cstmt.setInt("IdCampus", idCampus + 1);
+		cstmt.setInt("IdLugar", PUCMM.pucmm().getMisLugares().indexOf(evento.getLugar())+1);
 		cstmt.setTimestamp("FechaInicio", new java.sql.Timestamp(ini.getTime()));
 		cstmt.setTimestamp("FechaFin", new java.sql.Timestamp(fin.getTime()));
 		
@@ -81,15 +81,13 @@ public class EventosServices {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		ResultSet rs = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		
 		cstmt = myConnection.prepareCall("{call Rpt_ListarEvento}");
-		cstmt.execute();
+		boolean results = cstmt.execute();
 		rs = cstmt.getResultSet();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
 		while(rs.next()) {
-			String hourInit = String.valueOf(rs.getTime("horaIni"));
-			String hourFin = String.valueOf(rs.getTime("horaFin"));
-			
 			eventos.add(new Evento(String.valueOf(rs.getInt("IdEvento")), rs.getString("NombreEvento"), rs.getString("Area"), 
 					rs.getString("Lugar"), rs.getString("Campus"), rs.getDate("FechaInicio"), 
 					rs.getDate("FechaFin"), Time.valueOf(sdf.format(rs.getDate("FechaInicio"))), Time.valueOf(sdf.format(rs.getDate("FechaFin")))));

@@ -1,10 +1,7 @@
 package Logico;
 
 
-import SQLConnections.EventosServices;
-import SQLConnections.PersonasServices;
-import SQLConnections.RecursosServices;
-import SQLConnections.TrabajosServices;
+import SQLConnections.*;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.File;
@@ -66,6 +63,10 @@ public class PUCMM implements Serializable{
 			misEventos = EventosServices.getEventos();
 			for (Evento evento :
 					misEventos) {
+				evento.setMisComisiones(ComisionServices.getComisiones());
+			}
+			for (Evento evento:
+				 misEventos) {
 				evento.setMisRecursos(RecursosServices.getRecursosByEvento(Integer.parseInt(evento.getId())));
 			}
 			misAreas = EventosServices.getAreas();
@@ -77,8 +78,8 @@ public class PUCMM implements Serializable{
 			misEstadosRecursos = RecursosServices.getEstadoRecursos();
 
 			misTiposTrabajo = TrabajosServices.getTipoTrabajo();
-			
 
+			misPersonas = PersonasServices.getPersona();
 
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -100,6 +101,7 @@ public class PUCMM implements Serializable{
 	public static void save() {
 
 		try {
+			savePersonas();
 			saveEventos();
 			saveAreas();
 			saveCampus();
@@ -113,6 +115,7 @@ public class PUCMM implements Serializable{
 				 misEventos) {
 				evento.saveRecursos();
 			}
+			updateEstados();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -344,10 +347,16 @@ public class PUCMM implements Serializable{
 		String[] disponibilidadNueva = {"Disponible", "No Disponible"};
 
 		ArrayList<String> disponibilidadRegistrada = new ArrayList<>();
+		ArrayList<String> disponibilidadRegistradaPersonas = new ArrayList<>();
 		disponibilidadRegistrada = RecursosServices.getEstadoRecursos();
+		disponibilidadRegistradaPersonas = PersonasServices.getEstadoPersonas();
+
 		for(String disponibilidad: disponibilidadNueva){
 			if(!disponibilidadRegistrada.contains(disponibilidad)){
 				RecursosServices.setEstadoRecurso(disponibilidad);
+			}
+			if(!disponibilidadRegistradaPersonas.contains(disponibilidad)){
+				PersonasServices.setEstadoPersonas(disponibilidad);
 			}
 		}
 
@@ -399,7 +408,29 @@ public class PUCMM implements Serializable{
 			}
 		}
 	}
-
+	private static void savePersonas() throws SQLException{
+		ArrayList<String> cedulaPersonasRegistradas = new ArrayList<>();
+		ArrayList<Persona> personasRegistradas = PersonasServices.getPersona();
+		for (Persona persona :
+				personasRegistradas) {
+			cedulaPersonasRegistradas.add(persona.getCedula());
+		}
+		for (Persona persona :
+				misPersonas) {
+			if(!cedulaPersonasRegistradas.contains(persona.getCedula())){
+				PersonasServices.setPersona(persona);
+			}
+		}
+	}
+	private static void updateEstados() throws SQLException{
+		for (Recurso recurso:
+				misRecursos) {
+			RecursosServices.updateEstado(recurso.isDisponible(), recurso.getId());
+		}
+		for(Persona persona: misPersonas){
+			PersonasServices.updateEstado(persona.isdisponible(), persona.getCedula());
+		}
+	}
 }
 
 

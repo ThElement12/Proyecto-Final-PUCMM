@@ -12,6 +12,7 @@ public abstract class Persona implements Serializable {
 	protected Comision comision = null;
 	protected String area;
 	protected transient Image foto = null;
+	protected String URL;
 
 	public Persona(String cedula, String nombre, String numero, String area, Image foto) {
 		disponible = true;
@@ -20,6 +21,14 @@ public abstract class Persona implements Serializable {
 		this.numero = numero;
 		this.area = area;
 		this.foto = foto;
+		this.URL = "";
+	}
+
+	public String getURL() {
+		return URL;
+	}
+	public void setURL(String URL) {
+		this.URL = URL;
 	}
 
 	public boolean isdisponible() {

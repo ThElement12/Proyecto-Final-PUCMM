@@ -93,7 +93,7 @@ public class ListEventos extends JDialog {
 					}
 				});
 				model = new DefaultTableModel();
-				String[] columnNames = {"Id","Nombre del Evento","Area","Campus","Lugar","Fecha Inicio", "Fecha Fin", "Horario", "Cant. Comisiones", "Cant. Recursos"};
+				String[] columnNames = {"Id","Nombre del Evento","Area","Campus","Lugar","Fecha Inicio", "Fecha Fin", "Horario"};
 				model.setColumnIdentifiers(columnNames);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -173,7 +173,7 @@ public class ListEventos extends JDialog {
 						btnEliminar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								PUCMM.pucmm().removeEventoById(select);
-								JOptionPane.showMessageDialog(null, "Operacion completada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Operacion completada con ï¿½xito", "Informaciï¿½n", JOptionPane.INFORMATION_MESSAGE);
 								loadEventos((Date)spnFechaMinima.getValue(),(Date)spnFechaMaxima.getValue(),cbxTipo.getSelectedItem().toString());
 							}
 						});
@@ -190,7 +190,7 @@ public class ListEventos extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						Evento miEvento = PUCMM.pucmm().searchEventoById(select);
 						miEvento.hacerReporte();
-						JOptionPane.showMessageDialog(null, "El Reporte se ha realizado con éxito", "información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "El Reporte se ha realizado con ï¿½xito", "informaciï¿½n", JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
 				btnReporte.setEnabled(false);
@@ -226,9 +226,6 @@ public class ListEventos extends JDialog {
 			fila[5] = dateformat.format(evento.getFechaIni()).toString();
 			fila[6] = dateformat.format(evento.getFechaFin()).toString();
 			fila[7] = horaformat.format(evento.getHorarioInicio()).toString() + "-" + horaformat.format(evento.getHorarioFin()).toString();
-			fila[8] = evento.getMisComisiones().size();
-			fila[9] = evento.getMisRecursos().size();
-			
 			model.addRow(fila);
 		}
 		

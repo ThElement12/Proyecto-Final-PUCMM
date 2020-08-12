@@ -8,7 +8,7 @@ public class Comision implements Serializable{
 	private static final long serialVersionUID =  1170472791066105891L;
 	private int id;
 	private String tema;
-	private static ArrayList<Persona> misMiembros;
+	private ArrayList<Persona> misMiembros;
 	private String area;
 	private static int cant = 1;
 	private ArrayList<Trabajo> misTrabajos;
@@ -59,7 +59,7 @@ public class Comision implements Serializable{
 	}
 	
 	public void createTrabajo() {
-		String nombres[] = {"L\u00EDder", "Co-L\u00EDder", "Orador 1", "Orador 2", "Organizador 1", "Organizador 2"};
+		String nombres[] = {"Lider", "Co-Lider", "Orador 1", "Orador 2", "Organizador 1", "Organizador 2"};
 		for(int i = 0; i < 6; i ++) {
 			Trabajo unTrabajo = new Trabajo(nombres[i]);
 			getMisTrabajos().add(unTrabajo);

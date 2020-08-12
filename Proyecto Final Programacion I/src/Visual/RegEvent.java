@@ -135,7 +135,9 @@ public class RegEvent extends JDialog {
 				}
 			});
 			ArrayList<String> misAreas = PUCMM.pucmm().getMisAreas();
-			misAreas.add(0, "<Seleccione>");
+			if(!misAreas.contains("<Seleccione>")){
+				misAreas.add(0, "<Seleccione>");
+			}
 			String[] areasS = new String[misAreas.size()];
 			areasS = misAreas.toArray(areasS);
 			cbxArea.setModel(new DefaultComboBoxModel<String>(areasS));
@@ -151,7 +153,9 @@ public class RegEvent extends JDialog {
 		panelReg.add(lblLugar);
 
 		ArrayList<String> misLugares = PUCMM.pucmm().getMisLugares();
-		misLugares.add(0, "<Seleccione>");
+		if(!misLugares.contains("<Seleccione>")){
+			misLugares.add(0, "<Seleccione>");
+		}
 		String[] lugaresS = new String[misLugares.size()];
 		lugaresS = misLugares.toArray(lugaresS);
 		cbxLugar.setModel(new DefaultComboBoxModel<String>(lugaresS));
@@ -364,6 +368,7 @@ public class RegEvent extends JDialog {
 							Principal.createPieChart();	
 							PUCMM.pucmm().crearEvento(evento);
 							JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+							evento = new Evento(null,null,null,null,null,null,null,null,null);
 							clean();
 							dispose();
 						}
@@ -383,6 +388,7 @@ public class RegEvent extends JDialog {
 							modEvento.setMisRecursos(recursos);
 							JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 
+							evento = new Evento(null,null,null,null,null,null,null,null,null);
 							dispose();
 						}
 						

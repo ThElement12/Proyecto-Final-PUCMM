@@ -8,6 +8,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.Callable;
 
 public class RecursosServices {
 
@@ -68,13 +69,15 @@ public class RecursosServices {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		
-		cstmt = myConnection.prepareCall("{call RegistraRecurso(?)");
-		cstmt.setString("MacRecurso",id);
+		cstmt = myConnection.prepareCall("{call RegistrarRecurso(?,?,?)}");
+		cstmt.setString("MacModeloRecurso",id);
 		cstmt.setInt("IdEvento", idevento);
 		cstmt.setInt("IdArea", idArea);
 		
 		cstmt.executeUpdate();
 		cstmt.close();
+		myConnection.close();
+
 	}
 	public static ArrayList<Recurso> getRecursosByEvento(int id) throws SQLException{
 		ArrayList<Recurso> recursos = new ArrayList<>();
@@ -84,17 +87,10 @@ public class RecursosServices {
 
 		cstmt = myConnection.prepareCall("{call Rpt_ListarRecursoEvento(?)}");
 		cstmt.setInt("IdEvento", id);
-		boolean results = cstmt.execute();
-		int rowsAffectd = 0;
 
-		while(results || rowsAffectd != -1){
-			if(results){
-				rs = cstmt.getResultSet();
-			}else{
-				rowsAffectd = cstmt.getUpdateCount();
-			}
-			results = cstmt.getMoreResults();
-		}
+		cstmt.execute();
+		rs = cstmt.getResultSet();
+
 		while(rs.next()){
 			recursos.add(new Recurso(Integer.valueOf(rs.getString("IdRecurso")),rs.getString("ModeloRecurso"),
 							rs.getString("TipoRecurso"),rs.getString("EstadoRecurso")));
@@ -156,7 +152,7 @@ public class RecursosServices {
 		rs = cstmt.getResultSet();
 		while(rs.next()) {
 			recursos.add(new Recurso(Integer.parseInt(rs.getString("MacRecurso")), rs.getString("ModeloRecurso"),
-					rs.getString("TipoRecuros"),rs.getString("EstadoRecurso")));
+					rs.getString("TipoRecurso"),rs.getString("EstadoRecurso")));
 		}
 		
 		rs.close();
@@ -192,6 +188,20 @@ public class RecursosServices {
 		cstmt.close();
 		myConnection.close();
 		return recursos;
+
+	}
+	public static void updateEstado (boolean Estado, int idRecurso ) throws SQLException{
+		Connection myConnection = Conexion.getConnection();
+		CallableStatement cstmt = null;
+
+		cstmt = myConnection.prepareCall("{call ActualizarEstadoRecurso(?, ?)}");
+		cstmt.setString("MacRecurso", String.valueOf(idRecurso));
+		cstmt.setInt("IdEstadoRecurso", Estado ? 1 : 2);
+
+		cstmt.executeUpdate();
+		cstmt.close();
+		myConnection.close();
+
 
 	}
 }

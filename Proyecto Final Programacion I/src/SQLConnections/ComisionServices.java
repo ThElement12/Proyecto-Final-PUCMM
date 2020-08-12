@@ -46,10 +46,6 @@ public class ComisionServices {
             }
 
         }
-        rs.close();
-        cstmt.close();
-        myConnection.close();
-
         return comisiones;
     }
     /*

@@ -75,7 +75,9 @@ public class RegRecursos extends JDialog {
 			panel.add(lblTipo);
 
 			ArrayList<String> misTipos = PUCMM.pucmm().getMisTiposRecursos();
-			misTipos.add(0, "<Seleccione>");
+			if(!misTipos.contains("<Seleccione>")){
+				misTipos.add(0, "<Seleccione>");
+			}
 			String[] tiposS = new String[misTipos.size()];
 			tiposS = misTipos.toArray(tiposS);
 			cbxTipo.setModel(new DefaultComboBoxModel<String>(tiposS));
