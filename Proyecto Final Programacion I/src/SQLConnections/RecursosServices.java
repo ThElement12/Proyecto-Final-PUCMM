@@ -15,28 +15,46 @@ public class RecursosServices {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		
-		cstmt = myConnection.prepareCall("{call RegistrarTipoRecurso(?)");
+		cstmt = myConnection.prepareCall("{call RegistrarTipoRecurso(?)}");
 		cstmt.setString("Nombre",nombre);
 		
 		cstmt.executeUpdate();
 		cstmt.close();
+	}
+	public static ArrayList<String> getTipoRecurso() throws SQLException{
+		ArrayList<String> tipoRecursos = new ArrayList<>();
+		Connection myConnection = Conexion.getConnection();
+		CallableStatement cstmt = null;
+		ResultSet rs = null;
+
+		cstmt = myConnection.prepareCall("{call ListarTipoRecurso}");
+		cstmt.execute();
+		rs = cstmt.getResultSet();
+		while(rs.next()){
+			tipoRecursos.add(rs.getString("Nombre"));
+		}
+		rs.close();
+		cstmt.close();
+		myConnection.close();
+
+		return tipoRecursos;
 	}
 	public static void setEstadoRecurso(String nombre) throws SQLException{
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		
-		cstmt = myConnection.prepareCall("{call RegistrarEstadoRecurso(?)");
+		cstmt = myConnection.prepareCall("{call RegistrarEstadoRecurso(?)}");
 		cstmt.setString("Nombre",nombre);
 		
 		cstmt.executeUpdate();
 		cstmt.close();
 		
 	}
-	public static void SetModeloRecurso(String nombre, String id, int tipoRecurso, int estadoRecurso) throws SQLException {
+	public static void setModeloRecurso(String nombre, String id, int tipoRecurso, int estadoRecurso) throws SQLException {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		
-		cstmt = myConnection.prepareCall("{call RegistrarModeloRecurso(?)");
+		cstmt = myConnection.prepareCall("{call RegistrarModeloRecurso(?, ?, ?, ?)}");
 		cstmt.setString("MacRecurso",id);
 		cstmt.setInt("IdTipoRecurso", tipoRecurso);
 		cstmt.setInt("IdEstadoRecurso", estadoRecurso);
@@ -58,6 +76,34 @@ public class RecursosServices {
 		cstmt.executeUpdate();
 		cstmt.close();
 	}
+	public static ArrayList<Recurso> getRecursosByEvento(int id) throws SQLException{
+		ArrayList<Recurso> recursos = new ArrayList<>();
+		Connection myConnection = Conexion.getConnection();
+		CallableStatement cstmt = null;
+		ResultSet rs = null;
+
+		cstmt = myConnection.prepareCall("{call Rpt_ListarRecursoEvento(?)}");
+		cstmt.setInt("IdEvento", id);
+		boolean results = cstmt.execute();
+		int rowsAffectd = 0;
+
+		while(results || rowsAffectd != -1){
+			if(results){
+				rs = cstmt.getResultSet();
+			}else{
+				rowsAffectd = cstmt.getUpdateCount();
+			}
+			results = cstmt.getMoreResults();
+		}
+		while(rs.next()){
+			recursos.add(new Recurso(Integer.valueOf(rs.getString("IdRecurso")),rs.getString("ModeloRecurso"),
+							rs.getString("TipoRecurso"),rs.getString("EstadoRecurso")));
+		}
+		rs.close();
+		cstmt.close();
+		myConnection.close();
+		return recursos;
+	}
 	public static ArrayList<String> getEstadoRecursos() throws SQLException{
 		ArrayList<String> estados = new ArrayList<>();
 		Connection myConnection = Conexion.getConnection();
@@ -76,8 +122,8 @@ public class RecursosServices {
 
 		return estados;
 	}
-	public static ArrayList<String> getModelos() throws SQLException{
-		ArrayList<String> modelos = new ArrayList<>();
+	public static ArrayList<Recurso> getModelos() throws SQLException{
+		ArrayList<Recurso> modelos = new ArrayList<>();
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		ResultSet rs = null;
@@ -85,8 +131,13 @@ public class RecursosServices {
 		cstmt = myConnection.prepareCall("{call ListarModeloRecurso}");
 		cstmt.execute();
 		rs = cstmt.getResultSet();
+		PUCMM uni = PUCMM.pucmm();
 		while(rs.next()){
-			modelos.add(rs.getString("Nombre"));
+			modelos.add(new Recurso(Integer.parseInt(rs.getString("MacRecurso")),
+					rs.getString("Nombre") ,
+					uni.getMisTiposRecursos().get(rs.getInt("IdTipoRecurso")),
+						uni.getMisEstadosRecursos().get(rs.getInt("IdEstadoRecurso"))		
+					));
 		}
 		rs.close();
 		cstmt.close();
@@ -94,7 +145,7 @@ public class RecursosServices {
 
 		return modelos;
 	}
-	public static void getRecursos() throws SQLException{
+	public static ArrayList<Recurso> getRecursos() throws SQLException{
 		ArrayList<Recurso> recursos = new ArrayList<>();
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
@@ -107,10 +158,11 @@ public class RecursosServices {
 			recursos.add(new Recurso(Integer.parseInt(rs.getString("MacRecurso")), rs.getString("ModeloRecurso"),
 					rs.getString("TipoRecuros"),rs.getString("EstadoRecurso")));
 		}
-		PUCMM.pucmm().setMisRecursos(recursos);
+		
 		rs.close();
 		cstmt.close();
 		myConnection.close();
+		return recursos;
 
 	}
 	public static ArrayList<Recurso> getRecursoByFecha(Date date) throws SQLException{

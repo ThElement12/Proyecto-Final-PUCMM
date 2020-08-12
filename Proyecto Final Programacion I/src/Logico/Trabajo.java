@@ -1,6 +1,9 @@
 package Logico;
 
+import SQLConnections.ComisionServices;
+
 import java.io.Serializable;
+import java.sql.SQLException;
 
 public class Trabajo implements Serializable{
 	private Evento evento;
@@ -17,8 +20,10 @@ public class Trabajo implements Serializable{
 		this.posicion = posicion;
 		disponible = true;
 	}
+	public void saveTrabajo() throws SQLException{
+		ComisionServices.setMiembrosComision(participante,comision,evento,this);
+	}
 
-	
 	public Comision getComision() {
 		return comision;
 	}

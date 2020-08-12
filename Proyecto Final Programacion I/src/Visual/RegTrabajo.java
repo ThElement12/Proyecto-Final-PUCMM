@@ -72,8 +72,13 @@ public class RegTrabajo extends JDialog {
 		pnl_info_setter.setBackground(new Color(190,209,201));
 		
 		JComboBox<Object> cbxPosicion = new JComboBox<Object>();
+		ArrayList<String> misTipos = PUCMM.pucmm().getMisTiposTrabajo();
+		misTipos.add(0, "<Seleccione>");
+		String[] tiposS = new String[misTipos.size()];
+
+		tiposS = misTipos.toArray(tiposS);
 		cbxPosicion.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		cbxPosicion.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccione>", "L\u00EDder", "Co-L\u00EDder", "Orador 1", "Orador 2", "Organizador 1", "Organizador 2"}));
+		cbxPosicion.setModel(new DefaultComboBoxModel<Object>(tiposS));
 		cbxPosicion.setBounds(415, 47, 128, 20);
 		pnl_info_setter.add(cbxPosicion);
 		

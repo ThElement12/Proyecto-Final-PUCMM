@@ -92,4 +92,35 @@ public class ComisionServices {
         myConnection.close();
         return personas;
     }
+
+    public static void setComision(Comision comision, Evento evento) throws SQLException{
+        Connection myConnection = Conexion.getConnection();
+        CallableStatement cstmt = null;
+
+        cstmt = myConnection.prepareCall("{call RegistrarComision(?, ?, ?)}");
+        cstmt.setInt("IdEvento", Integer.parseInt(evento.getId()));
+        cstmt.setInt("IdArea", PUCMM.pucmm().getMisAreas().indexOf(comision.getArea()));
+        cstmt.setString("Tema", comision.getTema());
+        cstmt.setString("CedulaJuez",comision.getJuez().getCedula());
+
+        cstmt.executeUpdate();
+        cstmt.close();
+        myConnection.close();
+    }
+    public static void setMiembrosComision(Persona miembro, Comision comision, Evento evento, Trabajo trabajo) throws SQLException{
+        Connection myConnection = Conexion.getConnection();
+        CallableStatement cstmt = null;
+
+        cstmt = myConnection.prepareCall("{call RegistrarMiembroComision(?,?, ?, ?, ?)}");
+        cstmt.setInt("IdComision",comision.getId());
+        cstmt.setInt("IdEvento",Integer.parseInt(evento.getId()));
+        cstmt.setInt("IdArea", PUCMM.pucmm().getMisAreas().indexOf(comision.getArea()));
+        cstmt.setString("Cedula", miembro.getCedula());
+        cstmt.setInt("IdTrabajo", PUCMM.pucmm().getMisTiposTrabajo().indexOf(trabajo.getPosicion()));
+
+        cstmt.executeUpdate();
+        cstmt.close();
+        myConnection.close();
+    }
 }
+

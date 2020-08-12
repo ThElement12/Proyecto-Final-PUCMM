@@ -25,6 +25,8 @@ import java.awt.RenderingHints;
 
 import javax.swing.border.LineBorder;
 
+import SQLConnections.EventosServices;
+import org.javatuples.Pair;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -44,8 +46,10 @@ import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ColorModel;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.awt.Toolkit;
@@ -72,9 +76,6 @@ public class Principal extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Principal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/Icono_pucmm.jpg")));
 		addWindowListener(new WindowAdapter() {
@@ -261,12 +262,16 @@ public class Principal extends JFrame {
 	}
 	
 	public static void createPieChart() {
-		String [] area = {"Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"};
-		int []cantArea = new int[5];
-		getCantArea(area, cantArea);
+		ArrayList<Pair<String, Integer>> areaCant = new ArrayList<>();
+		try {
+			areaCant = EventosServices.getCantidadEventoPorTipo();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		DefaultPieDataset dataPie = new DefaultPieDataset();
-		for(int i = 0; i < 5; i ++) {
-			dataPie.setValue(area[i], cantArea[i]);
+		for (Pair<String, Integer> cant:
+				areaCant) {
+			dataPie.setValue(cant.getValue0(),cant.getValue1());
 		}
 		JFreeChart pieChart = ChartFactory.createPieChart("Cantidad de Eventos por Area", dataPie);
 		ChartPanel piePanel = new ChartPanel(pieChart);
@@ -278,14 +283,5 @@ public class Principal extends JFrame {
 	}
 	
 	
-	private static void getCantArea(String area[],int cantArea[]) {
-		PUCMM pucmm = PUCMM.pucmm();
-		for(int i = 0; i < 5; i ++) {
-			for(int j = 0; j < pucmm.getMisEventos().size() ; j++) {
-				if(area[i].equalsIgnoreCase(pucmm.getMisEventos().get(j).getArea())) {
-					cantArea[i] ++;
-				}
-			}
-		}
-	}
+
 }

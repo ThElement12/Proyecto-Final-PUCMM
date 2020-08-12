@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Joseph/git/Proyecto-Final-PUCMM/Proyecto Final Programacion I/lib/mssql-jdbc-8.4.0.jre8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joseph/git/Proyecto-Final-PUCMM/Proyecto Final Programacion I/lib/javatuples-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

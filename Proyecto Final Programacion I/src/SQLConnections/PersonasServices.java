@@ -12,7 +12,7 @@ public class PersonasServices {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		
-		cstmt = myConnection.prepareCall("{call RegistrarTipoPersona(?)");
+		cstmt = myConnection.prepareCall("{call RegistrarTipoPersona(?)}");
 		cstmt.setString("Nombre",nombre);
 		
 		cstmt.executeUpdate();

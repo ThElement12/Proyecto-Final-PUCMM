@@ -1,5 +1,6 @@
 package Logico;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ public class Comision implements Serializable{
 	private static final long serialVersionUID =  1170472791066105891L;
 	private int id;
 	private String tema;
-	private ArrayList<Persona> misMiembros;
+	private static ArrayList<Persona> misMiembros;
 	private String area;
 	private static int cant = 1;
 	private ArrayList<Trabajo> misTrabajos;

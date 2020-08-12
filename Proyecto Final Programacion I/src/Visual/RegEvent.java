@@ -16,11 +16,14 @@ import Logico.Evento;
 import Logico.PUCMM;
 import Logico.Persona;
 import Logico.Recurso;
+import SQLConnections.EventosServices;
 
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
+import java.sql.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionListener;
@@ -71,7 +74,10 @@ public class RegEvent extends JDialog {
 			setTitle("Modificar un Evento");
 			btnGestionarCom.setEnabled(true);
 		}
-		
+
+
+
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEvent.class.getResource("/img/Icono_pucmm.jpg")));
 		setBounds(100, 100, 719, 455);
 		setLocationRelativeTo(null);
@@ -128,8 +134,11 @@ public class RegEvent extends JDialog {
 					}
 				}
 			});
-			
-			cbxArea.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Fisica", "Quimica", "Biologia/Medicina", "Mercadeo/Administracion", "Informatica/Redes"}));
+			ArrayList<String> misAreas = PUCMM.pucmm().getMisAreas();
+			misAreas.add(0, "<Seleccione>");
+			String[] areasS = new String[misAreas.size()];
+			areasS = misAreas.toArray(areasS);
+			cbxArea.setModel(new DefaultComboBoxModel<String>(areasS));
 			cbxArea.setBounds(47, 46, 156, 26);
 			if(miEvento != null) {
 				cbxArea.setSelectedItem(evento.getArea());
@@ -140,9 +149,12 @@ public class RegEvent extends JDialog {
 		JLabel lblLugar = new JLabel("Lugar:");
 		lblLugar.setBounds(6, 90, 55, 16);
 		panelReg.add(lblLugar);
-		
-		
-		cbxLugar.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Multiuso", "Teatro", "Anfiteatro", "Auditorio I", "Sede Postgrado", "Sala Reuniones (PA)"}));
+
+		ArrayList<String> misLugares = PUCMM.pucmm().getMisLugares();
+		misLugares.add(0, "<Seleccione>");
+		String[] lugaresS = new String[misLugares.size()];
+		lugaresS = misLugares.toArray(lugaresS);
+		cbxLugar.setModel(new DefaultComboBoxModel<String>(lugaresS));
 		cbxLugar.setBounds(60, 85, 144, 26);
 		if(miEvento != null) {
 			cbxLugar.setSelectedItem(evento.getLugar());
@@ -152,9 +164,11 @@ public class RegEvent extends JDialog {
 		JLabel lblCamps = new JLabel("Camp\u00FAs:");
 		lblCamps.setBounds(228, 51, 55, 16);
 		panelReg.add(lblCamps);
-		
-		
-		cbxCampus.setModel(new DefaultComboBoxModel<String>(new String[] {"CSTI", "CSTA"}));
+
+		ArrayList<String> misCampus = PUCMM.pucmm().getMisCampus();
+		String[] campusS = new String[misCampus.size()];
+		campusS = misCampus.toArray(campusS);
+		cbxCampus.setModel(new DefaultComboBoxModel<String>(campusS));
 		cbxCampus.setBounds(294, 46, 64, 26);
 		if(miEvento != null) {
 			cbxCampus.setSelectedItem(evento.getCampus());
@@ -433,5 +447,6 @@ public class RegEvent extends JDialog {
 	public static void loadText() {
 		txtCantidadComisiones.setText(String.valueOf(evento.getMisComisiones().size()));
 		txtCantidadRecursos.setText(String.valueOf(evento.getMisRecursos().size()));	
-		}
+	}
+
 }

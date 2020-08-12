@@ -5,12 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.Callable;
 
 import Logico.Evento;
-import Logico.PUCMM;
 import Logico.Recurso;
-import javafx.util.Pair;
+import org.javatuples.Pair;
 
 public class EventosServices {
 
@@ -30,8 +28,7 @@ public class EventosServices {
 	public static void setEvento(Evento evento, int idArea, int idCampus) throws SQLException{
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
-		ResultSet rs = null;
-		
+
 		String inicio = new SimpleDateFormat("dd-MM-yyy").format(evento.getFechaIni()) + new SimpleDateFormat("HH:mm:ss").format(evento.getHorarioInicio());
 		String finalito = new SimpleDateFormat("dd-MM-yyy").format(evento.getFechaFin()) + new SimpleDateFormat("HH:mm:ss").format(evento.getHorarioFin());
 		
@@ -54,13 +51,14 @@ public class EventosServices {
 		
 		cstmt.executeUpdate();
 		cstmt.close();
+		myConnection.close();
 	}
 	public static void setCampus(String campus) throws SQLException {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		
-		cstmt = myConnection.prepareCall("{call RegistrarCampus(?)");
-		cstmt.setString("Nombre",campus);
+		cstmt = myConnection.prepareCall("{call RegistrarCampus(?)}");
+		cstmt.setString("NombreCampus",campus);
 		
 		cstmt.executeUpdate();
 		cstmt.close();
@@ -70,14 +68,15 @@ public class EventosServices {
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
 		
-		cstmt = myConnection.prepareCall("{call RegistrarLugar(?)");
-		cstmt.setString("Nombre",nombre);
+		cstmt = myConnection.prepareCall("{call RegistrarLugar(?, ?)}");
 		cstmt.setInt("IdCampus", idCampus);
+		cstmt.setString("NombreLugar",nombre);
+
 		
 		cstmt.executeUpdate();
 		cstmt.close();
 	}
-	public static void getEventos() throws SQLException{
+	public static ArrayList<Evento> getEventos() throws SQLException{
 		ArrayList<Evento> eventos = new ArrayList<>();
 		Connection myConnection = Conexion.getConnection();
 		CallableStatement cstmt = null;
@@ -95,10 +94,11 @@ public class EventosServices {
 					rs.getString("Lugar"), rs.getString("Campus"), rs.getDate("FechaInicio"), 
 					rs.getDate("FechaFin"), Time.valueOf(sdf.format(rs.getDate("FechaInicio"))), Time.valueOf(sdf.format(rs.getDate("FechaFin")))));
 		}
-		PUCMM.pucmm().setMisEventos(eventos);
+
 		rs.close();
 		cstmt.close();
 		myConnection.close();
+		return eventos;
 		
 	}
 	public static ArrayList<String> getAreas() throws SQLException{
@@ -157,53 +157,8 @@ public class EventosServices {
 
 		return lugares;
 	}
-	public static ArrayList<String> getTipoRecurso() throws SQLException{
-		ArrayList<String> tipoRecursos = new ArrayList<>();
-		Connection myConnection = Conexion.getConnection();
-		CallableStatement cstmt = null;
-		ResultSet rs = null;
 
-		cstmt = myConnection.prepareCall("{call ListarTipoRecurso}");
-		cstmt.execute();
-		rs = cstmt.getResultSet();
-		while(rs.next()){
-			tipoRecursos.add(rs.getString("Nombre"));
-		}
-		rs.close();
-		cstmt.close();
-		myConnection.close();
 
-		return tipoRecursos;
-	}
-	public static ArrayList<Recurso> getRecursosByEvento(int id) throws SQLException{
-		ArrayList<Recurso> recursos = new ArrayList<>();
-		Connection myConnection = Conexion.getConnection();
-		CallableStatement cstmt = null;
-		ResultSet rs = null;
-
-		cstmt = myConnection.prepareCall("{call Rpt_ListarRecursoEvento(?)}");
-		cstmt.setInt("IdEvento", id);
-		boolean results = cstmt.execute();
-		int rowsAffectd = 0;
-
-		while(results || rowsAffectd != -1){
-			if(results){
-				rs = cstmt.getResultSet();
-			}else{
-				rowsAffectd = cstmt.getUpdateCount();
-			}
-			results = cstmt.getMoreResults();
-		}
-		while(rs.next()){
-			recursos.add(new Recurso(Integer.valueOf(rs.getString("IdRecurso")),rs.getString("ModeloRecurso"),
-							rs.getString("TipoRecurso"),rs.getString("EstadoRecurso")));
-		}
-
-		rs.close();
-		cstmt.close();
-		myConnection.close();
-		return recursos;
-	}
 	public static ArrayList<Pair<String,Integer>> getCantidadEventoPorTipo() throws SQLException{
 		ArrayList<Pair<String,Integer>> eventCant = new ArrayList<>();
 		Connection myConnection = Conexion.getConnection();

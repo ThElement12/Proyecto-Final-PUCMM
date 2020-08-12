@@ -285,13 +285,9 @@ public class RegComision extends JDialog {
 						dispose();
 					}
 				});
-				
-				
 				btnRegistrar.addActionListener(new ActionListener() {
-				
-
 					public void actionPerformed(ActionEvent e) {
-						
+
 						if(txtTema.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Por favor complete los campos obligatorios", "ERROR!", JOptionPane.WARNING_MESSAGE);
 						}
@@ -386,6 +382,7 @@ public class RegComision extends JDialog {
 			persona.setdisponible(false);
 		}
 	}
+
 	
 	
 	

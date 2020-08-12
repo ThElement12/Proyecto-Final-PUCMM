@@ -46,5 +46,6 @@
     <orderEntry type="library" name="mssql-jdbc-8.4.0.jre8" level="project" />
     <orderEntry type="library" name="jcommon-1.0.23" level="project" />
     <orderEntry type="library" name="jfreechart-1.0.19" level="project" />
+    <orderEntry type="library" name="javatuples-1.2" level="project" />
   </component>
 </module>

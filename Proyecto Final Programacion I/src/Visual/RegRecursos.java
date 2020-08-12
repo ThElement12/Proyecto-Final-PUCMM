@@ -23,6 +23,7 @@ import javax.swing.JSpinner;
 import javax.swing.border.BevelBorder;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 public class RegRecursos extends JDialog {
 
@@ -72,9 +73,12 @@ public class RegRecursos extends JDialog {
 			JLabel lblTipo = new JLabel("Tipo:");
 			lblTipo.setBounds(6, 96, 55, 16);
 			panel.add(lblTipo);
-			
-			
-			cbxTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Audio", "Visual", "Computadora", "Luces", "Pirotecnia"}));
+
+			ArrayList<String> misTipos = PUCMM.pucmm().getMisTiposRecursos();
+			misTipos.add(0, "<Seleccione>");
+			String[] tiposS = new String[misTipos.size()];
+			tiposS = misTipos.toArray(tiposS);
+			cbxTipo.setModel(new DefaultComboBoxModel<String>(tiposS));
 			cbxTipo.setBounds(48, 91, 122, 26);
 			panel.add(cbxTipo);
 		}

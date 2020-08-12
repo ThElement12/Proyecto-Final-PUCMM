@@ -1,10 +1,14 @@
 package Logico;
 
+import SQLConnections.ComisionServices;
+import SQLConnections.RecursosServices;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,7 +40,23 @@ public class Evento implements Serializable {
 		misRecursos = new ArrayList<>();
 		misTrabajos = new ArrayList<>();
 	}
-	
+	public void saveComision() throws SQLException{
+		for (Comision comision:
+			 misComisiones) {
+			ComisionServices.setComision(comision,this);
+		}
+		for (Trabajo trabajo:
+			 misTrabajos) {
+			trabajo.saveTrabajo();
+		}
+	}
+
+	public void saveRecursos() throws SQLException {
+
+		for(Recurso recurso: misRecursos){
+			RecursosServices.setRecursoEvento(String.valueOf(recurso.getId()),Integer.parseInt(id),PUCMM.pucmm().getMisAreas().indexOf(area));
+		}
+	}
 	public void hacerReporte() {
 		File Fname = new File("Reporte-"+id+".txt");
 		FileWriter fw;
